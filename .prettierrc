@@ -1,0 +1,17 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "insert_final_newline": true,
+  "useTabs": false,
+  "indent_size": 8,
+  "space-before-blocks": true,
+  "object-curly-spacing": true,
+  "space-before-function-paren": false,
+  "camelcase": true,
+  "eol-last": true,
+  "spaced_comments": true,
+  "arrow-parens": true,
+  "no-multiple-empty-lines": true,
+  "arrow-spacing": true,
+  "space-in-parens": false
+}

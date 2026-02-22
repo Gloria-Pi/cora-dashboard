@@ -1,0 +1,26 @@
+@reference "./index.css";
+
+/* Custom CSS using Tailwind's utilities */
+.container {
+  @apply flex flex-col justify-center items-center h-screen select-none gap-2;
+
+  .title {
+    @apply text-center text-4xl text-blue-600;
+  }
+
+  .grid-container {
+    @apply grid grid-cols-3 gap-4 p-4;
+
+    .box {
+      @apply flex justify-center items-center w-24 bg-blue-500 text-white rounded-lg;
+    }
+  }
+
+  & p {
+    @apply text-red-500;
+  }
+
+  & p:hover {
+    @apply text-amber-300;
+  }
+}
