@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router';
-import Sidebar from '../../components/Sidebar/Sidebar';
+import { Outlet } from "react-router";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 export default function DashboardLayout() {
   return (
