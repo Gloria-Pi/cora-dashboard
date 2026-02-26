@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   ListIcon,
   SquaresFourIcon,
@@ -9,16 +9,16 @@ import {
   GearIcon,
   SignOutIcon,
   UserCircleIcon,
-} from '@phosphor-icons/react';
+} from "@phosphor-icons/react";
 
-import './Sidebar.css';
+import "./Sidebar.css";
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
 
   return (
-    <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
+    <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
       {/* Top */}
       <div className="sidebar-top">
         <button className="hamburger" onClick={() => setCollapsed(!collapsed)}>
@@ -78,7 +78,7 @@ export default function Sidebar() {
         <button className="admin-info" onClick={() => setAdminOpen(!adminOpen)}>
           <CaretDownIcon
             size={16}
-            className={`chevron ${adminOpen ? 'rotate' : ''}`}
+            className={`chevron ${adminOpen ? "rotate" : ""}`}
           />
 
           {!collapsed && (
@@ -96,7 +96,7 @@ export default function Sidebar() {
   );
 }
 
-import { NavLink } from 'react-router';
+import { NavLink } from "react-router";
 
 type NavItemProps = {
   icon: React.ReactNode;
@@ -109,7 +109,7 @@ function NavItem({ icon, label, to, collapsed }: NavItemProps) {
   return (
     <NavLink
       to={to}
-      className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+      className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
     >
       {icon}
       {!collapsed && <span>{label}</span>}

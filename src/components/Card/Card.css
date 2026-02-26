@@ -1,0 +1,25 @@
+@reference "tailwindcss";
+
+.Card {
+  @apply bg-amber-400;
+
+  .title {
+    @apply text-[#4A5565];
+  }
+
+  .icon {
+    @apply text-[#99A1AF];
+  }
+
+  .value {
+    @apply font-semibold size-6;
+  }
+
+  .description {
+    @apply text-[#6A7282];
+  }
+
+  .description--important {
+    @apply text-red-900;
+  }
+}
