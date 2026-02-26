@@ -1,4 +1,4 @@
-@reference "tailwindcss";
+@reference "../../styles/index.css";
 
 .Card {
   @apply bg-amber-400;
