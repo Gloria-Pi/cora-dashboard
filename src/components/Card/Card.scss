@@ -1,0 +1,29 @@
+@reference "../../index.css";
+
+.Card {
+  @apply bg-red-300;
+
+  &__title {
+    @apply text-[#4A5565];
+  }
+
+  &__icon {
+    @apply text-[#99A1AF];
+  }
+
+  &__value {
+    @apply font-semibold size-6;
+  }
+
+  &__description {
+    @apply text-[#6A7282];
+
+    &--positive {
+      @apply text-blue-300;
+    }
+
+    &--negative {
+      @apply text-negative-trend;
+    }
+  }
+}

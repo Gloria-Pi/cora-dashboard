@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import classNames from "classnames";
 
-import "./Card.css";
 import type CardProps from "./Card.models";
+import "./Card.scss";
 
 export default function Card({
   title,
