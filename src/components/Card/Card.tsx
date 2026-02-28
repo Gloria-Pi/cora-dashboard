@@ -11,24 +11,26 @@ export default function Card({
   value,
   description,
 }: CardProps) {
-  const [isImportant, setIsImportant] = useState(true);
+  const [isPositive, setIsPositive] = useState(true);
+  const [isNegative, setIsNegative] = useState(false);
 
   return (
     <div className="Card">
-      <h3 className="title">{title}</h3>
+      <h3 className="Card__title">{title}</h3>
 
       {Icon && (
-        <div className="icon">
+        <div className="Card__icon">
           <Icon size={20} />
         </div>
       )}
 
-      <p className="value">{value}</p>
+      <p className="Card__value">{value}</p>
 
       {description && (
         <p
-          className={classNames("description", {
-            ["description--important"]: isImportant,
+          className={classNames("Card__description", {
+            ["Card__description--positive"]: isPositive,
+            ["Card__description--negative"]: isNegative,
           })}
         >
           {description}

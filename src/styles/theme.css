@@ -12,4 +12,9 @@
   --container-lg: 1024px;
   --container-xl: 1280px;
   --container-2xl: 1440px;
+
+  /* THEME */
+  --color-positive-trend: #12b981;
+  --color-negative-trend: #82181a;
+  --color-white: #ffffff;
 }

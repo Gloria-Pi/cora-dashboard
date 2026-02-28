@@ -1,25 +1,31 @@
 @reference "../../styles/index.css";
 
-.Card {
-  @apply bg-amber-400;
+@layer components {
+  .Card {
+    @apply bg-amber-200;
 
-  .title {
-    @apply text-[#4A5565];
-  }
+    &__title {
+      @apply text-[#4A5565];
+    }
 
-  .icon {
-    @apply text-[#99A1AF];
-  }
+    &__icon {
+      @apply text-[#99A1AF];
+    }
 
-  .value {
-    @apply font-semibold size-6;
-  }
+    &__value {
+      @apply font-semibold size-6;
+    }
 
-  .description {
-    @apply text-[#6A7282];
-  }
+    &__description {
+      @apply text-[#6A7282];
 
-  .description--important {
-    @apply text-red-900;
+      &--positive {
+        @apply text-positive-trend;
+      }
+
+      &--negative {
+        @apply text-negative-trend;
+      }
+    }
   }
 }
