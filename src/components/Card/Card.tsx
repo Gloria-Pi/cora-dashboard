@@ -16,13 +16,15 @@ export default function Card({
 
   return (
     <div className="Card">
-      <h3 className="Card__title">{title}</h3>
+      <div className="Card__header">
+        <h3 className="Card__header__title">{title}</h3>
 
-      {Icon && (
-        <div className="Card__icon">
-          <Icon size={20} />
-        </div>
-      )}
+        {Icon && (
+          <div className="Card__header__icon">
+            <Icon />
+          </div>
+        )}
+      </div>
 
       <p className="Card__value">{value}</p>
 

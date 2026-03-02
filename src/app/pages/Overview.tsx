@@ -1,4 +1,5 @@
-import { ChatDotsIcon } from "@phosphor-icons/react";
+import { ChatCircleIcon } from "@phosphor-icons/react";
+
 import Card from "../../components/Card/Card";
 
 export default function Overview() {
@@ -8,7 +9,7 @@ export default function Overview() {
       <p>Understand office sentiment at a glance</p>
       <Card
         title="Feedback Totali"
-        icon={ChatDotsIcon}
+        icon={ChatCircleIcon}
         value="28"
         description="Collected this week"
       />
