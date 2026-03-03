@@ -1,12 +1,32 @@
+import { useState } from "react";
+
+import classNames from "classnames";
 import { Outlet } from "react-router";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 
+import "./DashboardLayout.scss";
+
 export default function DashboardLayout() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const handleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
   return (
-    <div>
-      <Sidebar />
-      <main className="ml-64 p-8">
+    <div
+      className={classNames("DashboardLayout", {
+        ["DashboardLayout--collapsed"]: isCollapsed,
+      })}
+    >
+      <aside className="DashboardLayout__sidebar">
+        <Sidebar
+          isCollapsed={isCollapsed}
+          onToggle={handleCollapse}
+          title={"CORA"}
+        />
+      </aside>
+
+      <main className="DashboardLayout__content">
         <Outlet />
       </main>
     </div>

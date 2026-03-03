@@ -16,5 +16,9 @@
   /* THEME */
   --color-positive-trend: #12b981;
   --color-negative-trend: #82181a;
+
+  --color-hover-bg: #eff6ff;
+  --color-hover-text: #155dfc;
+
   --color-white: #ffffff;
 }

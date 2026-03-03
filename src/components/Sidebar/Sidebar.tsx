@@ -1,118 +1,151 @@
-import { useState } from "react";
 import {
-  ListIcon,
-  SquaresFourIcon,
-  ChatCircleDotsIcon,
-  TrendUpIcon,
-  LightbulbIcon,
   CaretDownIcon,
+  ChatCircleDotsIcon,
   GearIcon,
+  LightbulbIcon,
+  ListIcon,
   SignOutIcon,
+  SquaresFourIcon,
+  TrendUpIcon,
   UserCircleIcon,
 } from "@phosphor-icons/react";
 
-import "./Sidebar.css";
+import { useState } from "react";
 
-export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+import classNames from "classnames";
+import { NavLink } from "react-router";
+
+import type SidebarProps from "./Sidebar.models";
+import "./Sidebar.scss";
+
+const NAV_ITEMS = [
+  {
+    to: "/overview",
+    icon: <SquaresFourIcon size={26} weight="regular" />,
+    label: "Overview",
+  },
+  {
+    to: "/opinions",
+    icon: <ChatCircleDotsIcon size={26} weight="regular" />,
+    label: "Opinions",
+  },
+  {
+    to: "/trends",
+    icon: <TrendUpIcon size={26} weight="regular" />,
+    label: "Trends",
+  },
+  {
+    to: "/insights",
+    icon: <LightbulbIcon size={26} weight="regular" />,
+    label: "Insights",
+  },
+];
+
+export default function Sidebar({
+  isCollapsed,
+  onToggle,
+  title,
+}: SidebarProps) {
   const [adminOpen, setAdminOpen] = useState(false);
 
   return (
-    <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
-      {/* Top */}
-      <div className="sidebar-top">
-        <button className="hamburger" onClick={() => setCollapsed(!collapsed)}>
-          <ListIcon size={22} weight="bold" />
-        </button>
-
-        {!collapsed && <h1 className="sidebar-title">cora</h1>}
+    <div
+      className={classNames("Sidebar", {
+        ["Sidebar--collapsed"]: isCollapsed,
+      })}
+    >
+      {/* Top Section */}
+      <div className="Sidebar__top">
+        {isCollapsed ? (
+          <button className="Sidebar__top__toggle" onClick={onToggle}>
+            <ListIcon size={28} weight="light" />
+          </button>
+        ) : (
+          <>
+            <span className="Sidebar__top__title">{title}</span>
+            <button className="Sidebar__top__toggle" onClick={onToggle}>
+              <ListIcon size={28} weight="light" />
+            </button>
+          </>
+        )}
       </div>
 
-      <hr className="divider" />
+      <hr className="Sidebar__divider" />
 
-      {/* Navigation */}
-      <nav className="sidebar-nav">
-        <NavItem
-          to="/overview"
-          icon={<SquaresFourIcon size={20} weight="duotone" />}
-          label="Overview"
-          collapsed={collapsed}
-        />
-        <NavItem
-          to="/opinions"
-          icon={<ChatCircleDotsIcon size={20} weight="duotone" />}
-          label="Opinions"
-          collapsed={collapsed}
-        />
-        <NavItem
-          to="/trends"
-          icon={<TrendUpIcon size={20} weight="duotone" />}
-          label="Trends"
-          collapsed={collapsed}
-        />
-        <NavItem
-          to="/insights"
-          icon={<LightbulbIcon size={20} weight="duotone" />}
-          label="Insights"
-          collapsed={collapsed}
-        />
+      {/* Nav Section */}
+
+      <nav className="Sidebar__nav">
+        {NAV_ITEMS.map((item) => (
+          <NavItem
+            key={item.to}
+            to={item.to}
+            icon={item.icon}
+            label={item.label}
+            isCollapsed={isCollapsed}
+          />
+        ))}
       </nav>
 
-      <hr className="divider" />
+      <hr className="Sidebar__divider" />
 
       {/* Admin Section */}
-      <div className="sidebar-admin">
-        {adminOpen && !collapsed && (
-          <div className="admin-dropdown">
-            <button className="dropdown-item">
+
+      <div className="Sidebar__admin">
+        {adminOpen && !isCollapsed && (
+          <div className="Sidebar__admin__dropdown">
+            <button className="Sidebar__admin__dropdown__item">
               <GearIcon size={18} />
               <span>Settings</span>
             </button>
-            <button className="dropdown-item">
+            <button className="Sidebar__admin__dropdown__item">
               <SignOutIcon size={18} />
               <span>Logout</span>
             </button>
           </div>
         )}
 
-        <button className="admin-info" onClick={() => setAdminOpen(!adminOpen)}>
-          <CaretDownIcon
-            size={16}
-            className={`chevron ${adminOpen ? "rotate" : ""}`}
-          />
-
-          {!collapsed && (
+        <button
+          className="Sidebar__info"
+          onClick={() => setAdminOpen(!adminOpen)}
+        >
+          {isCollapsed ? (
+            <UserCircleIcon size={32} weight="light" />
+          ) : (
             <>
-              <UserCircleIcon size={32} weight="duotone" />
-              <div className="admin-text">
-                <span className="admin-name">Mario Rossi</span>
-                <span className="admin-role">HR Manager</span>
+              <UserCircleIcon size={32} weight="light" />
+              <div className="Sidebar__profile">
+                <span className="Sidebar__profile__name">Mario Rossi</span>
+                <span className="Sidebar__profile__role">HR Manager</span>
               </div>
+              <CaretDownIcon
+                size={16}
+                className={`chevron ${adminOpen ? "rotate" : ""}`}
+              />
             </>
           )}
         </button>
       </div>
-    </aside>
+    </div>
   );
 }
 
-import { NavLink } from "react-router";
-
-type NavItemProps = {
+interface NavItemProps {
   icon: React.ReactNode;
   label: string;
   to: string;
-  collapsed: boolean;
-};
+  isCollapsed: boolean;
+}
 
-function NavItem({ icon, label, to, collapsed }: NavItemProps) {
+function NavItem({ icon, label, to, isCollapsed }: NavItemProps) {
   return (
     <NavLink
       to={to}
-      className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+      className={({ isActive }) =>
+        classNames("NavItem", { "NavItem--active": isActive })
+      }
     >
       {icon}
-      {!collapsed && <span>{label}</span>}
+      {!isCollapsed && <span>{label}</span>}
     </NavLink>
   );
 }
