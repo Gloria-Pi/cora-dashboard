@@ -70,11 +70,11 @@ export default function Sidebar({
         )}
       </div>
 
-      <hr className="Sidebar__divider" />
+      {/* <hr className="Sidebar__divider" /> */}
 
       {/* Nav Section */}
 
-      <nav className="Sidebar__nav">
+      {/* <nav className="Sidebar__nav">
         {NAV_ITEMS.map((item) => (
           <NavItem
             key={item.to}
@@ -84,13 +84,13 @@ export default function Sidebar({
             isCollapsed={isCollapsed}
           />
         ))}
-      </nav>
+      </nav> */}
 
-      <hr className="Sidebar__divider" />
+      {/* <hr className="Sidebar__divider" /> */}
 
       {/* Admin Section */}
 
-      <div className="Sidebar__admin">
+      {/* <div className="Sidebar__admin">
         {adminOpen && !isCollapsed && (
           <div className="Sidebar__admin__dropdown">
             <button className="Sidebar__admin__dropdown__item">
@@ -124,7 +124,7 @@ export default function Sidebar({
             </>
           )}
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

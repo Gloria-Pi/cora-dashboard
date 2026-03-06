@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router";
+
 import DashboardLayout from "./layout/DashboardLayout";
+import ErrorPage from "./pages/ErrorPage";
+import Insights from "./pages/Insights";
 import Opinions from "./pages/Opinions";
 import Overview from "./pages/Overview";
-import Insights from "./pages/Insights";
 import Trends from "./pages/Trends";
-import ErrorPage from "./pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
