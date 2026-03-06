@@ -1,15 +1,33 @@
 @reference "../../index.css";
 
-.Grid {
-  @apply px-8 w-full flex items-center justify-center;
-  @apply md:px-10;
-  @apply lg:px-0;
+// .Grid {
+//   @apply px-8 w-full flex items-center justify-center;
+//   @apply md:px-10;
+//   @apply lg:px-0;
 
-  &__grid {
-    @apply grid grid-cols-6 gap-x-[15px] w-full;
-    @apply md:grid-cols-8 md:gap-x-6;
-    @apply lg:grid-cols-12 lg:gap-x-8 lg:max-w-[928px];
-    @apply xl:gap-x-8 xl:max-w-[1120px];
-    @apply 2xl:gap-x-10 2xl:max-w-[1304px];
+//   &__grid {
+//     @apply grid grid-cols-6 gap-x-[15px] w-full;
+//     @apply md:grid-cols-8 md:gap-x-6;
+//     @apply lg:grid-cols-12 lg:gap-x-8 lg:max-w-[928px];
+//     @apply xl:gap-x-8 xl:max-w-[1120px];
+//     @apply 2xl:gap-x-10 2xl:max-w-[1304px];
+//   }
+// }
+
+.Grid {
+  @apply bg-blue-200;
+  @apply grid grid-cols-3;
+  grid-template-areas:
+    "header header header"
+    "content content content";
+
+  &__header {
+    @apply bg-pink-300;
+    grid-area: header;
+  }
+
+  &__content {
+    @apply bg-purple-300;
+    grid-area: content;
   }
 }

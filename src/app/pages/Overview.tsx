@@ -1,36 +1,53 @@
 import { ChatCircleIcon } from "@phosphor-icons/react";
 
 import Card from "../../components/Card/Card";
+import Header from "../../components/Header/Header";
+
+import "./Overview.scss";
 
 export default function Overview() {
   return (
     <div className="Overview">
-      <h1 className="text-2xl font-bold">Dashboard Overview</h1>
-      <p>Understand office sentiment at a glance</p>
-      <Card
-        title="Feedback Totali"
-        icon={ChatCircleIcon}
-        value="28"
-        description="Collected this week"
-      />
-      <Card
-        title="Feedback Totali"
-        icon={ChatCircleIcon}
-        value="28"
-        description="Collected this week"
-      />
-      <Card
-        title="Feedback Totali"
-        icon={ChatCircleIcon}
-        value="28"
-        description="Collected this week"
-      />
-      <Card
-        title="Feedback Totali"
-        icon={ChatCircleIcon}
-        value="28"
-        description="Collected this week"
-      />
+      <div className="Overview__grid">
+        <div className="Overview__grid__header">
+          <Header
+            title="Dashboard Overview"
+            summary="Understand office sentiment at a glance"
+          />
+        </div>
+        <div className="Overview__grid__filters">FILTRI</div>
+
+        <div className="Overview__grid__cards">
+          <Card
+            title="Feedback Totali"
+            icon={ChatCircleIcon}
+            value="28"
+            description="Collected this week"
+          />
+          <Card
+            title="Feedback Totali"
+            icon={ChatCircleIcon}
+            value="28"
+            description="Collected this week"
+          />
+          <Card
+            title="Feedback Totali"
+            icon={ChatCircleIcon}
+            value="28"
+            description="Collected this week"
+          />
+          <Card
+            title="Feedback Totali"
+            icon={ChatCircleIcon}
+            value="28"
+            description="Collected this week"
+          />
+        </div>
+        <div className="Overview__grid__charts">
+          <p>hello</p>
+          <p>hello</p>
+        </div>
+      </div>
     </div>
   );
 }

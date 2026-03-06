@@ -1,0 +1,93 @@
+@reference "../../index.css";
+
+.Overview {
+  @apply bg-yellow-200 flex flex-col items-center h-full;
+
+  &__grid {
+    @apply bg-blue-200 grid gap-4 grid-cols-1;
+    @apply md:max-w-[554px];
+    @apply lg:max-w-[728px];
+    @apply xl:max-w-[1040px];
+    @apply 2xl:max-w-[1300px];
+
+    /* MOBILE (default) */
+    grid-template-areas:
+      "header"
+      "filters"
+      "cards"
+      "charts";
+
+    &__header {
+      @apply bg-pink-300;
+      grid-area: header;
+    }
+
+    &__filters {
+      @apply bg-purple-300;
+      grid-area: filters;
+    }
+
+    &__cards {
+      @apply bg-purple-300;
+      @apply flex flex-col gap-2;
+      @apply md:gap-4 md:flex-row md:flex-wrap md:justify-between;
+      @apply lg:gap-6;
+
+      grid-area: cards;
+    }
+
+    &__charts {
+      @apply bg-gray-300 flex flex-row;
+      grid-area: charts;
+    }
+  }
+}
+
+/* md (≥768px) */
+@media (min-width: 768px) {
+  .Overview__grid {
+    @apply grid-cols-2;
+
+    grid-template-areas:
+      "header header"
+      "filters filters"
+      "cards cards"
+      "charts charts";
+  }
+}
+
+/* lg (≥1024px) */
+@media (min-width: 1024px) {
+  .Overview__grid {
+    @apply grid-cols-4;
+
+    grid-template-areas:
+      "header header header filters"
+      "cards cards cards cards"
+      "charts charts charts charts";
+  }
+}
+
+// /* xl (≥1280px) */
+// @media (min-width: 1280px) {
+//   .Overview__grid {
+//     @apply grid-cols-4;
+
+//     grid-template-areas:
+//       "header header header filters"
+//       "cards cards cards cards"
+//       "charts charts charts charts";
+//   }
+// }
+
+// /* 2xl (≥1536px) */
+// @media (min-width: 1536px) {
+//   .Overview__grid {
+//     @apply grid-cols-4;
+
+//     grid-template-areas:
+//       "header header header filters"
+//       "cards cards cards cards"
+//       "charts charts charts charts";
+//   }
+// }

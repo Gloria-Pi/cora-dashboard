@@ -3,7 +3,6 @@ import { useState } from "react";
 import classNames from "classnames";
 import { Outlet } from "react-router";
 
-import Grid from "../../components/Grid/Grid";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 import "./DashboardLayout.scss";
@@ -14,10 +13,9 @@ export default function DashboardLayout() {
     setIsCollapsed(!isCollapsed);
   };
   return (
-    <Grid
-      wrapperClass="DashboardLayout"
-      gridClass={classNames("DashboardLayout__grid", {
-        "DashboardLayout--collapsed": isCollapsed,
+    <div
+      className={classNames("DashboardLayout", {
+        ["DashboardLayout--collapsed"]: isCollapsed,
       })}
     >
       <aside className="DashboardLayout__sidebar">
@@ -28,9 +26,9 @@ export default function DashboardLayout() {
         />
       </aside>
 
-      <main className="DashboardLayout__content">
+      <main className="DashboardLayout__main">
         <Outlet />
       </main>
-    </Grid>
+    </div>
   );
 }

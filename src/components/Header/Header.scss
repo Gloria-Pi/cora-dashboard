@@ -1,0 +1,9 @@
+@reference "../../index.css";
+
+.Header {
+  &__title {
+    @apply title-2-bold;
+  }
+  &__summary {
+  }
+}
