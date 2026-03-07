@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 
 import DashboardLayout from "./layout/DashboardLayout";
-import ErrorPage from "./pages/ErrorPage";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Insights from "./pages/Insights";
 import Opinions from "./pages/Opinions";
 import Overview from "./pages/Overview";
