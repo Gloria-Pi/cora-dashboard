@@ -6,10 +6,3 @@
     @apply title-2-bold;
   }
 }
-.chart-card {
-  @apply w-[500px] h-[500px] p-4 bg-white border-[2.3px] border-[#E5E7EB] rounded-xl;
-  @apply md:max-w-74 md:p-4.5;
-  @apply lg:p-5;
-  @apply xl:max-w-90 xl:p-5.5;
-  @apply 2xl:p-6;
-}
