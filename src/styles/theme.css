@@ -14,8 +14,10 @@
   --container-2xl: 1440px;
 
   /* THEME */
-  --color-positive-trend: #12b981;
-  --color-negative-trend: #82181a;
+  --color-positive-trend: #22c55e; /* LIGHT GREEN */
+  --color-neutral-trend: #eab308; /* LIGHT ORANGE */
+  --color-negative-trend: #ef4444; /* RED */
+  --color-negative-trend-dark: #82181a; /* DARK RED */
 
   --color-hover-bg: #eff6ff;
   --color-hover-text: #155dfc;

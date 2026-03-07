@@ -1,22 +1,45 @@
-// SentimentIcon.tsx
-import {
-  SmileyIcon,
-  SmileyMehIcon,
-  SmileySadIcon,
-} from "@phosphor-icons/react";
+import { CircleIcon } from "@phosphor-icons/react";
 
 import type { SentimentIconProps } from "./SentimentIcon.models";
 
 export default function SentimentIcon({
   sentiment,
   size = 18,
+  icons,
 }: SentimentIconProps) {
+  // fallback icons if none are provided
+  const defaultIcons = {
+    positive: (
+      <CircleIcon
+        size={size}
+        color="var(--color-positive-trend)"
+        weight="fill"
+      />
+    ),
+    neutral: (
+      <CircleIcon
+        size={size}
+        color="var(--color-neutral-trend)"
+        weight="fill"
+      />
+    ),
+    negative: (
+      <CircleIcon
+        size={size}
+        color="var(--color-negative-trend)"
+        weight="fill"
+      />
+    ),
+  };
+
+  const chosenIcons = icons ?? defaultIcons;
+
   switch (sentiment) {
     case "positive":
-      return <SmileyIcon size={size} color="#22c55e" weight="fill" />;
+      return chosenIcons.positive;
     case "negative":
-      return <SmileySadIcon size={size} color="#ef4444" weight="fill" />;
+      return chosenIcons.negative;
     default:
-      return <SmileyMehIcon size={size} color="#eab308" weight="fill" />;
+      return chosenIcons.neutral;
   }
 }

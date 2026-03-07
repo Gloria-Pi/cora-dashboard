@@ -1,17 +1,18 @@
-// CustomSentimentDot.tsx
-import type { DotItemDotProps } from "recharts";
-
 import { useSentiment } from "../../../utilities/useSentiment";
 import SentimentIcon from "../SentimentIcon/SentimentIcon";
 
-const CustomSentimentDot = (props: DotItemDotProps) => {
-  const { cx, cy, value } = props;
+import type CustomSentimentDotProps from "./CustomSentimentDot.models";
 
+const CustomSentimentDot = ({
+  cy,
+  cx,
+  value,
+  icons,
+  size = 18,
+}: CustomSentimentDotProps) => {
   const sentiment = useSentiment(value);
 
   if (cx == null || cy == null || value == null) return <g />;
-
-  const size = 20;
 
   return (
     <g transform={`translate(${cx - size / 2}, ${cy - size / 2})`}>
@@ -23,7 +24,7 @@ const CustomSentimentDot = (props: DotItemDotProps) => {
         stroke="white"
         strokeWidth={1}
       />
-      <SentimentIcon sentiment={sentiment} size={size} />
+      <SentimentIcon sentiment={sentiment} size={size} icons={icons} />
     </g>
   );
 };
