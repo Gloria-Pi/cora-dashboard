@@ -1,29 +1,15 @@
 import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
 import CustomLineChart from "../../../components/MiscRecharts/CustomLineChart/CustomLineChart";
-import type { IRechartsData } from "../../../components/MiscRecharts/CustomLineChart/CustomLineChart.models";
 import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
+import CustomRadarChart from "../../../components/MiscRecharts/CustomRadarChart/CustomRadarChart";
+import { data, data1 } from "../../../mock/dummyData";
+import { DEFAULT_FEEDBACK_DATA } from "../../../mock/feedbacks";
+import { buildRadarData } from "../../../utilities/buildRadarData";
 
 import "./ErrorPage.scss";
 
 export default function ErrorPage() {
-  const data: IRechartsData[] = [
-    { date: "2022-12-22", score: 0.1 },
-    { date: "2022-12-23", score: 0.5 },
-    { date: "2022-12-24", score: -0.3 },
-    { date: "2022-12-27", score: 0 },
-    { date: "2022-12-30", score: 0.2 },
-    { date: "2023-1-22", score: 0.1 },
-    { date: "2023-1-23", score: 0.5 },
-    { date: "2023-1-24", score: -0.3 },
-    { date: "2023-1-27", score: 0 },
-    { date: "2023-1-30", score: 0.2 },
-  ];
-
-  const data1: IRechartsData[] = [
-    { name: "Positive", value: 234, fill: "var(--color-positive-trend)" },
-    { name: "Neutral", value: 311, fill: "var(--color-neutral-trend)" },
-    { name: "Negative", value: 183, fill: "var(--color-negative-trend)" },
-  ];
+  const radarData = buildRadarData(DEFAULT_FEEDBACK_DATA);
 
   return (
     <div className="ErrorPage">
@@ -31,8 +17,13 @@ export default function ErrorPage() {
       <ChartCard title="Sentiment Score Trend" minHeight={420}>
         <CustomLineChart data={data} />
       </ChartCard>
-      <ChartCard title="Sentiment Distribution" minHeight={320}>
+
+      <ChartCard title="Sentiment Distribution" minHeight={420}>
         <CustomPieChart data={data1} outerRadius="85%" innerRadius="60%" />
+      </ChartCard>
+
+      <ChartCard title="Topic Performance Overview" minHeight={420}>
+        <CustomRadarChart data={radarData} />
       </ChartCard>
     </div>
   );

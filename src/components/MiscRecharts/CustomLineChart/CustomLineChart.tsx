@@ -13,7 +13,6 @@ import CustomizedLabel from "../../../components/MiscRecharts/CustomizedLabel";
 import RotatedAxisTick from "../../../components/MiscRecharts/RotatedAxisTick";
 
 import type { CustomLineChartProps } from "./CustomLineChart.models";
-import "./CustomLineChart.scss";
 
 export default function CustomLineChart({ data, icons }: CustomLineChartProps) {
   return (
@@ -26,10 +25,10 @@ export default function CustomLineChart({ data, icons }: CustomLineChartProps) {
       <Line
         type="bump"
         dataKey="score"
-        stroke="#8884d8"
+        stroke="var(--color-primary-charts)"
         strokeWidth={2}
         animationDuration={2000}
-        label={<CustomizedLabel stroke="#818589" />}
+        label={<CustomizedLabel stroke="var(--color-primary-charts)" />}
         dot={(props) => (
           <CustomSentimentDot {...props} size={16} icons={icons} />
         )}

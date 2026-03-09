@@ -1,7 +1,6 @@
 import { Pie, PieChart, Tooltip } from "recharts";
 
 import type { CustomPieChartProps } from "./CustomPieChart.models";
-import "./CustomPieChart.scss";
 
 export default function CustomPieChart({
   data,
