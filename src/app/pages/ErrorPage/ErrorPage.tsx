@@ -1,5 +1,7 @@
+import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
 import CustomLineChart from "../../../components/MiscRecharts/CustomLineChart/CustomLineChart";
 import type { IRechartsData } from "../../../components/MiscRecharts/CustomLineChart/CustomLineChart.models";
+import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
 
 import "./ErrorPage.scss";
 
@@ -17,23 +19,21 @@ export default function ErrorPage() {
     { date: "2023-1-30", score: 0.2 },
   ];
 
+  const data1 = [
+    { name: "Group B", value: 300, fill: "var(--color-positive-trend)" },
+    { name: "Group C", value: 300, fill: "var(--color-neutral-trend)" },
+    { name: "Group D", value: 200, fill: "var(--color-negative-trend)" },
+  ];
+
   return (
     <div className="ErrorPage">
       <h1 className="ErrorPage__title">404 - Not Found</h1>
-      <CustomLineChart data={data} />
-
-      {/* 
-      <div className="chart-card">
-        <h2>Sentiment Distribution</h2>
-        <Pie
-          data={data}
-          dataKey="value"
-          nameKey="name"
-          outerRadius="80%"
-          innerRadius="60%"
-          isAnimationActive={false}
-        />
-      </div> */}
+      <ChartCard title="Sentiment Score Trend" minHeight={420}>
+        <CustomLineChart data={data} />
+      </ChartCard>
+      <ChartCard title="Sentiment Distribution" minHeight={320}>
+        <CustomPieChart data={data1} outerRadius="85%" innerRadius="60%" />
+      </ChartCard>
     </div>
   );
 }

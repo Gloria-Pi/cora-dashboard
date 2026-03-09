@@ -1,6 +1,6 @@
 import { ChatCircleIcon } from "@phosphor-icons/react";
 
-import Card from "../../components/Card/Card";
+import Card from "../../components/Cards/Card/Card";
 
 export default function Overview() {
   return (
