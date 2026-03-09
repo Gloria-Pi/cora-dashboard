@@ -28,6 +28,7 @@ export default function CustomLineChart({ data, icons }: CustomLineChartProps) {
         dataKey="score"
         stroke="#8884d8"
         strokeWidth={2}
+        animationDuration={2000}
         label={<CustomizedLabel stroke="#818589" />}
         dot={(props) => (
           <CustomSentimentDot {...props} size={16} icons={icons} />

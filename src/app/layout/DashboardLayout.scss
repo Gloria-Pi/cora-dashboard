@@ -1,0 +1,29 @@
+@reference "../../index.css";
+
+.DashboardLayout {
+  --sidebar-width: 280px;
+  --sidebar-collapsed-width: 120px;
+
+  @apply grid h-screen w-full bg-[#F9FAFB];
+
+  grid-template-columns: var(--sidebar-width) 1fr;
+  transition: grid-template-columns 0.3s ease;
+
+  &--collapsed {
+    grid-template-columns: var(--sidebar-collapsed-width) 1fr;
+  }
+
+  &__sidebar {
+    @apply h-full;
+  }
+
+  &__content {
+    @apply p-6 overflow-y-auto;
+    @apply transition-all duration-300 ease-in-out;
+
+    /* 12-column internal grid system */
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+  }
+}

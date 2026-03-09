@@ -19,10 +19,10 @@ export default function ErrorPage() {
     { date: "2023-1-30", score: 0.2 },
   ];
 
-  const data1 = [
-    { name: "Group B", value: 300, fill: "var(--color-positive-trend)" },
-    { name: "Group C", value: 300, fill: "var(--color-neutral-trend)" },
-    { name: "Group D", value: 200, fill: "var(--color-negative-trend)" },
+  const data1: IRechartsData[] = [
+    { name: "Positive", value: 234, fill: "var(--color-positive-trend)" },
+    { name: "Neutral", value: 311, fill: "var(--color-neutral-trend)" },
+    { name: "Negative", value: 183, fill: "var(--color-negative-trend)" },
   ];
 
   return (
