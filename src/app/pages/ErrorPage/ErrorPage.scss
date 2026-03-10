@@ -1,0 +1,8 @@
+@reference "../../../index.css";
+
+.ErrorPage {
+  @apply bg-pink-200;
+  &__title {
+    @apply title-2-bold;
+  }
+}
