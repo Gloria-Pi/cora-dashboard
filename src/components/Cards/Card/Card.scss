@@ -2,10 +2,10 @@
 
 .Card {
   @apply min-w-60 p-4 gap-2 bg-white border-[2.3px] border-[#E5E7EB] rounded-xl flex flex-col;
-  @apply md:max-w-74 md:p-4.5 md:gap-2.5;
+  @apply md:p-4.5 md:gap-2.5;
   @apply lg:p-5 lg:gap-3;
-  @apply xl:max-w-90 xl:p-5.5;
-  @apply 2xl:min-w-82 2xl:p-6 2xl:gap-3.5;
+  @apply xl:p-5.5;
+  @apply 2xl:p-6 2xl:gap-3.5;
 
   &__header {
     @apply flex flex-row justify-between items-center;

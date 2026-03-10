@@ -1,7 +1,11 @@
 import { ChatCircleIcon } from "@phosphor-icons/react";
 
 import Card from "../../components/Cards/Card/Card";
+import ChartCard from "../../components/Cards/ChartCard/ChartCard";
 import Header from "../../components/Header/Header";
+import CustomLineChart from "../../components/MiscRecharts/CustomLineChart/CustomLineChart";
+import CustomPieChart from "../../components/MiscRecharts/CustomPieChart/CustomPieChart";
+import { data1, data2 } from "../../mock/dummyData";
 
 import "./Overview.scss";
 
@@ -44,8 +48,13 @@ export default function Overview() {
           />
         </div>
         <div className="Overview__grid__charts">
-          <p>hello</p>
-          <p>hello</p>
+          <ChartCard title="Sentiment Score Trend" minHeight={420}>
+            <CustomLineChart data={data1} />
+          </ChartCard>
+
+          <ChartCard title="Sentiment Distribution" minHeight={420}>
+            <CustomPieChart data={data2} outerRadius="85%" innerRadius="60%" />
+          </ChartCard>
         </div>
       </div>
     </div>
