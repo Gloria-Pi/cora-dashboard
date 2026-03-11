@@ -52,12 +52,13 @@ export default function ErrorPage() {
       .then((response) => {
         if (response) {
           console.log("response: ", response);
-          return response.json();
+          const promise = response.json();
+          return promise;
         }
         throw new Error();
       })
-      .then((promise) => {
-        const nameUrlArray: TypeData[] = promise.results.map((r: TypeData) => ({
+      .then((gift) => {
+        const nameUrlArray: TypeData[] = gift.results.map((r: TypeData) => ({
           name: r.name,
           url: r.url,
         }));
@@ -67,20 +68,16 @@ export default function ErrorPage() {
       })
 
       .then((nameUrlArray) => {
-        nameUrlArray.map((item) =>
-          fetch(`${item.url}`)
-            .then((typeResponse) => {
-              if (typeResponse) {
-                return typeResponse.json();
-              }
-              throw new Error();
-            })
-            .then((typePromise) => {
-              const numPkmn = typePromise.pokemon.length;
-              const singleDataItem = { ...item, value: numPkmn };
-              setPkmnTypesList((prev) => [...prev, singleDataItem]);
-            }),
-        );
+        const pippo = nameUrlArray.map(async (item) => {
+          const a = await fetch(`${item.url}`);
+          const b = await a.json();
+          const numPkmn: number = b.pokemon.length;
+          return { ...item, value: numPkmn };
+        });
+        return Promise.all(pippo);
+      })
+      .then((a) => {
+        setPkmnTypesList(a);
       })
       .catch((error) => {
         console.log(error);
