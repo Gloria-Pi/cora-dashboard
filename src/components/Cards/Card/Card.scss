@@ -1,11 +1,11 @@
 @reference "../../../index.css";
 
 .Card {
-  @apply min-w-60 p-4 gap-2 bg-white border-[2.3px] border-[#E5E7EB] rounded-xl flex flex-col;
-  @apply md:p-4.5 md:gap-2.5;
-  @apply lg:p-5 lg:gap-3;
-  @apply xl:p-5.5;
-  @apply 2xl:p-6 2xl:gap-3.5;
+  @apply w-full p-4 gap-2 bg-white border-[2.3px] border-[#E5E7EB] rounded-xl flex flex-col;
+  @apply md:max-w-80 md:p-4.5 md:gap-2.5;
+  @apply lg:max-w-100 lg:p-5 lg:gap-4;
+  @apply xl:max-w-120 xl:p-5.5;
+  @apply 2xl:max-w-75 2xl:p-6 2xl:gap-3;
 
   &__header {
     @apply flex flex-row justify-between items-center;
@@ -13,22 +13,22 @@
     &__title {
       @apply title-4 text-[#4A5565];
       @apply md:title-3;
-      @apply xl:title-2;
-      @apply 2xl:title-1;
+      // @apply xl:title-2;
+      // @apply 2xl:title-1;
     }
 
     &__icon {
-      @apply text-[#99A1AF] text-[26px];
+      @apply text-[#99A1AF] text-[26px] pl-10;
       @apply md:text-[28px];
       @apply lg:text-3xl;
-      @apply 2xl:text-4xl;
+      // @apply 2xl:text-4xl 2xl:pl-0;
     }
   }
 
   &__value {
     @apply title-1-bold text-3xl;
     @apply md:text-4xl;
-    @apply lg:text-5xl;
+    // @apply lg:text-5xl;
   }
 
   &__description {

@@ -4,11 +4,12 @@
   @apply bg-yellow-200 flex flex-col items-center h-full;
 
   &__grid {
-    @apply bg-blue-200 grid gap-4 grid-cols-1;
+    @apply bg-blue-200 grid gap-4 grid-cols-1 w-full max-w-[426px];
     @apply md:max-w-[656px];
     @apply lg:max-w-[828px];
     @apply xl:max-w-[1040px];
-    @apply 2xl:max-w-[1600px];
+    @apply 2xl:w-[1260px];
+    @apply 3xl:max-w-[1660px];
 
     /* MOBILE (default) */
     grid-template-areas:
@@ -29,9 +30,9 @@
 
     &__cards {
       @apply bg-purple-300;
-      @apply flex flex-col gap-2;
-      @apply md:gap-4 md:flex-row md:flex-wrap md:justify-between;
-      @apply lg:gap-6;
+      @apply gap-2 flex flex-col;
+      @apply md:gap-3 md:flex-row md:flex-wrap md:justify-between;
+      @apply lg:gap-4;
 
       grid-area: cards;
     }

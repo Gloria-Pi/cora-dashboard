@@ -2,10 +2,10 @@
 
 .DashboardLayout {
   @apply h-screen;
-  @apply grid grid-cols-[256px__5fr];
+  @apply grid grid-cols-[256px__1fr];
   grid-template-areas: "sidebar main";
   &--collapsed {
-    @apply grid-cols-[96px__5fr];
+    @apply grid-cols-[96px__1fr];
   }
 
   &__sidebar {
