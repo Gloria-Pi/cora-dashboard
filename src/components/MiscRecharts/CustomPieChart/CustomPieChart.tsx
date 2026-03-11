@@ -21,7 +21,7 @@ export default function CustomPieChart({
         animationDuration={1000}
         label={({ name, percent }) => {
           if (percent === undefined) return 0;
-          return `${name} - ${(percent * 100).toFixed(0)}%`;
+          return `${name} - ${(percent * 100).toFixed(1)}%`;
         }}
         labelLine={false}
       />
