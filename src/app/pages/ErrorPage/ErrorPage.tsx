@@ -38,6 +38,7 @@ export default function ErrorPage() {
     "#c7e9c0",
     "#dadaeb",
   ];
+  console.log("ciao");
 
   interface BaseLocationData {
     codeName: string;
