@@ -1,43 +1,43 @@
 import { useEffect, useState } from "react";
 
-// import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
-// import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
+import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
+import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
 
 import "./ErrorPage.scss";
 
 export default function ErrorPage() {
-  // const PIE_COLORS = [
-  //   "#1f77b4",
-  //   "#ff7f0e",
-  //   "#2ca02c",
-  //   "#d62728",
-  //   "#9467bd",
-  //   "#8c564b",
-  //   "#e377c2",
-  //   "#7f7f7f",
-  //   "#bcbd22",
-  //   "#17becf",
-  //   "#393b79",
-  //   "#637939",
-  //   "#8c6d31",
-  //   "#843c39",
-  //   "#7b4173",
-  //   "#3182bd",
-  //   "#31a354",
-  //   "#756bb1",
-  //   "#636363",
-  //   "#e6550d",
-  //   "#969696",
-  //   "#dd1c77",
-  //   "#6baed6",
-  //   "#74c476",
-  //   "#9e9ac8",
-  //   "#bdbdbd",
-  //   "#fd8d3c",
-  //   "#fdd0a2",
-  //   "#c7e9c0",
-  //   "#dadaeb",
-  // ];
+  const PIE_COLORS = [
+    "#1f77b4",
+    "#ff7f0e",
+    "#2ca02c",
+    "#d62728",
+    "#9467bd",
+    "#8c564b",
+    "#e377c2",
+    "#7f7f7f",
+    "#bcbd22",
+    "#17becf",
+    "#393b79",
+    "#637939",
+    "#8c6d31",
+    "#843c39",
+    "#7b4173",
+    "#3182bd",
+    "#31a354",
+    "#756bb1",
+    "#636363",
+    "#e6550d",
+    "#969696",
+    "#dd1c77",
+    "#6baed6",
+    "#74c476",
+    "#9e9ac8",
+    "#bdbdbd",
+    "#fd8d3c",
+    "#fdd0a2",
+    "#c7e9c0",
+    "#dadaeb",
+  ];
 
   interface BaseLocationData {
     codeName: string;
@@ -96,6 +96,7 @@ export default function ErrorPage() {
   interface Encounter {
     id: number;
     pokemon: string;
+    encounterChance: number;
   }
 
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -115,17 +116,27 @@ export default function ErrorPage() {
         (
           pkmnEn: {
             pokemon: { name: string; url: string };
-            version_details: Array<object>;
+            version_details: {
+              max_chance: number;
+            }[];
           },
           index: number,
         ) => {
-          return { id: index, pokemon: pkmnEn.pokemon.name };
+          return {
+            id: index,
+            pokemon: pkmnEn.pokemon.name,
+            encounterChance: pkmnEn.version_details[0].max_chance,
+          };
         },
       );
       setEncounterablePkmn(allEncounters);
     };
     fetchData().catch((err) => console.log("ERR: ", err));
   }, [selectedLocation]);
+
+  const pkmnEncounterPercentage = encounterablePkmn.map((p, i) => {
+    return { name: p.pokemon, value: p.encounterChance, fill: PIE_COLORS[i] };
+  });
 
   return (
     <div className="ErrorPage">
@@ -158,18 +169,20 @@ export default function ErrorPage() {
         <p>Pokemon you'll encounter:</p>
         <ul>
           {encounterablePkmn.map((p) => (
-            <li key={p.id}>- {p.pokemon}</li>
+            <li key={p.id}>
+              - {p.pokemon}: {p.encounterChance / 10}%
+            </li>
           ))}
         </ul>
       </div>
 
-      {/* <ChartCard title="Pkmn Distribution per Area" minHeight={420}>
+      <ChartCard title="Pkmn Distribution per Area" minHeight={420}>
         <CustomPieChart
-          data={coloredPkmnTypesList}
+          data={pkmnEncounterPercentage}
           outerRadius="85%"
           innerRadius="60%"
         />
-      </ChartCard> */}
+      </ChartCard>
     </div>
   );
 }
