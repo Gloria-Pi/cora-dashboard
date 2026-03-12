@@ -39,13 +39,75 @@ export default function ErrorPage() {
     "#dadaeb",
   ];
 
-  const [pkmnTypesList, setPkmnTypesList] = useState<TypeData[]>([]);
-
   interface TypeData {
     name: string;
     url: string;
     value: number | string;
   }
+  interface BaseLocationData {
+    codeName: string;
+    url: string;
+  }
+  interface ExtendedLocationData extends BaseLocationData {
+    enName: string;
+  }
+
+  const [locationData, setLocationData] = useState<ExtendedLocationData[]>([]);
+
+  useEffect(() => {
+    fetch("https://pokeapi.co/api/v2/location-area/?limit=20")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Throw error 1: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((promise) => {
+        // console.log("PROMISE: ", promise);
+        const multiLocationData: BaseLocationData[] = promise.results.map(
+          (locationItem: { name: string; url: string }) => {
+            console.log("BASE OBJ: ", locationItem);
+            return {
+              codeName: locationItem.name,
+              url: locationItem.url,
+            };
+          },
+        );
+        return multiLocationData;
+      })
+
+      .then((multiLocationData) => {
+        const multiLocationPlus: Promise<ExtendedLocationData>[] =
+          multiLocationData.map((singleItem) => {
+            return fetch(singleItem.url)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(`Throw error 2: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then((promise) => {
+                const extendedData: ExtendedLocationData = {
+                  ...singleItem,
+                  enName: promise.names[0].name,
+                };
+                // console.log("EXTENDED OBJ: ", extendedData);
+                return extendedData;
+              });
+          });
+        return Promise.all(multiLocationPlus);
+      })
+      .then((finalData: ExtendedLocationData[]) => {
+        setLocationData(finalData);
+      })
+      .catch((error) => {
+        console.log("ERRORE: ", error);
+      });
+  }, []);
+
+  console.log("check esterno: ", locationData);
+
+  const [pkmnTypesList, setPkmnTypesList] = useState<TypeData[]>([]);
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/type")
@@ -62,7 +124,7 @@ export default function ErrorPage() {
           name: r.name,
           url: r.url,
         }));
-        console.log("nameUrlArray: ", nameUrlArray);
+        // console.log("nameUrlArray: ", nameUrlArray);
 
         return nameUrlArray;
       })
@@ -84,19 +146,39 @@ export default function ErrorPage() {
       });
   }, []);
 
-  console.log("LISTA TIPI: ", pkmnTypesList);
+  // console.log("LISTA TIPI: ", pkmnTypesList);
 
   const coloredPkmnTypesList = pkmnTypesList.map((item, index) => ({
     ...item,
     fill: PIE_COLORS[index],
   }));
 
-  console.log("LISTINA: ", coloredPkmnTypesList);
+  // console.log("LISTINA: ", coloredPkmnTypesList);
 
   return (
     <div className="ErrorPage">
       <h1 className="ErrorPage__title">404 - Not Found</h1>
-      <ChartCard title="Sentiment Distribution" minHeight={420}>
+
+      <label htmlFor="locations">Choose a location:</label>
+      <select name="locations" id="locations">
+        {locationData.map((locationItem, i) => {
+          return (
+            <option key={i} value={locationItem.codeName}>
+              {locationItem.enName}
+            </option>
+          );
+        })}
+      </select>
+
+      <ChartCard title="Pkmn Distribution per Area" minHeight={420}>
+        <CustomPieChart
+          data={coloredPkmnTypesList}
+          outerRadius="85%"
+          innerRadius="60%"
+        />
+      </ChartCard>
+
+      <ChartCard title="Type Distribution" minHeight={420}>
         <CustomPieChart
           data={coloredPkmnTypesList}
           outerRadius="85%"
