@@ -1,49 +1,44 @@
 import { useEffect, useState } from "react";
 
-import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
-import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
+// import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
+// import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
 
 import "./ErrorPage.scss";
 
 export default function ErrorPage() {
-  const PIE_COLORS = [
-    "#1f77b4",
-    "#ff7f0e",
-    "#2ca02c",
-    "#d62728",
-    "#9467bd",
-    "#8c564b",
-    "#e377c2",
-    "#7f7f7f",
-    "#bcbd22",
-    "#17becf",
-    "#393b79",
-    "#637939",
-    "#8c6d31",
-    "#843c39",
-    "#7b4173",
-    "#3182bd",
-    "#31a354",
-    "#756bb1",
-    "#636363",
-    "#e6550d",
-    "#969696",
-    "#dd1c77",
-    "#6baed6",
-    "#74c476",
-    "#9e9ac8",
-    "#bdbdbd",
-    "#fd8d3c",
-    "#fdd0a2",
-    "#c7e9c0",
-    "#dadaeb",
-  ];
+  // const PIE_COLORS = [
+  //   "#1f77b4",
+  //   "#ff7f0e",
+  //   "#2ca02c",
+  //   "#d62728",
+  //   "#9467bd",
+  //   "#8c564b",
+  //   "#e377c2",
+  //   "#7f7f7f",
+  //   "#bcbd22",
+  //   "#17becf",
+  //   "#393b79",
+  //   "#637939",
+  //   "#8c6d31",
+  //   "#843c39",
+  //   "#7b4173",
+  //   "#3182bd",
+  //   "#31a354",
+  //   "#756bb1",
+  //   "#636363",
+  //   "#e6550d",
+  //   "#969696",
+  //   "#dd1c77",
+  //   "#6baed6",
+  //   "#74c476",
+  //   "#9e9ac8",
+  //   "#bdbdbd",
+  //   "#fd8d3c",
+  //   "#fdd0a2",
+  //   "#c7e9c0",
+  //   "#dadaeb",
+  // ];
 
-  interface TypeData {
-    name: string;
-    url: string;
-    value: number | string;
-  }
   interface BaseLocationData {
     codeName: string;
     url: string;
@@ -66,7 +61,7 @@ export default function ErrorPage() {
         // console.log("PROMISE: ", promise);
         const multiLocationData: BaseLocationData[] = promise.results.map(
           (locationItem: { name: string; url: string }) => {
-            console.log("BASE OBJ: ", locationItem);
+            // console.log("BASE OBJ: ", locationItem);
             return {
               codeName: locationItem.name,
               url: locationItem.url,
@@ -105,86 +100,89 @@ export default function ErrorPage() {
       });
   }, []);
 
-  console.log("check esterno: ", locationData);
+  console.log("STATE LOCATION: ", locationData);
 
-  const [pkmnTypesList, setPkmnTypesList] = useState<TypeData[]>([]);
+  interface Encounter {
+    id: number;
+    pokemon: string;
+  }
+
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [encounterablePkmn, setEncounterablePkmn] = useState<Encounter[]>([]);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/type")
+    fetch(`https://pokeapi.co/api/v2/location-area/${selectedLocation}`)
       .then((response) => {
-        if (response) {
-          console.log("response: ", response);
-          const promise = response.json();
-          return promise;
+        if (!response.ok) {
+          throw new Error(`Throw error 3: ${response.status}`);
         }
-        throw new Error();
+        return response.json();
       })
-      .then((gift) => {
-        const nameUrlArray: TypeData[] = gift.results.map((r: TypeData) => ({
-          name: r.name,
-          url: r.url,
-        }));
-        // console.log("nameUrlArray: ", nameUrlArray);
-
-        return nameUrlArray;
+      .then((promise) => {
+        console.log(promise);
+        const allEncounters: Encounter[] = promise.pokemon_encounters.map(
+          (
+            pkmnEn: {
+              pokemon: { name: string; url: string };
+              version_details: Array<object>;
+            },
+            index: number,
+          ) => {
+            // console.log("PKMN EN: ", pkmnEn),
+            return { id: index, pokemon: pkmnEn.pokemon.name };
+          },
+        );
+        return Promise.all(allEncounters);
       })
-
-      .then((nameUrlArray) => {
-        const pippo = nameUrlArray.map(async (item) => {
-          const a = await fetch(`${item.url}`);
-          const b = await a.json();
-          const numPkmn: number = b.pokemon.length;
-          return { ...item, value: numPkmn };
-        });
-        return Promise.all(pippo);
+      .then((allEncounters) => {
+        setEncounterablePkmn(allEncounters);
       })
-      .then((a) => {
-        setPkmnTypesList(a);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  // console.log("LISTA TIPI: ", pkmnTypesList);
-
-  const coloredPkmnTypesList = pkmnTypesList.map((item, index) => ({
-    ...item,
-    fill: PIE_COLORS[index],
-  }));
-
-  // console.log("LISTINA: ", coloredPkmnTypesList);
+      .catch((err) => console.log("ERR: ", err));
+  }, [selectedLocation]);
 
   return (
     <div className="ErrorPage">
       <h1 className="ErrorPage__title">404 - Not Found</h1>
 
-      <label htmlFor="locations">Choose a location:</label>
-      <select name="locations" id="locations">
-        {locationData.map((locationItem, i) => {
-          return (
-            <option key={i} value={locationItem.codeName}>
-              {locationItem.enName}
-            </option>
-          );
-        })}
-      </select>
+      <label style={{ padding: "30px" }}>
+        Choose a location:
+        <select
+          name="locations"
+          value={selectedLocation}
+          onChange={(e) => setSelectedLocation(e.target.value)}
+        >
+          {selectedLocation === "" && <option value=""> LOCATION </option>}
 
-      <ChartCard title="Pkmn Distribution per Area" minHeight={420}>
+          {locationData.map((locationItem, i) => {
+            return (
+              <option key={i} value={locationItem.codeName}>
+                {locationItem.enName}
+              </option>
+            );
+          })}
+        </select>
+      </label>
+
+      <p style={{ padding: "30px" }}>
+        Your selected location: {selectedLocation}
+      </p>
+
+      <div style={{ padding: "30px" }}>
+        <p>Pokemon you'll encounter:</p>
+        <ul>
+          {encounterablePkmn.map((p) => (
+            <li key={p.id}>- {p.pokemon}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* <ChartCard title="Pkmn Distribution per Area" minHeight={420}>
         <CustomPieChart
           data={coloredPkmnTypesList}
           outerRadius="85%"
           innerRadius="60%"
         />
-      </ChartCard>
-
-      <ChartCard title="Type Distribution" minHeight={420}>
-        <CustomPieChart
-          data={coloredPkmnTypesList}
-          outerRadius="85%"
-          innerRadius="60%"
-        />
-      </ChartCard>
+      </ChartCard> */}
     </div>
   );
 }
