@@ -50,57 +50,48 @@ export default function ErrorPage() {
   const [locationData, setLocationData] = useState<ExtendedLocationData[]>([]);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/location-area/?limit=20")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Throw error 1: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((promise) => {
-        // console.log("PROMISE: ", promise);
-        const multiLocationData: BaseLocationData[] = promise.results.map(
-          (locationItem: { name: string; url: string }) => {
-            // console.log("BASE OBJ: ", locationItem);
-            return {
-              codeName: locationItem.name,
-              url: locationItem.url,
-            };
-          },
-        );
-        return multiLocationData;
-      })
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://pokeapi.co/api/v2/location-area/?limit=20",
+      );
+      if (!response.ok) {
+        throw new Error(`Throw error 1: ${response.status}`);
+      }
+      const json = await response.json();
 
-      .then((multiLocationData) => {
-        const multiLocationPlus: Promise<ExtendedLocationData>[] =
-          multiLocationData.map((singleItem) => {
-            return fetch(singleItem.url)
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(`Throw error 2: ${response.status}`);
-                }
-                return response.json();
-              })
-              .then((promise) => {
-                const extendedData: ExtendedLocationData = {
-                  ...singleItem,
-                  enName: promise.names[0].name,
-                };
-                // console.log("EXTENDED OBJ: ", extendedData);
-                return extendedData;
-              });
-          });
-        return Promise.all(multiLocationPlus);
-      })
-      .then((finalData: ExtendedLocationData[]) => {
-        setLocationData(finalData);
-      })
-      .catch((error) => {
-        console.log("ERRORE: ", error);
-      });
+      const multiLocationData: BaseLocationData[] = json.results.map(
+        (locationItem: { name: string; url: string }) => {
+          return {
+            codeName: locationItem.name,
+            url: locationItem.url,
+          };
+        },
+      );
+
+      const multiLocationPlus: Promise<ExtendedLocationData>[] =
+        multiLocationData.map(async (singleItem) => {
+          // return response2;
+          const response2 = await fetch(singleItem.url);
+          if (!response2.ok) {
+            throw new Error(`Throw error 2: ${response2.status}`);
+          }
+          const json2 = await response2.json();
+
+          const extendedData: ExtendedLocationData = {
+            ...singleItem,
+            enName: json2.names[0].name,
+          };
+          return extendedData;
+        });
+
+      const finalData = await Promise.all(multiLocationPlus);
+
+      setLocationData(finalData);
+    };
+    fetchData().catch((error) => {
+      console.log("ERRORE: ", error);
+    });
   }, []);
-
-  console.log("STATE LOCATION: ", locationData);
 
   interface Encounter {
     id: number;
@@ -111,33 +102,29 @@ export default function ErrorPage() {
   const [encounterablePkmn, setEncounterablePkmn] = useState<Encounter[]>([]);
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/location-area/${selectedLocation}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Throw error 3: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((promise) => {
-        console.log(promise);
-        const allEncounters: Encounter[] = promise.pokemon_encounters.map(
-          (
-            pkmnEn: {
-              pokemon: { name: string; url: string };
-              version_details: Array<object>;
-            },
-            index: number,
-          ) => {
-            // console.log("PKMN EN: ", pkmnEn),
-            return { id: index, pokemon: pkmnEn.pokemon.name };
+    const fetchData = async () => {
+      const data = await fetch(
+        `https://pokeapi.co/api/v2/location-area/${selectedLocation}`,
+      );
+      if (!data.ok) {
+        throw new Error(`Thrown error ${data.status}`);
+      }
+      const json = await data.json();
+
+      const allEncounters: Encounter[] = json.pokemon_encounters.map(
+        (
+          pkmnEn: {
+            pokemon: { name: string; url: string };
+            version_details: Array<object>;
           },
-        );
-        return Promise.all(allEncounters);
-      })
-      .then((allEncounters) => {
-        setEncounterablePkmn(allEncounters);
-      })
-      .catch((err) => console.log("ERR: ", err));
+          index: number,
+        ) => {
+          return { id: index, pokemon: pkmnEn.pokemon.name };
+        },
+      );
+      setEncounterablePkmn(allEncounters);
+    };
+    fetchData().catch((err) => console.log("ERR: ", err));
   }, [selectedLocation]);
 
   return (
