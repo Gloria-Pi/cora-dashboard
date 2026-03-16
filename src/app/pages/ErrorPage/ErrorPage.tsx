@@ -2,53 +2,17 @@ import { useEffect, useState } from "react";
 
 import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
 import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
+import type {
+  IBaseLocationData,
+  IExtendedLocationData,
+} from "../../../constants/global.constants";
+import useEncounterData from "../../../hooks/useEncounterData";
+import PIE_COLORS from "../../../styles/constants";
 
 import "./ErrorPage.scss";
 
 export default function ErrorPage() {
-  const PIE_COLORS = [
-    "#1f77b4",
-    "#ff7f0e",
-    "#2ca02c",
-    "#d62728",
-    "#9467bd",
-    "#8c564b",
-    "#e377c2",
-    "#7f7f7f",
-    "#bcbd22",
-    "#17becf",
-    "#393b79",
-    "#637939",
-    "#8c6d31",
-    "#843c39",
-    "#7b4173",
-    "#3182bd",
-    "#31a354",
-    "#756bb1",
-    "#636363",
-    "#e6550d",
-    "#969696",
-    "#dd1c77",
-    "#6baed6",
-    "#74c476",
-    "#9e9ac8",
-    "#bdbdbd",
-    "#fd8d3c",
-    "#fdd0a2",
-    "#c7e9c0",
-    "#dadaeb",
-  ];
-  console.log("ciao");
-
-  interface BaseLocationData {
-    codeName: string;
-    url: string;
-  }
-  interface ExtendedLocationData extends BaseLocationData {
-    enName: string;
-  }
-
-  const [locationData, setLocationData] = useState<ExtendedLocationData[]>([]);
+  const [locationData, setLocationData] = useState<IExtendedLocationData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +24,7 @@ export default function ErrorPage() {
       }
       const json = await response.json();
 
-      const multiLocationData: BaseLocationData[] = json.results.map(
+      const multiLocationData: IBaseLocationData[] = json.results.map(
         (locationItem: { name: string; url: string }) => {
           return {
             codeName: locationItem.name,
@@ -69,7 +33,7 @@ export default function ErrorPage() {
         },
       );
 
-      const multiLocationPlus: Promise<ExtendedLocationData>[] =
+      const multiLocationPlus: Promise<IExtendedLocationData>[] =
         multiLocationData.map(async (singleItem) => {
           // return response2;
           const response2 = await fetch(singleItem.url);
@@ -78,7 +42,7 @@ export default function ErrorPage() {
           }
           const json2 = await response2.json();
 
-          const extendedData: ExtendedLocationData = {
+          const extendedData: IExtendedLocationData = {
             ...singleItem,
             enName: json2.names[0].name,
           };
@@ -94,46 +58,8 @@ export default function ErrorPage() {
     });
   }, []);
 
-  interface Encounter {
-    id: number;
-    pokemon: string;
-    encounterChance: number;
-  }
-
-  const [selectedLocation, setSelectedLocation] = useState("");
-  const [encounterablePkmn, setEncounterablePkmn] = useState<Encounter[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch(
-        `https://pokeapi.co/api/v2/location-area/${selectedLocation}`,
-      );
-      if (!data.ok) {
-        throw new Error(`Thrown error ${data.status}`);
-      }
-      const json = await data.json();
-
-      const allEncounters: Encounter[] = json.pokemon_encounters.map(
-        (
-          pkmnEn: {
-            pokemon: { name: string; url: string };
-            version_details: {
-              max_chance: number;
-            }[];
-          },
-          index: number,
-        ) => {
-          return {
-            id: index,
-            pokemon: pkmnEn.pokemon.name,
-            encounterChance: pkmnEn.version_details[0].max_chance,
-          };
-        },
-      );
-      setEncounterablePkmn(allEncounters);
-    };
-    fetchData().catch((err) => console.log("ERR: ", err));
-  }, [selectedLocation]);
+  const { selectedLocation, setSelectedLocation, encounterablePkmn } =
+    useEncounterData();
 
   const pkmnEncounterPercentage = encounterablePkmn.map((p, i) => {
     return { name: p.pokemon, value: p.encounterChance, fill: PIE_COLORS[i] };

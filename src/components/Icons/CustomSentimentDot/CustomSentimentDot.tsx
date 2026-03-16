@@ -1,4 +1,4 @@
-import { useSentiment } from "../../../utilities/useSentiment";
+import { useSentiment } from "../../../hooks/useSentiment";
 import SentimentIcon from "../SentimentIcon/SentimentIcon";
 
 import type CustomSentimentDotProps from "./CustomSentimentDot.models";
