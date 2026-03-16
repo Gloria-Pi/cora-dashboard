@@ -10,7 +10,7 @@ export default function useEncounterData() {
   useEffect(() => {
     if (!selectedLocation) return;
 
-    const fetchLocationData = async () => {
+    const fetchLocationEncounters = async () => {
       try {
         const json = await fetchData(
           `https://pokeapi.co/api/v2/location-area/${selectedLocation}`,
@@ -36,11 +36,11 @@ export default function useEncounterData() {
 
         setEncounterablePkmn(allEncounters);
       } catch (err) {
-        console.log("ERR:", err);
+        console.log("ERROR ON ENCOUNTERABLE PKMN FETCH:", err);
       }
     };
 
-    fetchLocationData();
+    fetchLocationEncounters();
   }, [selectedLocation]);
 
   return { selectedLocation, setSelectedLocation, encounterablePkmn };
