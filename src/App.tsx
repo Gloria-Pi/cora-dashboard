@@ -1,5 +1,6 @@
-import './App.css';
-import Sidebar from './components/Sidebar/Sidebar';
+import "./App.css";
+import Sidebar from "./components/Menus/Sidebar/Sidebar";
+
 // import "./index.css"; // Importing Tailwind CSS and custom styles
 
 function App() {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import { Outlet } from "react-router";
 
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Sidebar from "../../components/Menus/Sidebar/Sidebar";
 
 import "./DashboardLayout.scss";
 
