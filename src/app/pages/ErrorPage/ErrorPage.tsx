@@ -12,12 +12,11 @@ export default function ErrorPage() {
   const { selectedLocation, setSelectedLocation, encounterablePkmn } =
     useEncounterData();
 
-  // const pkmnEncounterPercentage = encounterablePkmn.map((p, i) => {
-  //   return { name: p.pokemon, value: p.encounterChance, fill: PIE_COLORS[i] };
-  // });
-
   const pkmnEncounterPercentage = fillDataWithColor(
-    encounterablePkmn,
+    encounterablePkmn.map((p) => ({
+      name: p.pokemon,
+      value: p.encounterChance,
+    })),
     PIE_COLORS,
   );
 
