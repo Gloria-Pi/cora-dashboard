@@ -1,7 +1,7 @@
 @reference "../../../index.css";
 
 .Sidebar {
-  @apply h-full max-h-screen
+  @apply h-full max-h-screen overflow-y-auto
          flex flex-col
          bg-white text-zinc-800
          transition-all duration-300

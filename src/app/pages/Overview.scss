@@ -4,12 +4,16 @@
   @apply bg-yellow-200 flex flex-col items-center h-full;
 
   &__grid {
-    @apply bg-blue-200 grid gap-4 grid-cols-1 w-full max-w-[426px];
+    @apply bg-blue-200 grid gap-4 grid-cols-1 w-full max-w-[426px] p-4;
     @apply md:max-w-[656px];
     @apply lg:max-w-[828px];
     @apply xl:max-w-[1040px];
     @apply 2xl:w-[1260px];
     @apply 3xl:max-w-[1660px];
+
+    @media (max-width: 780px) {
+      @apply px-2 pt-2 gap-3;
+    }
 
     /* MOBILE (default) */
     grid-template-areas:

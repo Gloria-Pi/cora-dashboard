@@ -13,6 +13,12 @@
   &--collapsed {
     @apply grid-cols-[96px__1fr];
 
+    @media (min-width: 781px) {
+      .DashboardLayout__sidebar {
+        @apply fixed top-0 left-0 h-screen w-28;
+      }
+    }
+
     @media (max-width: 780px) {
       @apply grid-cols-1;
     }
@@ -33,6 +39,10 @@
     @apply bg-green-700;
     grid-area: sidebar;
 
+    @media (min-width: 781px) {
+      @apply fixed top-0 left-0 h-screen w-[256px];
+    }
+
     @media (max-width: 780px) {
       @apply fixed top-0 left-0 h-screen w-64 z-50;
       @apply transform -translate-x-full transition-transform duration-300;
@@ -50,7 +60,7 @@
     grid-area: main;
 
     @media (max-width: 780px) {
-      @apply mt-[57px];
+      @apply mt-[69px];
     }
 
     @media (min-width: 781px) {

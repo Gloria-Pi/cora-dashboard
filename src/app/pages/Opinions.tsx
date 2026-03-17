@@ -7,7 +7,9 @@ import {
 
 import Card from "../../components/Cards/Card/Card";
 import Header from "../../components/Header/Header";
-import FeedbackTable from "../../components/Tables/FeedbackTable/FeedbackTable";
+import FeedbackTable, {
+  type Feedback,
+} from "../../components/Tables/FeedbackTable/FeedbackTable";
 import { DEFAULT_FEEDBACK_DATA } from "../../mock/feedbacks";
 
 import "./Opinions.scss";
@@ -50,7 +52,7 @@ export default function Opinions() {
           />
         </div>
 
-        <FeedbackTable data={DEFAULT_FEEDBACK_DATA} />
+        <FeedbackTable data={DEFAULT_FEEDBACK_DATA as Feedback[]} />
       </div>
     </div>
   );
