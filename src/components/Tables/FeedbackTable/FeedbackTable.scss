@@ -1,0 +1,146 @@
+@reference "../../../index.css";
+
+.FeedbackTable {
+  @apply w-full bg-white rounded-xl border-[2.3px] border-[#E5E7EB] overflow-hidden;
+
+  &__wrapper {
+    @apply overflow-x-auto;
+  }
+
+  &__table {
+    @apply w-full border-collapse;
+    min-width: 800px;
+
+    @media (max-width: 780px) {
+      min-width: 100%;
+    }
+  }
+
+  &__header {
+    @apply bg-zinc-50 border-b border-[#E5E7EB];
+
+    th {
+      @apply px-4 py-4 text-left body-3 font-semibold text-zinc-700;
+      @apply md:px-6 md:py-5;
+
+      &:last-child {
+        @apply text-right;
+      }
+
+      &.hide-mobile {
+        @media (max-width: 780px) {
+          @apply hidden;
+        }
+      }
+    }
+  }
+
+  &__row {
+    @apply border-b border-[#E5E7EB] cursor-pointer transition;
+    @apply hover:bg-hover-bg;
+
+    &--expanded {
+      @apply bg-zinc-50;
+    }
+
+    td {
+      @apply px-4 py-3 body-3 text-zinc-800;
+      @apply md:px-6 md:py-4;
+
+      &.hide-mobile {
+        @media (max-width: 780px) {
+          @apply hidden;
+        }
+      }
+    }
+
+    &__chevron {
+      @apply flex justify-end items-center;
+
+      svg {
+        @apply transition-transform duration-200;
+        color: #155dfc;
+      }
+
+      &--expanded svg {
+        @apply rotate-180;
+      }
+    }
+  }
+
+  &__expanded-content {
+    @apply bg-zinc-50 border-b border-[#E5E7EB];
+
+    td {
+      @apply px-4 py-4;
+      @apply md:px-6 md:py-5;
+    }
+
+    &__label {
+      @apply body-3 font-semibold text-zinc-700 mb-2;
+    }
+
+    &__text {
+      @apply body-3 text-zinc-800 leading-relaxed;
+    }
+  }
+}
+
+.SentimentPill {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full body-4 font-medium;
+  gap: 4px;
+
+  &__dot {
+    @apply text-base;
+    line-height: 1;
+  }
+
+  &--positive {
+    @apply bg-[#d1fae5] text-[#065f46];
+  }
+
+  &--negative {
+    @apply bg-[#fee2e2] text-[#991b1b];
+  }
+
+  &--neutral {
+    @apply bg-[#fef3c7] text-[#92400e];
+  }
+}
+
+.FeedbackModal {
+  @apply fixed inset-0 z-50 flex items-end justify-center;
+  @apply md:items-center;
+
+  &__overlay {
+    @apply fixed inset-0 bg-black opacity-50;
+  }
+
+  &__content {
+    @apply relative bg-white rounded-t-2xl w-full max-h-[80vh] overflow-y-auto;
+    @apply md:rounded-2xl md:max-w-2xl md:max-h-[90vh];
+    @apply p-6;
+  }
+
+  &__header {
+    @apply flex items-center justify-between mb-4 pb-4 border-b border-zinc-200;
+
+    &__title {
+      @apply title-3-bold text-zinc-900;
+    }
+
+    &__close {
+      @apply p-2 rounded-lg hover:bg-hover-bg transition text-zinc-700 cursor-pointer;
+    }
+  }
+
+  &__body {
+    &__label {
+      @apply body-3 font-semibold text-zinc-700 mb-2;
+    }
+
+    &__text {
+      @apply body-3 text-zinc-800 leading-relaxed;
+    }
+  }
+}
