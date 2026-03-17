@@ -39,9 +39,20 @@
 
     &__charts {
       @apply bg-gray-300 flex flex-col gap-2;
-      @apply md:gap-4 md:flex-row md:flex-wrap md:justify-between;
-      @apply lg:gap-6;
+      @apply md:gap-4;
       grid-area: charts;
+
+      @media (min-width: 1440px) {
+        @apply flex-row gap-6;
+
+        & > :first-child {
+          width: calc(66.666% - 12px);
+        }
+
+        & > :nth-child(2) {
+          width: calc(33.333% - 12px);
+        }
+      }
     }
   }
 }
