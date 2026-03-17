@@ -45,6 +45,7 @@ export default function Sidebar({
   isCollapsed,
   onToggle,
   title,
+  onNavigate,
 }: SidebarProps) {
   const [adminOpen, setAdminOpen] = useState(false);
 
@@ -82,6 +83,7 @@ export default function Sidebar({
             icon={item.icon}
             label={item.label}
             isCollapsed={isCollapsed}
+            onNavigate={onNavigate}
           />
         ))}
       </nav>
@@ -134,12 +136,14 @@ interface NavItemProps {
   label: string;
   to: string;
   isCollapsed: boolean;
+  onNavigate?: () => void;
 }
 
-function NavItem({ icon, label, to, isCollapsed }: NavItemProps) {
+function NavItem({ icon, label, to, isCollapsed, onNavigate }: NavItemProps) {
   return (
     <NavLink
       to={to}
+      onClick={onNavigate}
       className={({ isActive }) =>
         classNames("NavItem", { "NavItem--active": isActive })
       }

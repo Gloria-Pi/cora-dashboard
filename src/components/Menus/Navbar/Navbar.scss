@@ -1,0 +1,28 @@
+@reference "../../../index.css";
+
+.Navbar {
+  @apply fixed top-0 left-0 right-0 z-40;
+  @apply hidden items-center justify-between;
+  @apply bg-white border-b border-zinc-200;
+  @apply px-4 py-3;
+
+  @media (min-width: 781px) {
+    @apply hidden;
+  }
+
+  @media (max-width: 780px) {
+    @apply flex;
+  }
+
+  &__hamburger {
+    @apply p-2 rounded-lg hover:bg-hover-bg transition text-zinc-700 cursor-pointer;
+  }
+
+  &__title {
+    @apply title-3-bold text-zinc-900;
+  }
+
+  &__user {
+    @apply p-2 rounded-lg hover:bg-hover-bg transition cursor-pointer;
+  }
+}

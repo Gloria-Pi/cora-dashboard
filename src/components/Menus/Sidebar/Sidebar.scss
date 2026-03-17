@@ -1,17 +1,18 @@
 @reference "../../../index.css";
 
 .Sidebar {
-  // @apply fixed top-0 left-0 h-screen;
-  // @apply w-64;
-  @apply h-full
+  @apply h-full max-h-screen
          flex flex-col
          bg-white text-zinc-800
          transition-all duration-300
          px-6 py-5 border-r border-zinc-200;
 
   &--collapsed {
-    // @apply w-fit;
     @apply items-center;
+
+    @media (max-width: 780px) {
+      @apply items-stretch;
+    }
   }
 
   &__top {
