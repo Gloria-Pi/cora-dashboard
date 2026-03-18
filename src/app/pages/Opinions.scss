@@ -24,38 +24,5 @@
     @apply grid grid-cols-1 gap-3 mb-6;
     @apply md:grid-cols-2 md:gap-4;
     @apply lg:grid-cols-4 lg:gap-4;
-
-    .Card {
-      @apply max-w-none p-3.5 gap-1.5;
-      @apply md:p-4 md:gap-2;
-      @apply lg:p-4 lg:gap-2;
-      @apply xl:p-4.5 xl:gap-2.5;
-
-      &__header {
-        &__title {
-          @apply text-sm font-medium;
-          @apply md:text-sm;
-          @apply lg:text-sm;
-        }
-
-        &__icon {
-          @apply text-xl;
-          @apply md:text-2xl;
-          @apply lg:text-2xl;
-        }
-      }
-
-      &__value {
-        @apply text-2xl font-bold;
-        @apply md:text-3xl;
-        @apply lg:text-3xl;
-      }
-
-      &__description {
-        @apply text-xs;
-        @apply md:text-sm;
-        @apply lg:text-sm;
-      }
-    }
   }
 }

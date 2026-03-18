@@ -12,7 +12,7 @@
     @apply 3xl:max-w-[1660px];
 
     @media (max-width: 780px) {
-      @apply px-2 pt-2 gap-3;
+      @apply px-2 pt-10;
     }
 
     /* MOBILE (default) */
@@ -23,7 +23,6 @@
       "charts";
 
     &__header {
-      @apply bg-pink-300;
       grid-area: header;
     }
 
@@ -33,10 +32,9 @@
     }
 
     &__cards {
-      @apply bg-purple-300;
-      @apply gap-2 flex flex-col;
-      @apply md:gap-3 md:flex-row md:flex-wrap md:justify-between;
-      @apply lg:gap-4;
+      @apply grid grid-cols-1 gap-3 mb-6;
+      @apply md:grid-cols-2 md:gap-4;
+      @apply lg:grid-cols-4;
 
       grid-area: cards;
     }

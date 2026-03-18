@@ -87,11 +87,11 @@
 }
 
 .SentimentPill {
-  @apply inline-flex items-center px-2.5 py-0.5 rounded-full body-4 font-medium;
+  @apply px-3 py-1.5 rounded-full body-4 font-medium;
   gap: 4px;
 
   &__dot {
-    @apply text-base;
+    @apply text-base pr-1;
     line-height: 1;
   }
 
