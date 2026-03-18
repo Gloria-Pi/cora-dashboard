@@ -1,15 +1,10 @@
 @reference "../../index.css";
 
 .Overview {
-  @apply bg-yellow-200 flex flex-col items-center h-full;
+  @apply flex flex-col items-center h-full;
 
   &__grid {
-    @apply bg-blue-200 grid gap-4 grid-cols-1 w-full max-w-[426px] p-4;
-    @apply md:max-w-[656px];
-    @apply lg:max-w-[828px];
-    @apply xl:max-w-[1040px];
-    @apply 2xl:w-[1260px];
-    @apply 3xl:max-w-[1660px];
+    @apply grid gap-4 grid-cols-1 w-full p-5;
 
     @media (max-width: 780px) {
       @apply px-2 pt-10;
@@ -32,15 +27,18 @@
     }
 
     &__cards {
-      @apply grid grid-cols-1 gap-3 mb-6;
+      @apply grid grid-cols-1 gap-3 mb-2;
+      @media (min-width: 380px) {
+        @apply grid-cols-2;
+      }
       @apply md:grid-cols-2 md:gap-4;
-      @apply lg:grid-cols-4;
+      @apply xl:grid-cols-4;
 
       grid-area: cards;
     }
 
     &__charts {
-      @apply bg-gray-300 flex flex-col gap-2;
+      @apply flex flex-col gap-2;
       @apply md:gap-4;
       grid-area: charts;
 

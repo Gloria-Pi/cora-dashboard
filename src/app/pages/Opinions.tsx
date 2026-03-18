@@ -7,9 +7,8 @@ import {
 
 import Card from "../../components/Cards/Card/Card";
 import Header from "../../components/Header/Header";
-import FeedbackTable, {
-  type Feedback,
-} from "../../components/Tables/FeedbackTable/FeedbackTable";
+import FeedbackTable from "../../components/Tables/FeedbackTable";
+import type { IFeedback } from "../../components/Tables/FeedbackTable/FeedbackTable.models";
 import { DEFAULT_FEEDBACK_DATA } from "../../mock/feedbacks";
 
 import "./Opinions.scss";
@@ -18,14 +17,14 @@ export default function Opinions() {
   return (
     <div className="Opinions">
       <div className="Opinions__container">
-        <div className="Opinions__header">
+        <div className="Opinions__container__header">
           <Header
             title="Feedback Opinions"
             summary="Detailed breakdown of all feedback opinions"
           />
         </div>
 
-        <div className="Opinions__cards">
+        <div className="Opinions__container__cards">
           <Card
             title="Total Opinions"
             icon={ChatCircleDotsIcon}
@@ -52,7 +51,7 @@ export default function Opinions() {
           />
         </div>
 
-        <FeedbackTable data={DEFAULT_FEEDBACK_DATA as Feedback[]} />
+        <FeedbackTable data={DEFAULT_FEEDBACK_DATA as IFeedback[]} />
       </div>
     </div>
   );

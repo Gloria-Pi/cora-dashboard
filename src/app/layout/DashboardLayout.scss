@@ -11,16 +11,16 @@
   }
 
   &--collapsed {
-    @apply grid-cols-[96px__1fr];
+    @apply grid-cols-[110px__1fr];
+
+    @media (max-width: 780px) {
+      @apply grid-cols-1;
+    }
 
     @media (min-width: 781px) {
       .DashboardLayout__sidebar {
         @apply fixed top-0 left-0 h-screen w-28;
       }
-    }
-
-    @media (max-width: 780px) {
-      @apply grid-cols-1;
     }
   }
 
@@ -56,15 +56,9 @@
   }
 
   &__main {
-    @apply bg-amber-600;
     grid-area: main;
 
-    @media (max-width: 780px) {
-      @apply mt-[69px];
-    }
-
-    @media (min-width: 781px) {
-      @apply mt-0;
-    }
+    @apply mt-[68px] px-4;
+    @apply md:mt-0;
   }
 }

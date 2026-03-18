@@ -1,4 +1,4 @@
-export interface Opinion {
+export interface IOpinion {
   opinion_id: number;
   feedback_excerpt: string;
   category: string;
@@ -7,17 +7,17 @@ export interface Opinion {
   sentiment_score: number;
 }
 
-export interface Feedback {
+export interface IFeedback {
   feedback_id: number;
   submitted_at: string;
   department: string;
   feedback_text: string;
   overall_sentiment: "positive" | "negative" | "neutral";
   overall_sentiment_score: number;
-  opinions: Opinion[];
+  opinions: IOpinion[];
 }
 
-export interface FeedbackTableRow {
+export interface IFeedbackTableRow {
   opinionId: number;
   feedbackId: number;
   date: string;
@@ -31,5 +31,5 @@ export interface FeedbackTableRow {
 }
 
 export interface FeedbackTableProps {
-  data: Feedback[];
+  data: IFeedback[];
 }

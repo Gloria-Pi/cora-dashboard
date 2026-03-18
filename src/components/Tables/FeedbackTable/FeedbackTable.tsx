@@ -6,13 +6,13 @@ import classNames from "classnames";
 
 import type {
   FeedbackTableProps,
-  FeedbackTableRow,
+  IFeedbackTableRow,
 } from "./FeedbackTable.models";
 import "./FeedbackTable.scss";
 
 export default function FeedbackTable({ data }: FeedbackTableProps) {
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
-  const [modalRow, setModalRow] = useState<FeedbackTableRow | null>(null);
+  const [modalRow, setModalRow] = useState<IFeedbackTableRow | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 780);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
   }, []);
 
   // Flatten data structure: each opinion becomes a row
-  const rows: FeedbackTableRow[] = data.flatMap((feedback) =>
+  const rows: IFeedbackTableRow[] = data.flatMap((feedback) =>
     feedback.opinions.map((opinion) => ({
       opinionId: opinion.opinion_id,
       feedbackId: feedback.feedback_id,
@@ -40,7 +40,7 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
     })),
   );
 
-  const handleRowClick = (row: FeedbackTableRow) => {
+  const handleRowClick = (row: IFeedbackTableRow) => {
     if (isMobile) {
       setModalRow(row);
     } else {
@@ -67,7 +67,6 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
   };
 
   const formatCategory = (text: string) => {
-    // Convert from snake_case or camelCase to Title Case
     const formatted = text
       .replace(/[_-]/g, " ")
       .replace(/([A-Z])/g, " $1")
@@ -76,7 +75,6 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
       .join(" ")
       .trim();
 
-    // Only capitalize the first letter of the entire string
     return formatted.charAt(0).toUpperCase() + formatted.slice(1).toLowerCase();
   };
 
@@ -88,8 +86,8 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
     <>
       <div className="FeedbackTable">
         <div className="FeedbackTable__wrapper">
-          <table className="FeedbackTable__table">
-            <thead className="FeedbackTable__header">
+          <table className="table">
+            <thead className="table__header">
               <tr>
                 <th>DATE</th>
                 <th>SENTIMENT</th>
@@ -106,9 +104,8 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                 <>
                   <tr
                     key={row.opinionId}
-                    className={classNames("FeedbackTable__row", {
-                      ["FeedbackTable__row--expanded"]:
-                        expandedRow === row.opinionId,
+                    className={classNames("table__row", {
+                      ["table__row--expanded"]: expandedRow === row.opinionId,
                     })}
                     onClick={() => handleRowClick(row)}
                   >
@@ -140,8 +137,8 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                     <td>{row.score.toFixed(2)}</td>
                     <td>
                       <div
-                        className={classNames("FeedbackTable__row__chevron", {
-                          ["FeedbackTable__row__chevron--expanded"]:
+                        className={classNames("table__row__chevron", {
+                          ["table__row__chevron--expanded"]:
                             expandedRow === row.opinionId,
                         })}
                       >
@@ -151,12 +148,12 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                   </tr>
 
                   {!isMobile && expandedRow === row.opinionId && (
-                    <tr className="FeedbackTable__expanded-content">
+                    <tr className="table__expanded-content">
                       <td colSpan={8}>
-                        <div className="FeedbackTable__expanded-content__label">
+                        <div className="table__expanded-content__label">
                           Full Statement
                         </div>
-                        <div className="FeedbackTable__expanded-content__text">
+                        <div className="table__expanded-content__text">
                           {row.fullStatement}
                         </div>
                       </td>
@@ -173,19 +170,19 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
         <div className="FeedbackModal">
           <div className="FeedbackModal__overlay" onClick={closeModal} />
           <div className="FeedbackModal__content">
-            <div className="FeedbackModal__header">
-              <span className="FeedbackModal__header__title">
+            <div className="FeedbackModal__content__header">
+              <span className="FeedbackModal__content__header__title">
                 Full Statement
               </span>
               <button
-                className="FeedbackModal__header__close"
+                className="FeedbackModal__content__header__close"
                 onClick={closeModal}
               >
                 <XIcon size={24} />
               </button>
             </div>
-            <div className="FeedbackModal__body">
-              <div className="FeedbackModal__body__text">
+            <div className="FeedbackModal__content__body">
+              <div className="FeedbackModal__content__body__text">
                 {modalRow.fullStatement}
               </div>
             </div>

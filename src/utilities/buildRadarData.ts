@@ -1,6 +1,6 @@
-import type IFeedback from "../constants/global.constants";
+import type IFeedbackChart from "../constants/global.constants";
 
-export function buildRadarData(feedbacks: IFeedback[]) {
+export function buildRadarData(feedbacks: IFeedbackChart[]) {
   const categoryMap: Record<string, number[]> = {};
 
   feedbacks.forEach((feedback) => {

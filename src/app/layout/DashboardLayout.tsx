@@ -9,16 +9,16 @@ import Sidebar from "../../components/Menus/Sidebar/Sidebar";
 import "./DashboardLayout.scss";
 
 export default function DashboardLayout() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 780);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 780);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 780);
+      setIsMobile(window.innerWidth < 780);
       // Reset collapsed state when entering mobile
-      if (window.innerWidth <= 780) {
-        setIsCollapsed(false);
+      if (window.innerWidth < 780) {
+        setIsCollapsed(true);
       }
     };
 

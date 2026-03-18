@@ -10,6 +10,7 @@
 
     &__title {
       @apply text-sm text-[#4A5565];
+      @apply md:text-lg;
     }
 
     &__icon {
@@ -24,7 +25,7 @@
   }
 
   &__description {
-    @apply text-xs text-[#6A7282];
+    @apply text-xs text-[#6A7282] mt-auto;
     @apply md:text-sm;
 
     &--positive {

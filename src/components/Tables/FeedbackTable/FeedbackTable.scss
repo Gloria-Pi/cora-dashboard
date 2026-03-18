@@ -6,14 +6,14 @@
   &__wrapper {
     @apply overflow-x-auto;
   }
+}
 
-  &__table {
-    @apply w-full border-collapse;
-    min-width: 800px;
+.table {
+  @apply w-full border-collapse;
+  min-width: 800px;
 
-    @media (max-width: 780px) {
-      min-width: 100%;
-    }
+  @media (max-width: 780px) {
+    min-width: 100%;
   }
 
   &__header {
@@ -106,41 +106,41 @@
   &--neutral {
     @apply bg-[#fef3c7] text-[#92400e];
   }
-}
 
-.FeedbackModal {
-  @apply fixed inset-0 z-50 flex items-end justify-center;
-  @apply md:items-center;
+  .FeedbackModal {
+    @apply fixed inset-0 z-50 flex items-end justify-center;
+    @apply md:items-center;
 
-  &__overlay {
-    @apply fixed inset-0 bg-black opacity-50;
-  }
-
-  &__content {
-    @apply relative bg-white rounded-t-2xl w-full max-h-[80vh] overflow-y-auto;
-    @apply md:rounded-2xl md:max-w-2xl md:max-h-[90vh];
-    @apply p-6;
-  }
-
-  &__header {
-    @apply flex items-center justify-between mb-4 pb-4 border-b border-zinc-200;
-
-    &__title {
-      @apply title-3-bold text-zinc-900;
+    &__overlay {
+      @apply fixed inset-0 bg-black opacity-50;
     }
 
-    &__close {
-      @apply p-2 rounded-lg hover:bg-hover-bg transition text-zinc-700 cursor-pointer;
-    }
-  }
+    &__content {
+      @apply relative bg-white rounded-t-2xl w-full max-h-[80vh] overflow-y-auto;
+      @apply md:rounded-2xl md:max-w-2xl md:max-h-[90vh];
+      @apply p-6;
 
-  &__body {
-    &__label {
-      @apply body-3 font-semibold text-zinc-700 mb-2;
-    }
+      &__header {
+        @apply flex items-center justify-between mb-4 pb-4 border-b border-zinc-200;
 
-    &__text {
-      @apply body-3 text-zinc-800 leading-relaxed;
+        &__title {
+          @apply title-3-bold text-zinc-900;
+        }
+
+        &__close {
+          @apply p-2 rounded-lg hover:bg-hover-bg transition text-zinc-700 cursor-pointer;
+        }
+      }
+
+      &__body {
+        &__label {
+          @apply body-3 font-semibold text-zinc-700 mb-2;
+        }
+
+        &__text {
+          @apply body-3 text-zinc-800 leading-relaxed;
+        }
+      }
     }
   }
 }

@@ -10,24 +10,10 @@ export default function Card({
   children,
 }: ChartCardProps) {
   return (
-    <div
-      className="Chart-card"
-      style={
-        {
-          // display: "flex",
-          // flexWrap: "wrap",
-          // width: "100%",
-          // minHeight: "300px",
-          // border: "1px solid ",
-          // padding: "10px",
-          // justifyContent: "space-around",
-          // alignItems: "stretch",
-        }
-      }
-    >
+    <div className="Chart-card">
       <h2 className="Chart-card__title">{title}</h2>
       {description && <p className="Chart-card__title">{description}</p>}
-      <ResponsiveContainer width="100%" height="100%" minHeight={minHeight}>
+      <ResponsiveContainer width="100%" height="90%" minHeight={minHeight}>
         {children}
       </ResponsiveContainer>
     </div>
