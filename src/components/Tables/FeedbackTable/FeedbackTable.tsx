@@ -63,6 +63,14 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
     }
   };
 
+  const handleModalOpinionClick = (opinionId: number) => {
+    closeModal();
+    // Wait for modal to close before scrolling
+    setTimeout(() => {
+      handleOpinionCardClick(opinionId);
+    }, 100);
+  };
+
   const closeModal = () => {
     setModalRow(null);
   };
@@ -282,7 +290,7 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
           <div className="FeedbackModal__content">
             <div className="FeedbackModal__content__header">
               <span className="FeedbackModal__content__header__title">
-                Feedback Details
+                Opinion Details
               </span>
               <button
                 className="FeedbackModal__content__header__close"
@@ -295,7 +303,23 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
               {(() => {
                 const feedbackData = getFeedbackData(modalRow.feedbackId);
                 return feedbackData ? (
-                  <>
+                  <div className="FeedbackModal__content__body__container">
+                    {/* Date */}
+                    <div className="modal-info-row">
+                      <span className="modal-info-row__label">Date</span>
+                      <span className="modal-info-row__value">
+                        {formatDate(modalRow.date)}
+                      </span>
+                    </div>
+
+                    {/* Department */}
+                    <div className="modal-info-row">
+                      <span className="modal-info-row__label">Department</span>
+                      <span className="modal-info-row__value">
+                        {modalRow.department}
+                      </span>
+                    </div>
+
                     {/* Full Feedback Card */}
                     <div className="feedback-card">
                       <div className="feedback-card__header">
@@ -307,55 +331,58 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                     </div>
 
                     {/* Opinions Grid */}
-                    {feedbackData.opinions.length > 1 && (
-                      <div className="opinions-section">
-                        <div className="opinions-section__header">
-                          Related Opinions ({feedbackData.opinions.length})
-                        </div>
-                        <div className="opinions-grid opinions-grid--mobile">
-                          {feedbackData.opinions.map((opinion) => (
-                            <div
-                              key={opinion.opinion_id}
-                              className="opinion-card"
-                            >
-                              <div className="opinion-card__header">
-                                <span
-                                  className={classNames("SentimentPill", {
-                                    ["SentimentPill--positive"]:
-                                      opinion.sentiment === "positive",
-                                    ["SentimentPill--negative"]:
-                                      opinion.sentiment === "negative",
-                                    ["SentimentPill--neutral"]:
-                                      opinion.sentiment === "neutral",
-                                  })}
-                                >
-                                  <span className="SentimentPill__dot">•</span>
-                                  {capitalizeSentiment(opinion.sentiment)}
-                                </span>
-                                <span className="opinion-card__score">
-                                  {opinion.sentiment_score.toFixed(2)}
-                                </span>
-                              </div>
-                              <div className="opinion-card__excerpt">
-                                "{opinion.feedback_excerpt}"
-                              </div>
-                              <div className="opinion-card__meta">
-                                <span className="opinion-card__category">
-                                  {formatCategory(opinion.category)}
-                                </span>
-                                <span className="opinion-card__separator">
-                                  •
-                                </span>
-                                <span className="opinion-card__subcategory">
-                                  {formatCategory(opinion.subcategory)}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+                    <div className="opinions-section">
+                      <div className="opinions-section__header">
+                        Related Opinions ({feedbackData.opinions.length})
                       </div>
-                    )}
-                  </>
+                      <div className="opinions-grid opinions-grid--mobile">
+                        {feedbackData.opinions.map((opinion) => (
+                          <div
+                            key={opinion.opinion_id}
+                            className="opinion-card"
+                            onClick={() =>
+                              handleModalOpinionClick(opinion.opinion_id)
+                            }
+                          >
+                            <div className="opinion-card__header">
+                              <span
+                                className={classNames("SentimentPill", {
+                                  ["SentimentPill--positive"]:
+                                    opinion.sentiment === "positive",
+                                  ["SentimentPill--negative"]:
+                                    opinion.sentiment === "negative",
+                                  ["SentimentPill--neutral"]:
+                                    opinion.sentiment === "neutral",
+                                })}
+                              >
+                                <span className="SentimentPill__dot">•</span>
+                                {capitalizeSentiment(opinion.sentiment)}
+                              </span>
+                              <span className="opinion-card__score">
+                                {opinion.sentiment_score.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="opinion-card__excerpt">
+                              "{opinion.feedback_excerpt}"
+                            </div>
+                            <div className="opinion-card__meta">
+                              <span className="opinion-card__category">
+                                {formatCategory(opinion.category)}
+                              </span>
+                              <span className="opinion-card__separator">•</span>
+                              <span className="opinion-card__subcategory">
+                                {formatCategory(opinion.subcategory)}
+                              </span>
+                            </div>
+                            <div className="opinion-card__action">
+                              <span>View in table</span>
+                              <ArrowRightIcon size={16} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <div className="FeedbackModal__content__body__text">
                     {modalRow.fullStatement}
