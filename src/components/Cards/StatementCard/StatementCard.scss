@@ -1,0 +1,53 @@
+@reference "../../../index.css";
+
+.StatementCard {
+  @apply flex items-center gap-4 p-4 bg-white rounded-lg border border-zinc-200;
+  @apply hover:border-zinc-300 transition-all duration-200;
+
+  &__icon {
+    @apply flex items-center justify-center;
+    @apply w-12 h-12 rounded-lg flex-shrink-0;
+    @apply mt-0.5; /* Offset to align with text baseline */
+
+    &--positive {
+      @apply bg-[#d1fae5] text-[#065f46];
+    }
+
+    &--negative {
+      @apply bg-[#fee2e2] text-[#991b1b];
+    }
+
+    &--neutral {
+      @apply bg-[#fef3c7] text-[#92400e];
+    }
+  }
+
+  &__content {
+    @apply flex flex-col gap-2 flex-1 min-w-0;
+
+    &__header {
+      @apply flex items-center gap-2 body-3 text-zinc-600;
+      @apply flex-wrap;
+
+      &__sentiment {
+        @apply font-semibold text-zinc-900;
+      }
+
+      &__separator {
+        @apply text-zinc-400;
+      }
+
+      &__category {
+        @apply text-zinc-700;
+      }
+
+      &__date {
+        @apply text-zinc-600;
+      }
+    }
+
+    &__text {
+      @apply body-2 text-zinc-800 leading-relaxed;
+    }
+  }
+}

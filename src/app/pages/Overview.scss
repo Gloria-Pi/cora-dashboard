@@ -15,7 +15,8 @@
       "header"
       "filters"
       "cards"
-      "charts";
+      "charts"
+      "recent";
 
     &__header {
       grid-area: header;
@@ -54,6 +55,10 @@
         }
       }
     }
+
+    &__recent {
+      grid-area: recent;
+    }
   }
 }
 
@@ -66,7 +71,8 @@
       "header header"
       "filters filters"
       "cards cards"
-      "charts charts";
+      "charts charts"
+      "recent recent";
   }
 }
 
@@ -78,7 +84,8 @@
     grid-template-areas:
       "header header header filters"
       "cards cards cards cards"
-      "charts charts charts charts";
+      "charts charts charts charts"
+      "recent recent recent recent";
   }
 }
 
