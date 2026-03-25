@@ -43,6 +43,20 @@
       @apply bg-zinc-50;
     }
 
+    &--highlighted {
+      @apply bg-blue-50;
+      animation: highlight-fade 2s ease-in-out;
+    }
+
+    @keyframes highlight-fade {
+      0% {
+        background-color: rgb(239, 246, 255);
+      }
+      100% {
+        background-color: transparent;
+      }
+    }
+
     td {
       @apply px-4 py-3 body-3 text-zinc-800;
       @apply md:px-6 md:py-4;
@@ -73,7 +87,11 @@
 
     td {
       @apply px-4 py-4;
-      @apply md:px-6 md:py-5;
+      @apply md:px-6 md:py-6;
+    }
+
+    &__container {
+      @apply flex flex-col gap-6;
     }
 
     &__label {
@@ -82,6 +100,95 @@
 
     &__text {
       @apply body-3 text-zinc-800 leading-relaxed;
+    }
+  }
+}
+
+// Feedback Card Styles
+.feedback-card {
+  @apply bg-zinc-100 rounded-lg p-4 border border-zinc-200;
+  @apply md:p-5;
+
+  &__header {
+    @apply body-3 font-semibold text-zinc-700 mb-3;
+  }
+
+  &__text {
+    @apply body-3 text-zinc-800 leading-relaxed;
+  }
+}
+
+// Opinions Section Styles
+.opinions-section {
+  @apply flex flex-col gap-4;
+
+  &__header {
+    @apply body-3 font-semibold text-zinc-700;
+  }
+}
+
+.opinions-grid {
+  @apply grid grid-cols-1 gap-3;
+  @apply md:grid-cols-2 md:gap-4;
+  @apply lg:grid-cols-3;
+
+  &--mobile {
+    @apply grid-cols-1;
+  }
+}
+
+// Opinion Card Styles
+.opinion-card {
+  @apply bg-zinc-100 rounded-lg p-4 border border-zinc-200;
+  @apply cursor-pointer transition-all duration-200;
+  @apply hover:bg-zinc-200 hover:border-zinc-300 hover:shadow-sm;
+  @apply flex flex-col gap-3;
+
+  &__header {
+    @apply flex items-center justify-between gap-2;
+  }
+
+  &__score {
+    @apply body-3 font-semibold text-zinc-700;
+  }
+
+  &__excerpt {
+    @apply body-3 text-zinc-800 leading-relaxed;
+    @apply italic;
+  }
+
+  &__meta {
+    @apply flex items-center gap-2 body-4 text-zinc-600;
+    @apply flex-wrap;
+  }
+
+  &__category {
+    @apply font-medium;
+  }
+
+  &__separator {
+    @apply text-zinc-400;
+  }
+
+  &__subcategory {
+    @apply text-zinc-600;
+  }
+
+  &__action {
+    @apply flex items-center justify-end gap-1.5 body-4 text-blue-600 font-medium;
+    @apply pt-2 border-t border-zinc-200;
+    @apply transition-colors;
+
+    svg {
+      @apply transition-transform;
+    }
+  }
+
+  &:hover &__action {
+    @apply text-blue-700;
+
+    svg {
+      @apply translate-x-1;
     }
   }
 }
@@ -133,6 +240,10 @@
       }
 
       &__body {
+        &__container {
+          @apply flex flex-col gap-4;
+        }
+
         &__label {
           @apply body-3 font-semibold text-zinc-700 mb-2;
         }
@@ -142,5 +253,19 @@
         }
       }
     }
+  }
+}
+
+// Modal Info Row Styles
+.modal-info-row {
+  @apply flex items-center justify-between py-2;
+  @apply border-b border-zinc-200;
+
+  &__label {
+    @apply body-3 font-semibold text-zinc-700;
+  }
+
+  &__value {
+    @apply body-3 text-zinc-800;
   }
 }
