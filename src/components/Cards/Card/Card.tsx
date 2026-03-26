@@ -10,6 +10,7 @@ export default function Card({
   icon: Icon,
   value,
   description,
+  // isPositive
 }: CardProps) {
   const [isPositive, setIsPositive] = useState(true);
   const [isNegative, setIsNegative] = useState(false);

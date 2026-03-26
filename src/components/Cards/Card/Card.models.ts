@@ -5,4 +5,7 @@ export default interface CardProps {
   icon?: Icon;
   value: string;
   description?: string;
+  //isPositive?
 }
+
+//facoltativo, se non viene dato valore la descrizione resterà di colore neutro

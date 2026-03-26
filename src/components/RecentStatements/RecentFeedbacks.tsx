@@ -1,21 +1,13 @@
-import { ArrowRightIcon } from "@phosphor-icons/react";
+import StatementCard from "../Cards/StatementCard/StatementCard";
+import Lnk from "../Links/Lnk";
 
-import { Link } from "react-router";
+import type RecentFeedbacksProps from "./RecentFeedbacks.models";
+import "./RecentFeedbacks.scss";
 
-import StatementCard from "../Cards/StatementCard";
-import type { IFeedback } from "../Tables/FeedbackTable/FeedbackTable.models";
-
-import "./RecentStatements.scss";
-
-interface RecentStatementsProps {
-  data: IFeedback[];
-  maxItems?: number;
-}
-
-export default function RecentStatements({
+export default function RecentFeedbacks({
   data,
   maxItems = 5,
-}: RecentStatementsProps) {
+}: RecentFeedbacksProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-GB", {
@@ -34,15 +26,16 @@ export default function RecentStatements({
     .slice(0, maxItems);
 
   return (
-    <div className="RecentStatements">
-      <div className="RecentStatements__header">
-        <h2 className="RecentStatements__header__title">Recent Statements</h2>
-        <Link to="/opinions" className="RecentStatements__header__link">
-          <span>View all</span>
-          <ArrowRightIcon size={16} />
-        </Link>
+    <div className="RecentFeedbacks">
+      <div className="RecentFeedbacks__header">
+        <h2 className="RecentFeedbacks__header__title">Feedback Recenti</h2>
+        <Lnk
+          href="/opinions/#feedbacks-table"
+          text="Vai alla tabella"
+          size={18}
+        />
       </div>
-      <div className="RecentStatements__list">
+      <div className="RecentFeedbacks__list">
         {recentFeedbacks.map((feedback) => (
           <StatementCard
             key={feedback.feedback_id}

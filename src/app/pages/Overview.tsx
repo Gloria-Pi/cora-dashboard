@@ -1,11 +1,16 @@
-import { ChatCircleIcon } from "@phosphor-icons/react";
+import {
+  ChatCircleIcon,
+  SmileyIcon,
+  TrendUpIcon,
+  UsersIcon,
+} from "@phosphor-icons/react";
 
 import Card from "../../components/Cards/Card/Card";
 import ChartCard from "../../components/Cards/ChartCard/ChartCard";
 import Header from "../../components/Header/Header";
 import CustomLineChart from "../../components/MiscRecharts/CustomLineChart/CustomLineChart";
 import CustomPieChart from "../../components/MiscRecharts/CustomPieChart/CustomPieChart";
-import RecentStatements from "../../components/RecentStatements";
+import RecentFeedbacks from "../../components/RecentStatements/RecentFeedbacks";
 import type { IFeedback } from "../../components/Tables/FeedbackTable/FeedbackTable.models";
 import { data1, data2 } from "../../mock/dummyData";
 import { DEFAULT_FEEDBACK_DATA } from "../../mock/feedbacks";
@@ -32,22 +37,22 @@ export default function Overview() {
             description="Collected this week"
           />
           <Card
-            title="Feedback Totali"
-            icon={ChatCircleIcon}
-            value="28"
-            description="Collected this week"
+            title="Positive Sentiment"
+            icon={SmileyIcon}
+            value="89"
+            description="57% of all opinions"
           />
           <Card
-            title="Feedback Totali"
-            icon={ChatCircleIcon}
-            value="28"
-            description="Collected this week"
+            title="Average Score"
+            icon={TrendUpIcon}
+            value="0.72"
+            description="Sentiment score"
           />
           <Card
-            title="Feedback Totali"
-            icon={ChatCircleIcon}
-            value="28"
-            description="Collected this week"
+            title="Departments"
+            icon={UsersIcon}
+            value="8"
+            description="Represented"
           />
         </div>
         <div className="Overview__grid__charts">
@@ -60,7 +65,7 @@ export default function Overview() {
           </ChartCard>
         </div>
         <div className="Overview__grid__recent">
-          <RecentStatements data={DEFAULT_FEEDBACK_DATA as IFeedback[]} />
+          <RecentFeedbacks data={DEFAULT_FEEDBACK_DATA as IFeedback[]} />
         </div>
       </div>
     </div>

@@ -50,8 +50,9 @@ export default function Opinions() {
             description="Represented"
           />
         </div>
-
-        <FeedbackTable data={DEFAULT_FEEDBACK_DATA as IFeedback[]} />
+        <div id="feedbacks-table">
+          <FeedbackTable data={DEFAULT_FEEDBACK_DATA as IFeedback[]} />
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+/* CHARTS */
 export interface IRechartsData {
   [key: string]: string | number | null;
 }

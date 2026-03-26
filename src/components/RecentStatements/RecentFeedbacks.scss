@@ -1,6 +1,6 @@
 @reference "../../index.css";
 
-.RecentStatements {
+.RecentFeedbacks {
   @apply flex flex-col gap-5 w-full;
   @apply bg-white rounded-xl border-[2.3px] border-[#E5E7EB];
   @apply p-5 md:p-6;
@@ -11,20 +11,6 @@
 
     &__title {
       @apply title-3-bold text-zinc-900;
-    }
-
-    &__link {
-      @apply flex items-center gap-2 body-3 text-blue-600 font-medium;
-      @apply hover:text-blue-700 transition-colors;
-      @apply cursor-pointer;
-
-      svg {
-        @apply transition-transform;
-      }
-
-      &:hover svg {
-        @apply translate-x-1;
-      }
     }
   }
 
