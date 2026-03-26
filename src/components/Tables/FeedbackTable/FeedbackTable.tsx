@@ -4,18 +4,18 @@ import { useEffect, useRef, useState } from "react";
 
 import classNames from "classnames";
 
+import ExpandedContent from "./ExpandedContent";
+import FeedbackModal from "./FeedbackModal";
 import type {
   FeedbackTableProps,
   IFeedbackTableRow,
 } from "./FeedbackTable.models";
 import "./FeedbackTable.scss";
-import ExpandedContent from "./ExpandedContent";
-import FeedbackModal from "./FeedbackModal";
 import {
+  capitalizeSentiment,
+  formatCategory,
   formatDate,
   formatText,
-  formatCategory,
-  capitalizeSentiment,
 } from "./formatters";
 
 export default function FeedbackTable({ data }: FeedbackTableProps) {
@@ -33,7 +33,7 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Flatten data structure: each opinion becomes a row
+  // Flatten data structure -> each opinion becomes a row
   const rows: IFeedbackTableRow[] = data.flatMap((feedback) =>
     feedback.opinions.map((opinion) => ({
       opinionId: opinion.opinion_id,
@@ -54,7 +54,7 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
       setModalRow(row);
     } else {
       setExpandedFeedback(
-        expandedFeedback === row.feedbackId ? null : row.feedbackId
+        expandedFeedback === row.feedbackId ? null : row.feedbackId,
       );
     }
   };
@@ -183,7 +183,9 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
       <FeedbackModal
         isOpen={!!modalRow && isMobile}
         onClose={closeModal}
-        feedbackData={modalRow ? getFeedbackData(modalRow.feedbackId) : undefined}
+        feedbackData={
+          modalRow ? getFeedbackData(modalRow.feedbackId) : undefined
+        }
         date={modalRow?.date || ""}
         department={modalRow?.department || ""}
         onOpinionClick={handleModalOpinionClick}

@@ -14,15 +14,25 @@
   --container-xl: 1280px;
   --container-2xl: 1440px; */
 
-  /* THEME */
+  /* TEXT */
   --color-positive-trend: #00c49f; /* LIGHT GREEN */
   --color-neutral-trend: #eab308; /* LIGHT ORANGE */
   --color-negative-trend: #ef4444; /* RED */
   --color-negative-trend-dark: #82181a; /* DARK RED */
   --color-primary-charts: #8884d8; /* BLUE */
+  --color-white: #ffffff;
 
+  /* EFFECTS */
   --color-hover-bg: #eff6ff;
   --color-hover-text: #155dfc;
 
-  --color-white: #ffffff;
+  /* ICON COLORS */
+  --color-icon-positive: #065f46; /* GREEN */
+  --color-icon-neutral: #92400e; /*  ORANGE */
+  --color-icon-negative: #991b1b; /* RED */
+
+  /* BACKGROUND COLORS */
+  --color-pale-positive: #d1fae5; /* GREEN */
+  --color-pale-neutral: #fef3c7; /*  ORANGE */
+  --color-pale-negative: #fee2e2; /* RED */
 }

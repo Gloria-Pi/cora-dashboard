@@ -1,3 +1,5 @@
+import type { FeedbackCategory } from "../mock/feedbacks";
+
 /* CHARTS */
 export interface IRechartsData {
   [key: string]: string | number | null;
@@ -5,7 +7,30 @@ export interface IRechartsData {
 
 export default interface IFeedbackChart {
   opinions: {
-    category: string;
+    category: FeedbackCategory;
     sentiment_score: number;
   }[];
+}
+
+/* SENTIMENT ANALYSIS */
+export type IPolarity = "positive" | "negative" | "neutral";
+
+/* MOCK DATA */
+export interface IOpinion {
+  opinion_id: number;
+  feedback_excerpt: string;
+  category: FeedbackCategory;
+  subcategory: string;
+  sentiment: IPolarity;
+  sentiment_score: number;
+}
+
+export interface IFeedback {
+  feedback_id: number;
+  submitted_at: string;
+  department: string;
+  feedback_text: string;
+  overall_sentiment: IPolarity;
+  overall_sentiment_score: number;
+  opinions: IOpinion[];
 }

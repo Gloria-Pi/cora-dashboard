@@ -5,11 +5,11 @@ import {
   UsersIcon,
 } from "@phosphor-icons/react";
 
-import Card from "../../components/Cards/Card/Card";
-import Header from "../../components/Header/Header";
-import FeedbackTable from "../../components/Tables/FeedbackTable";
-import type { IFeedback } from "../../components/Tables/FeedbackTable/FeedbackTable.models";
-import { DEFAULT_FEEDBACK_DATA } from "../../mock/feedbacks";
+import Card from "../../../components/Cards/Card/Card";
+import Header from "../../../components/Header/Header";
+import FeedbackTable from "../../../components/Tables/FeedbackTable";
+import type { IFeedback } from "../../../constants/global.constants";
+import { DEFAULT_FEEDBACK_DATA } from "../../../mock/feedbacks";
 
 import "./Opinions.scss";
 

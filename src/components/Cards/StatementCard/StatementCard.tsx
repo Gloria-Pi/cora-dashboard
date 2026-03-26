@@ -6,14 +6,13 @@ import {
 
 import classNames from "classnames";
 
-import "./StatementCard.scss";
+import {
+  capitalizeWord,
+  formatCategory,
+} from "../../../utilities/formatters.utils";
 
-interface StatementCardProps {
-  sentiment: "positive" | "negative" | "neutral";
-  category: string;
-  date: string;
-  feedbackText: string;
-}
+import type { StatementCardProps } from "./StatementCard.models";
+import "./StatementCard.scss";
 
 export default function StatementCard({
   sentiment,
@@ -32,22 +31,6 @@ export default function StatementCard({
     }
   };
 
-  const formatCategory = (text: string) => {
-    const formatted = text
-      .replace(/[_-]/g, " ")
-      .replace(/([A-Z])/g, " $1")
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" ")
-      .trim();
-
-    return formatted.charAt(0).toUpperCase() + formatted.slice(1).toLowerCase();
-  };
-
-  const capitalizeSentiment = (sentiment: string) => {
-    return sentiment.charAt(0).toUpperCase() + sentiment.slice(1);
-  };
-
   return (
     <div className="StatementCard">
       <div
@@ -62,7 +45,7 @@ export default function StatementCard({
       <div className="StatementCard__content">
         <div className="StatementCard__content__header">
           <span className="StatementCard__content__header__sentiment">
-            {capitalizeSentiment(sentiment)}
+            {capitalizeWord(sentiment)}
           </span>
           <span className="StatementCard__content__header__separator">•</span>
           <span className="StatementCard__content__header__category">

@@ -2,13 +2,16 @@ import { ArrowRightIcon } from "@phosphor-icons/react";
 
 import classNames from "classnames";
 
+import type { IPolarity } from "../../../constants/global.constants";
+import type { FeedbackCategory } from "../../../mock/feedbacks";
+
 interface OpinionCardProps {
   opinion: {
     opinion_id: number;
     feedback_excerpt: string;
-    category: string;
+    category: FeedbackCategory;
     subcategory: string;
-    sentiment: "positive" | "negative" | "neutral";
+    sentiment: IPolarity;
     sentiment_score: number;
   };
   onClick: (opinionId: number) => void;

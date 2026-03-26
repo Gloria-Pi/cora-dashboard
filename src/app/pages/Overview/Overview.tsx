@@ -5,15 +5,15 @@ import {
   UsersIcon,
 } from "@phosphor-icons/react";
 
-import Card from "../../components/Cards/Card/Card";
-import ChartCard from "../../components/Cards/ChartCard/ChartCard";
-import Header from "../../components/Header/Header";
-import CustomLineChart from "../../components/MiscRecharts/CustomLineChart/CustomLineChart";
-import CustomPieChart from "../../components/MiscRecharts/CustomPieChart/CustomPieChart";
-import RecentFeedbacks from "../../components/RecentStatements/RecentFeedbacks";
-import type { IFeedback } from "../../components/Tables/FeedbackTable/FeedbackTable.models";
-import { data1, data2 } from "../../mock/dummyData";
-import { DEFAULT_FEEDBACK_DATA } from "../../mock/feedbacks";
+import Card from "../../../components/Cards/Card/Card";
+import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
+import Header from "../../../components/Header/Header";
+import CustomLineChart from "../../../components/MiscRecharts/CustomLineChart/CustomLineChart";
+import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
+import RecentFeedbacks from "../../../components/RecentStatements/RecentFeedbacks";
+import type { IFeedback } from "../../../constants/global.constants";
+import { data1, data2 } from "../../../mock/dummyData";
+import { DEFAULT_FEEDBACK_DATA } from "../../../mock/feedbacks";
 
 import "./Overview.scss";
 
