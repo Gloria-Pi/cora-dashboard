@@ -8,6 +8,17 @@ export const FEEDBACK_CATEGORIES = [
 
 export type FeedbackCategory = (typeof FEEDBACK_CATEGORIES)[number];
 
+// Other approach --> declare union type without as const
+export type Department =
+  | "Engineering"
+  | "IT Operations"
+  | "Product"
+  | "Design"
+  | "HR"
+  | "Sales"
+  | "Marketing"
+  | "Customer Support";
+
 export const DEFAULT_FEEDBACK_DATA = [
   {
     feedback_id: 1,

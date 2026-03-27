@@ -1,5 +1,5 @@
-import type { IFeedback } from "./FeedbackTable.models";
-import OpinionCard from "./OpinionCard";
+import type { IFeedback } from "../../../../constants/global.constants";
+import OpinionCard from "../OpinionCard";
 
 interface ExpandedContentProps {
   feedbackData: IFeedback;
@@ -18,7 +18,7 @@ export default function ExpandedContent({
     <tr className="table__expanded-content">
       <td colSpan={8}>
         <div className="table__expanded-content__container">
-          {/* Full Feedback Card */}
+          {/* Feedback Card */}
           <div className="feedback-card">
             <div className="feedback-card__header">Full Feedback Statement</div>
             <div className="feedback-card__text">

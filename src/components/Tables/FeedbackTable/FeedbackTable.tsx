@@ -4,19 +4,20 @@ import { useEffect, useRef, useState } from "react";
 
 import classNames from "classnames";
 
-import ExpandedContent from "./ExpandedContent";
-import FeedbackModal from "./FeedbackModal";
+import {
+  capitalizeWord,
+  formatCategory,
+  formatDate,
+  formatText,
+} from "../../../utilities/formatters.utils";
+
+import ExpandedContent from "./ExpandedContent/ExpandedContent";
+import FeedbackModal from "./FeedbackModal/FeedbackModal";
 import type {
   FeedbackTableProps,
   IFeedbackTableRow,
 } from "./FeedbackTable.models";
 import "./FeedbackTable.scss";
-import {
-  capitalizeSentiment,
-  formatCategory,
-  formatDate,
-  formatText,
-} from "./formatters";
 
 export default function FeedbackTable({ data }: FeedbackTableProps) {
   const [expandedFeedback, setExpandedFeedback] = useState<number | null>(null);
@@ -138,10 +139,14 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                         >
                           <span className="SentimentPill__dot">•</span>
 
-                          {capitalizeSentiment(row.sentiment)}
+                          {capitalizeWord(row.sentiment)}
                         </span>
                       </td>
-                      <td>{formatText(row.excerpt)}</td>
+                      <td>
+                        {isMobile
+                          ? formatText(row.excerpt, 35)
+                          : formatText(row.excerpt)}
+                      </td>
                       <td className="hide-mobile">{row.department}</td>
                       <td className="hide-mobile">
                         {formatCategory(row.category)}
@@ -169,7 +174,7 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                           feedbackData={feedbackData}
                           onOpinionClick={handleOpinionCardClick}
                           formatCategory={formatCategory}
-                          capitalizeSentiment={capitalizeSentiment}
+                          capitalizeSentiment={capitalizeWord}
                         />
                       )}
                   </>
@@ -179,20 +184,18 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
           </table>
         </div>
       </div>
-
-      <FeedbackModal
-        isOpen={!!modalRow && isMobile}
-        onClose={closeModal}
-        feedbackData={
-          modalRow ? getFeedbackData(modalRow.feedbackId) : undefined
-        }
-        date={modalRow?.date || ""}
-        department={modalRow?.department || ""}
-        onOpinionClick={handleModalOpinionClick}
-        formatDate={formatDate}
-        formatCategory={formatCategory}
-        capitalizeSentiment={capitalizeSentiment}
-      />
+      {modalRow && isMobile && (
+        <FeedbackModal
+          onClose={closeModal}
+          feedbackData={getFeedbackData(modalRow.feedbackId)}
+          date={modalRow.date}
+          department={modalRow.department}
+          onOpinionClick={handleModalOpinionClick}
+          formatDate={formatDate}
+          formatCategory={formatCategory}
+          capitalizeSentiment={capitalizeWord}
+        />
+      )}
     </>
   );
 }

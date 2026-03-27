@@ -1,3 +1,4 @@
+import { formatDate } from "../../utilities/formatters.utils";
 import StatementCard from "../Cards/StatementCard/StatementCard";
 import Lnk from "../Links/Lnk";
 
@@ -8,15 +9,6 @@ export default function RecentFeedbacks({
   data,
   maxItems = 5,
 }: RecentFeedbacksProps) {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-  };
-
   // Sort by date (most recent first) and limit to maxItems
   const recentFeedbacks = [...data]
     .sort(

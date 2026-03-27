@@ -1,14 +1,14 @@
 import { XIcon } from "@phosphor-icons/react";
 
-import type { IFeedback } from "./FeedbackTable.models";
-import OpinionCard from "./OpinionCard";
+import type { IFeedback } from "../../../../constants/global.constants";
+import type { Department } from "../../../../mock/feedbacks";
+import OpinionCard from "../OpinionCard";
 
 interface FeedbackModalProps {
-  isOpen: boolean;
   onClose: () => void;
   feedbackData: IFeedback | undefined;
   date: string;
-  department: string;
+  department: Department;
   onOpinionClick: (opinionId: number) => void;
   formatDate: (dateString: string) => string;
   formatCategory: (text: string) => string;
@@ -16,7 +16,6 @@ interface FeedbackModalProps {
 }
 
 export default function FeedbackModal({
-  isOpen,
   onClose,
   feedbackData,
   date,
@@ -26,8 +25,6 @@ export default function FeedbackModal({
   formatCategory,
   capitalizeSentiment,
 }: FeedbackModalProps) {
-  if (!isOpen) return null;
-
   return (
     <div className="FeedbackModal">
       <div className="FeedbackModal__overlay" onClick={onClose} />

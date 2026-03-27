@@ -1,5 +1,5 @@
 import type { IFeedback, IPolarity } from "../../../constants/global.constants";
-import type { FeedbackCategory } from "../../../mock/feedbacks";
+import type { Department, FeedbackCategory } from "../../../mock/feedbacks";
 
 export interface IFeedbackTableRow {
   opinionId: number;
@@ -7,7 +7,7 @@ export interface IFeedbackTableRow {
   date: string;
   sentiment: IPolarity;
   excerpt: string;
-  department: string;
+  department: Department;
   category: FeedbackCategory;
   subcategory: string;
   score: number;

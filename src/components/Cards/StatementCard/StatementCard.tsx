@@ -1,14 +1,9 @@
-import {
-  SmileyIcon,
-  SmileyMehIcon,
-  SmileySadIcon,
-} from "@phosphor-icons/react";
-
 import classNames from "classnames";
 
 import {
   capitalizeWord,
   formatCategory,
+  getSentimentIcon,
 } from "../../../utilities/formatters.utils";
 
 import type { StatementCardProps } from "./StatementCard.models";
@@ -20,17 +15,6 @@ export default function StatementCard({
   date,
   feedbackText,
 }: StatementCardProps) {
-  const getIcon = () => {
-    switch (sentiment) {
-      case "positive":
-        return <SmileyIcon size={24} weight="regular" />;
-      case "negative":
-        return <SmileySadIcon size={24} weight="regular" />;
-      case "neutral":
-        return <SmileyMehIcon size={24} weight="regular" />;
-    }
-  };
-
   return (
     <div className="StatementCard">
       <div
@@ -40,7 +24,7 @@ export default function StatementCard({
           ["StatementCard__icon--neutral"]: sentiment === "neutral",
         })}
       >
-        {getIcon()}
+        {getSentimentIcon(sentiment)}
       </div>
       <div className="StatementCard__content">
         <div className="StatementCard__content__header">
