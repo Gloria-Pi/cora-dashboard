@@ -1,0 +1,11 @@
+@reference "../../../../../../index.css";
+
+.AdminItem {
+  @apply flex items-center cursor-pointer gap-2.5 px-3.5 py-3 rounded-lg
+         hover:bg-hover-bg bg-zinc-100 body-3 transition
+         text-zinc-700 hover:text-hover-text;
+
+  &--collapsed {
+    @apply bg-transparent rounded-none py-3 px-4;
+  }
+}

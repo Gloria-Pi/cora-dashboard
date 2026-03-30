@@ -3,7 +3,7 @@ import { ResponsiveContainer } from "recharts";
 import type ChartCardProps from "./ChartCard.models";
 import "./ChartCard.scss";
 
-export default function Card({
+export default function ChartCard({
   title,
   description,
   minHeight,

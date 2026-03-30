@@ -1,18 +1,17 @@
 @reference "../../../index.css";
 
 .Sidebar {
-  @apply h-full max-h-screen overflow-y-auto
-         flex flex-col
-         bg-white text-zinc-800
+  @apply h-full px-6 py-3
+         flex flex-col relative
          transition-all duration-300
-         px-6 py-5 border-r border-zinc-200;
+         bg-white text-zinc-800 border-r border-zinc-200;
 
   &--collapsed {
     @apply items-center;
 
-    @media (max-width: 780px) {
-      @apply items-stretch;
-    }
+    // @media (max-width: 780px) {
+    //   @apply items-stretch;
+    // }
   }
 
   &__top {
@@ -28,67 +27,10 @@
   }
 
   &__divider {
-    @apply border-zinc-200 my-5 min-w-14;
+    @apply border-zinc-200 my-4 min-w-14;
   }
 
   &__nav {
     @apply flex flex-col gap-3.5 flex-1;
-  }
-
-  &__admin {
-    @apply relative flex flex-col mt-auto;
-
-    &__dropdown {
-      @apply flex flex-col gap-1.5 mb-3;
-
-      &__item {
-        @apply flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg
-               hover:bg-hover-bg bg-zinc-100 body-3 transition
-               text-zinc-700 hover:text-hover-text;
-      }
-    }
-  }
-
-  &__info {
-    @apply flex items-center gap-3 px-2.5 py-2.5 rounded-lg
-           hover:bg-hover-bg transition w-full text-left;
-  }
-
-  &__profile {
-    @apply flex flex-col body-3;
-
-    &__name {
-      @apply font-semibold text-zinc-900;
-    }
-
-    &__role {
-      @apply body-4 text-zinc-500;
-    }
-  }
-}
-
-.NavItem {
-  @apply flex items-center gap-4 p-2.5 rounded-lg
-         hover:bg-hover-bg transition body-2
-         text-zinc-700 hover:text-hover-text;
-
-  svg {
-    @apply text-zinc-700 hover:text-hover-text;
-  }
-
-  &--active {
-    @apply bg-hover-bg text-hover-text font-semibold;
-
-    svg {
-      @apply text-hover-text;
-    }
-  }
-}
-
-.chevron {
-  @apply transition-transform duration-200 text-zinc-600 ml-auto;
-
-  &.rotate {
-    @apply rotate-180;
   }
 }

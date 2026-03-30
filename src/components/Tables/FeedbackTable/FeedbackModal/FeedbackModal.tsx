@@ -3,6 +3,7 @@ import { XIcon } from "@phosphor-icons/react";
 import type { IFeedback } from "../../../../constants/global.constants";
 import type { Department } from "../../../../mock/feedbacks";
 import OpinionCard from "../OpinionCard";
+import Overlay from "../../../Overlay/Overlay";
 
 interface FeedbackModalProps {
   onClose: () => void;
@@ -27,7 +28,7 @@ export default function FeedbackModal({
 }: FeedbackModalProps) {
   return (
     <div className="FeedbackModal">
-      <div className="FeedbackModal__overlay" onClick={onClose} />
+      <Overlay onClick={onClose} />
       <div className="FeedbackModal__content">
         <div className="FeedbackModal__content__header">
           <span className="FeedbackModal__content__header__title">

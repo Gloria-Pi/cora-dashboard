@@ -1,0 +1,19 @@
+@reference "../../../../index.css";
+
+.NavItem {
+  @apply flex items-center gap-4 p-2 rounded-lg
+         hover:bg-hover-bg transition body-2
+         text-zinc-700 hover:text-hover-text;
+
+  svg {
+    @apply text-zinc-700 hover:text-hover-text;
+  }
+
+  &--active {
+    @apply bg-hover-bg text-hover-text font-semibold;
+
+    svg {
+      @apply text-hover-text;
+    }
+  }
+}
