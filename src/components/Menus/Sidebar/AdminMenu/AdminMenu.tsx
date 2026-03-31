@@ -1,9 +1,10 @@
-import { CaretDownIcon, UserCircleIcon } from "@phosphor-icons/react";
+import { UserCircleIcon } from "@phosphor-icons/react";
 
 import { useEffect, useRef, useState } from "react";
 
 import { ADMIN_ITEMS } from "../../../../constants/navigation.constants";
 import { useCollapse } from "../../../../contexts/CollapseContext";
+import RotatingCaretDown from "../../../Icons/RotatingCaretDown/RotatingCaretDown";
 
 import AdminDropdown from "./AdminDropdown/AdminDropdown";
 import type AdminMenuProps from "./AdminMenu.models";
@@ -19,50 +20,50 @@ export default function AdminMenu({ name, role }: AdminMenuProps) {
   const toggleMenu = () => setAdminOpen(!adminOpen);
   const closeMenu = () => setAdminOpen(false);
 
-  // Click outside handler
+  // Clicks outside handler to close the menu
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
+    const handleClickOutsideDropdown = (e: MouseEvent) => {
+      if (!(e.target instanceof Node)) return;
+
       if (
-        !toggleButtonRef.current?.contains(target) &&
-        !dropdownRef.current?.contains(target)
+        !toggleButtonRef.current?.contains(e.target) &&
+        !dropdownRef.current?.contains(e.target)
       ) {
         closeMenu();
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutsideDropdown);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
   }, []);
 
   return (
     <div className="AdminMenu">
-      <AdminDropdown
-        items={ADMIN_ITEMS}
-        adminOpen={adminOpen}
-        onClick={closeMenu} // called when item inside dropdown is clicked
-        dropdownRef={dropdownRef} // parent controls ref
-      />
+      {adminOpen && (
+        <AdminDropdown
+          items={ADMIN_ITEMS}
+          onClick={closeMenu} // called when item inside dropdown is clicked
+          dropdownRef={dropdownRef}
+        />
+      )}
 
       <button
-        ref={toggleButtonRef}
         className="AdminMenu__user"
+        ref={toggleButtonRef}
         onClick={toggleMenu}
         title="User"
       >
-        <UserCircleIcon size={32} weight="light" />
+        <UserCircleIcon size={40} weight="light" />
 
         {!isCollapsed && (
           <>
             <div className="AdminMenu__user__profile">
-              <span className="AdminMenu__user__profile__name">{name}</span>
-              <span className="AdminMenu__user__profile__role">{role}</span>
+              <p className="AdminMenu__user__profile__name">{name}</p>
+              <p className="AdminMenu__user__profile__role">{role}</p>
             </div>
 
-            <CaretDownIcon
-              size={16}
-              className={`AdminMenu__user__chevron ${adminOpen ? "rotate" : ""}`}
-            />
+            <RotatingCaretDown condition={adminOpen} />
           </>
         )}
       </button>

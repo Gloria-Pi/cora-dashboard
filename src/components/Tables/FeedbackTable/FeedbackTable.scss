@@ -1,7 +1,7 @@
 @reference "../../../index.css";
 
 .FeedbackTable {
-  @apply w-full bg-white rounded-xl border-[2.3px] border-[#E5E7EB] overflow-hidden;
+  @apply w-full bg-white rounded-xl border-[2.3px] border-card-border overflow-hidden;
 
   &__wrapper {
     @apply overflow-x-auto;
@@ -17,7 +17,7 @@
   }
 
   &__header {
-    @apply bg-zinc-50 border-b border-[#E5E7EB];
+    @apply bg-zinc-50 border-b border-card-border;
 
     th {
       @apply px-4 py-4 text-left body-3 font-semibold text-zinc-700;
@@ -36,7 +36,7 @@
   }
 
   &__row {
-    @apply border-b border-[#E5E7EB] cursor-pointer transition;
+    @apply border-b border-card-border cursor-pointer transition;
     @apply hover:bg-hover-bg;
 
     &--expanded {
@@ -69,15 +69,8 @@
     }
 
     &__chevron {
-      @apply flex justify-end items-center;
-
       svg {
-        @apply transition-transform duration-200;
         color: #155dfc;
-      }
-
-      &--expanded svg {
-        @apply rotate-180;
       }
     }
   }

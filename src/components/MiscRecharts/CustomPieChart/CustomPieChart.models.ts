@@ -1,4 +1,4 @@
-import type { IRechartsData } from "../CustomLineChart/CustomLineChart.models";
+import type { IRechartsData } from "../../../constants/global.constants";
 
 export interface CustomPieChartProps {
   data: IRechartsData[];

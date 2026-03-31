@@ -58,6 +58,7 @@ export const ADMIN_ITEMS: AdminItemProps[] = [
   {
     label: "Logout",
     icon: <SignOutIcon size={18} />,
+    to: "/trends",
     onClick: () => console.log("Logout selected"),
   },
 ];

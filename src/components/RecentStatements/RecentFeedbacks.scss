@@ -2,7 +2,7 @@
 
 .RecentFeedbacks {
   @apply flex flex-col gap-5 w-full;
-  @apply bg-white rounded-xl border-[2.3px] border-[#E5E7EB];
+  @apply bg-white rounded-xl border-[2.3px] border-card-border;
   @apply p-5 md:p-6;
 
   &__header {

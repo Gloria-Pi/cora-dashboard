@@ -1,5 +1,3 @@
-import { CaretDownIcon } from "@phosphor-icons/react";
-
 import { useEffect, useRef, useState } from "react";
 
 import classNames from "classnames";
@@ -10,6 +8,7 @@ import {
   formatDate,
   formatText,
 } from "../../../utilities/formatters.utils";
+import RotatingCaretDown from "../../Icons/RotatingCaretDown/RotatingCaretDown";
 
 import ExpandedContent from "./ExpandedContent/ExpandedContent";
 import FeedbackModal from "./FeedbackModal/FeedbackModal";
@@ -156,13 +155,11 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                       </td>
                       <td>{row.score.toFixed(2)}</td>
                       <td>
-                        <div
-                          className={classNames("table__row__chevron", {
-                            ["table__row__chevron--expanded"]: isExpanded,
-                          })}
-                        >
-                          <CaretDownIcon size={24} />
-                        </div>
+                        <RotatingCaretDown
+                          parentClass="table__row__chevron"
+                          condition={isExpanded}
+                          size={20}
+                        />
                       </td>
                     </tr>
 

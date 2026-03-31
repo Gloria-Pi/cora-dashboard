@@ -7,7 +7,7 @@ export default function Navbar({ onMenuToggle, title }: NavbarProps) {
   return (
     <nav className="Navbar">
       <button className="Navbar__hamburger" onClick={onMenuToggle}>
-        <ListIcon size={28} weight="light" />
+        <ListIcon size={30} weight="light" />
       </button>
 
       <span className="Navbar__title">{title}</span>

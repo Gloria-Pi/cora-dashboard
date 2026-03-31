@@ -8,38 +8,38 @@ import AdminItem from "./AdminItem/AdminItem";
 
 export default function AdminDropdown({
   items,
-  adminOpen,
   onClick,
   dropdownRef,
 }: AdminDropdownProps) {
-  const { isCollapsed } = useCollapse();
+  const { isCollapsed, handleNavigation } = useCollapse();
 
-  const handleItemClick = (itemClick?: (e: React.MouseEvent) => void) => {
+  const handleItemClick = (onItemClick: (e: React.MouseEvent) => void) => {
     return (e: React.MouseEvent) => {
-      itemClick?.(e);
-      onClick?.(); // close dropdown
+      onItemClick(e);
+      onClick?.(); // close dropdown when clicking one of the items
+      handleNavigation(); // close sidebar when clicking on a NavItem
     };
   };
 
   return (
     <>
-      {adminOpen && (
-        <div
-          ref={dropdownRef}
-          className={classNames("AdminDropdown", {
-            ["AdminDropdown--collapsed"]: isCollapsed,
-          })}
-        >
-          {items.map((item, index) => (
-            <AdminItem
-              key={index}
-              icon={item.icon}
-              label={item.label}
-              onClick={handleItemClick(item.onClick)}
-            />
-          ))}
-        </div>
-      )}
+      <div
+        ref={dropdownRef}
+        className={classNames("AdminDropdown", {
+          ["AdminDropdown--collapsed"]: isCollapsed,
+        })}
+      >
+        {items.map((item, index) => (
+          <AdminItem
+            key={index}
+            icon={item.icon}
+            label={item.label}
+            onClick={handleItemClick(item.onClick)}
+            title={item?.title}
+            to={item?.to}
+          />
+        ))}
+      </div>
     </>
   );
 }

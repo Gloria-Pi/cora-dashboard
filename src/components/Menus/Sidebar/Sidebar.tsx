@@ -1,7 +1,5 @@
 import { ListIcon } from "@phosphor-icons/react";
 
-// import { useState } from "react";
-
 import classNames from "classnames";
 
 import { NAV_ITEMS } from "../../../constants/navigation.constants";
@@ -13,7 +11,6 @@ import type SidebarProps from "./Sidebar.models";
 import "./Sidebar.scss";
 
 export default function Sidebar({ title, onToggle, onNavigate }: SidebarProps) {
-  // const [adminOpen, setAdminOpen] = useState(false);
   const { isCollapsed } = useCollapse();
 
   return (
@@ -54,8 +51,6 @@ export default function Sidebar({ title, onToggle, onNavigate }: SidebarProps) {
         <AdminMenu
           name="Mario Rossi" //DA RENDERE DINAMICO
           role="HR Manager" //DA RENDERE DINAMICO
-          // handleClick={() => setAdminOpen(!adminOpen)}
-          // adminOpen={adminOpen}
         />
       </div>
     </div>

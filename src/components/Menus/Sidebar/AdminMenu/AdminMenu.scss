@@ -1,14 +1,18 @@
 @reference "../../../../index.css";
 
 .AdminMenu {
-  @apply relative flex flex-col py-3;
+  @apply relative flex flex-col py-2.5;
 
   &__user {
     @apply flex items-center gap-3 rounded-lg cursor-pointer
-           hover:bg-hover-bg transition text-left;
+           transition text-left hover:bg-hover-bg;
 
     svg {
-      @apply text-zinc-700 hover:text-hover-text;
+      @apply text-zinc-700;
+    }
+
+    &:hover svg {
+      @apply text-hover-text;
     }
 
     &__profile {
@@ -20,14 +24,6 @@
 
       &__role {
         @apply body-4 text-zinc-500;
-      }
-    }
-
-    &__chevron {
-      @apply transition-transform duration-200 text-zinc-600 ml-auto;
-
-      &.rotate {
-        @apply rotate-180;
       }
     }
   }

@@ -2,7 +2,8 @@ import { createContext, useContext } from "react";
 
 type CollapseContextType = {
   isCollapsed: boolean;
-  toggleCollapse: () => void;
+  toggleCollapse: (value: boolean) => void;
+  handleNavigation: () => void;
 };
 
 const CollapseContext = createContext<CollapseContextType | null>(null);

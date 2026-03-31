@@ -7,24 +7,17 @@ import Navbar from "../../components/Menus/Navbar/Navbar";
 import Sidebar from "../../components/Menus/Sidebar/Sidebar";
 import Overlay from "../../components/Overlay/Overlay";
 import CollapseContext from "../../contexts/CollapseContext";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 import "./DashboardLayout.scss";
 
 export default function DashboardLayout() {
-  const [isCollapsed, setIsCollapsed] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const isMobile = useIsMobile();
+  const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth < 768) {
-        setIsCollapsed(true);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    setIsCollapsed(isMobile);
+  }, [isMobile]);
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -39,7 +32,7 @@ export default function DashboardLayout() {
   };
 
   return (
-    <CollapseContext value={{ isCollapsed, toggleCollapse }}>
+    <CollapseContext value={{ isCollapsed, toggleCollapse, handleNavigation }}>
       <div
         className={classNames("DashboardLayout", {
           ["DashboardLayout--collapsed"]: isCollapsed && !isMobile,

@@ -34,3 +34,13 @@ export default interface IFeedbackChart {
     sentiment_score: number;
   }[];
 }
+
+/* PHOSPHORICONS */
+
+export type PhosphorWeightType =
+  | "bold"
+  | "duotone"
+  | "light"
+  | "fill"
+  | "regular"
+  | "thin";

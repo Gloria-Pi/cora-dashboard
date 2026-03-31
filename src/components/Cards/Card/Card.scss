@@ -1,7 +1,7 @@
 @reference "../../../index.css";
 
 .Card {
-  @apply w-full p-3.5 gap-1.5 bg-white border-[2.3px] border-[#E5E7EB] rounded-xl flex flex-col;
+  @apply w-full p-3.5 gap-1.5 bg-white border-[2.3px] border-card-border rounded-xl flex flex-col;
   @apply md:p-4 md:gap-2;
   @apply xl:p-4.5 xl:gap-2.5;
 
