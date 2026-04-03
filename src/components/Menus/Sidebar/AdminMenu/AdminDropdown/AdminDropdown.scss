@@ -1,0 +1,10 @@
+@reference "../../../../../index.css";
+
+.AdminDropdown {
+  @apply flex flex-col gap-2 mb-5.5;
+
+  &--collapsed {
+    @apply fixed left-23 bottom-0 gap-0 rounded-lg
+          bg-white w-42 border border-zinc-200;
+  }
+}

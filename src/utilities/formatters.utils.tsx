@@ -27,7 +27,7 @@ export const formatText = (text: string, maxLength: number = 80) => {
   return `"${text.substring(0, maxLength)}..."`;
 };
 
-/* STATEMENT CARD */
+/* FEEDBACK CARD */
 
 export function formatCategory(text: string) {
   const formatted = text
@@ -41,13 +41,14 @@ export function formatCategory(text: string) {
   return formatted.charAt(0).toUpperCase() + formatted.slice(1).toLowerCase();
 }
 
-export function getSentimentIcon(sentiment: IPolarity) {
+/* SENTIMENT PILL */
+export function getSentimentIcon(sentiment: IPolarity, size: number) {
   switch (sentiment) {
     case "positive":
-      return <SmileyIcon size={24} weight="regular" />;
+      return <SmileyIcon size={size} weight="regular" />;
     case "negative":
-      return <SmileySadIcon size={24} weight="regular" />;
+      return <SmileySadIcon size={size} weight="regular" />;
     case "neutral":
-      return <SmileyMehIcon size={24} weight="regular" />;
+      return <SmileyMehIcon size={size} weight="regular" />;
   }
 }

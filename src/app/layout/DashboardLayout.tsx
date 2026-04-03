@@ -1,46 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import classNames from "classnames";
 import { Outlet } from "react-router";
 
 import Navbar from "../../components/Menus/Navbar/Navbar";
 import Sidebar from "../../components/Menus/Sidebar/Sidebar";
+import Overlay from "../../components/Overlay/Overlay";
+import { BREAKPOINTS } from "../../constants/global.constants";
+import CollapseContext from "../../contexts/CollapseContext";
+import { useIsBelowBreakpoint } from "../../hooks/useIsBelowBreakpoint";
+import useStopAnimation from "../../hooks/useStopAnimation";
 
 import "./DashboardLayout.scss";
 
 export default function DashboardLayout() {
-  const [isCollapsed, setIsCollapsed] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 780);
+  const isMobile = useIsBelowBreakpoint(BREAKPOINTS.md);
+  const stopAnimation = useStopAnimation();
+  const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 780);
-      // Reset collapsed state when entering mobile
-      if (window.innerWidth < 780) {
-        setIsCollapsed(true);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleCollapse = () => {
-    // On mobile, close the menu instead of collapsing
-    if (isMobile) {
-      closeMobileMenu();
-    } else {
-      setIsCollapsed(!isCollapsed);
-    }
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
-  const handleMobileMenuToggle = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
+  const handleNavigation = () => {
+    setIsCollapsed(isMobile || isCollapsed ? true : false);
   };
 
   const handleSidebarClick = (e: React.MouseEvent) => {
@@ -48,38 +31,36 @@ export default function DashboardLayout() {
   };
 
   return (
-    <div
-      className={classNames("DashboardLayout", {
-        ["DashboardLayout--collapsed"]: isCollapsed && !isMobile,
-        ["DashboardLayout--mobile-open"]: isMobileMenuOpen,
-      })}
-    >
-      <Navbar onMenuToggle={handleMobileMenuToggle} title="CORA" />
-
+    <CollapseContext value={{ isCollapsed, toggleCollapse, handleNavigation }}>
       <div
-        className={classNames("DashboardLayout__overlay", {
-          show: isMobileMenuOpen,
+        className={classNames("DashboardLayout", {
+          ["DashboardLayout--collapsed"]: isCollapsed && !isMobile,
         })}
-        onClick={closeMobileMenu}
-      />
-
-      <aside
-        className={classNames("DashboardLayout__sidebar", {
-          ["DashboardLayout__sidebar--mobile-open"]: isMobileMenuOpen,
-        })}
-        onClick={handleSidebarClick}
       >
-        <Sidebar
-          isCollapsed={isCollapsed && !isMobile}
-          onToggle={handleCollapse}
-          title={"CORA"}
-          onNavigate={closeMobileMenu}
-        />
-      </aside>
+        {isMobile && <Navbar onMenuToggle={toggleCollapse} title="CORA" />}
 
-      <main className="DashboardLayout__main">
-        <Outlet />
-      </main>
-    </div>
+        {isMobile && !isCollapsed && <Overlay onClick={toggleCollapse} />}
+
+        <aside
+          className={classNames("DashboardLayout__sidebar", {
+            ["DashboardLayout__sidebar--expanded"]:
+              stopAnimation && !isCollapsed,
+            ["DashboardLayout__sidebar--expanded-animation"]:
+              !isCollapsed && isMobile,
+          })}
+          onClick={handleSidebarClick}
+        >
+          <Sidebar
+            onToggle={toggleCollapse}
+            title={"CORA"}
+            onNavigate={handleNavigation}
+          />
+        </aside>
+
+        <main className="DashboardLayout__main">
+          <Outlet />
+        </main>
+      </div>
+    </CollapseContext>
   );
 }

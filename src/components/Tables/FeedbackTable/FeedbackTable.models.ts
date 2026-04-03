@@ -1,19 +1,5 @@
-import type { IFeedback, IPolarity } from "../../../constants/global.constants";
-import type { Department, FeedbackCategory } from "../../../mock/feedbacks";
+import type { IFeedback } from "../../../constants/global.constants";
 
-export interface IFeedbackTableRow {
-  opinionId: number;
-  feedbackId: number;
-  date: string;
-  sentiment: IPolarity;
-  excerpt: string;
-  department: Department;
-  category: FeedbackCategory;
-  subcategory: string;
-  score: number;
-  fullStatement: string;
-}
-
-export interface FeedbackTableProps {
+export default interface FeedbackTableProps {
   data: IFeedback[];
 }

@@ -1,89 +1,67 @@
-import { CaretDownIcon } from "@phosphor-icons/react";
-
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import React from "react";
 
 import classNames from "classnames";
 
 import {
-  capitalizeWord,
+  BREAKPOINTS,
+  type IOpinionTableRow,
+} from "../../../constants/global.constants";
+import { useIsBelowBreakpoint } from "../../../hooks/useIsBelowBreakpoint";
+import {
   formatCategory,
   formatDate,
   formatText,
+  getSentimentIcon,
 } from "../../../utilities/formatters.utils";
+import RotatingCaretDown from "../../Icons/RotatingCaretDown/RotatingCaretDown";
+import SentimentPill from "../../SentimentPill/SentimentPill";
 
-import ExpandedContent from "./ExpandedContent/ExpandedContent";
-import FeedbackModal from "./FeedbackModal/FeedbackModal";
-import type {
-  FeedbackTableProps,
-  IFeedbackTableRow,
-} from "./FeedbackTable.models";
+import ExpandedRow from "./ExpandedRow/ExpandedRow";
+import type FeedbackTableProps from "./FeedbackTable.models";
 import "./FeedbackTable.scss";
 
 export default function FeedbackTable({ data }: FeedbackTableProps) {
-  const [expandedFeedback, setExpandedFeedback] = useState<number | null>(null);
-  const [modalRow, setModalRow] = useState<IFeedbackTableRow | null>(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 780);
+  const [expandedOpinion, setExpandedOpinion] = useState<number | null>(null);
   const rowRefs = useRef<{ [key: number]: HTMLTableRowElement | null }>({});
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 780);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isBelowLg = useIsBelowBreakpoint(BREAKPOINTS.lg);
 
   // Flatten data structure -> each opinion becomes a row
-  const rows: IFeedbackTableRow[] = data.flatMap((feedback) =>
+  const rows: IOpinionTableRow[] = data.flatMap((feedback) =>
     feedback.opinions.map((opinion) => ({
       opinionId: opinion.opinion_id,
-      feedbackId: feedback.feedback_id,
-      date: feedback.submitted_at,
-      sentiment: opinion.sentiment,
       excerpt: opinion.feedback_excerpt,
-      department: feedback.department,
+      sentiment: opinion.sentiment,
       category: opinion.category,
       subcategory: opinion.subcategory,
       score: opinion.sentiment_score,
-      fullStatement: feedback.feedback_text,
+
+      feedbackId: feedback.feedback_id,
+      date: feedback.submitted_at,
+      department: feedback.department,
     })),
   );
 
-  const handleRowClick = (row: IFeedbackTableRow) => {
-    if (isMobile) {
-      setModalRow(row);
-    } else {
-      setExpandedFeedback(
-        expandedFeedback === row.feedbackId ? null : row.feedbackId,
-      );
-    }
+  const handleRowClick = (row: IOpinionTableRow) => {
+    setExpandedOpinion(
+      expandedOpinion === row.opinionId ? null : row.opinionId,
+    );
   };
 
   const handleOpinionCardClick = (opinionId: number) => {
-    const rowElement = rowRefs.current[opinionId];
-    if (rowElement) {
-      rowElement.scrollIntoView({ behavior: "smooth", block: "center" });
-      rowElement.classList.add("table__row--highlighted");
-      setTimeout(() => {
-        rowElement.classList.remove("table__row--highlighted");
-      }, 2000);
+    closeModal();
+
+    const selectedRow = rowRefs.current[opinionId];
+    if (selectedRow) {
+      setExpandedOpinion(opinionId);
+      selectedRow.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
-  const handleModalOpinionClick = (opinionId: number) => {
-    closeModal();
-    // Wait for modal to close before scrolling
-    setTimeout(() => {
-      handleOpinionCardClick(opinionId);
-    }, 100);
-  };
-
   const closeModal = () => {
-    setModalRow(null);
+    setExpandedOpinion(null);
   };
 
-  // Get the full feedback data for a given feedback ID
   const getFeedbackData = (feedbackId: number) => {
     return data.find((f) => f.feedback_id === feedbackId);
   };
@@ -92,110 +70,94 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
     <>
       <div className="FeedbackTable">
         <div className="FeedbackTable__wrapper">
-          <table className="table">
-            <thead className="table__header">
+          <table className="Table">
+            <thead className="Table__header">
               <tr>
+                <th>{!isBelowLg ? "SENTIMENT" : ""}</th>
                 <th>DATE</th>
-                <th>SENTIMENT</th>
                 <th>EXCERPT</th>
-                <th className="hide-mobile">DEPARTMENT</th>
-                <th className="hide-mobile">CATEGORY</th>
-                <th className="hide-mobile">SUBCATEGORY</th>
+                {!isBelowLg && (
+                  <>
+                    <th>CATEGORY</th>
+                    <th>SUBCATEGORY</th>
+                    <th>DEPARTMENT</th>
+                  </>
+                )}
                 <th>SCORE</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {rows.map((row, index) => {
-                const feedbackData = getFeedbackData(row.feedbackId);
-                const isExpanded = expandedFeedback === row.feedbackId;
-                const isFirstOpinionOfFeedback =
-                  index === 0 || rows[index - 1].feedbackId !== row.feedbackId;
+              {rows.map((row) => {
+                const {
+                  feedbackId,
+                  opinionId,
+                  date,
+                  sentiment,
+                  excerpt,
+                  category,
+                  subcategory,
+                  department,
+                  score,
+                } = row;
+
+                const currFeedbackData = getFeedbackData(feedbackId);
+                const isExpanded = expandedOpinion === opinionId;
 
                 return (
-                  <>
+                  <React.Fragment key={opinionId}>
                     <tr
-                      key={row.opinionId}
                       ref={(el) => {
-                        rowRefs.current[row.opinionId] = el;
+                        rowRefs.current[opinionId] = el;
                       }}
-                      className={classNames("table__row", {
-                        ["table__row--expanded"]: isExpanded,
-                        ["table__row--highlighted"]: false,
+                      className={classNames("Table__row", {
+                        ["Table__row--expanded"]: isExpanded,
                       })}
                       onClick={() => handleRowClick(row)}
                     >
-                      <td>{formatDate(row.date)}</td>
                       <td>
-                        <span
-                          className={classNames("SentimentPill", {
-                            ["SentimentPill--positive"]:
-                              row.sentiment === "positive",
-                            ["SentimentPill--negative"]:
-                              row.sentiment === "negative",
-                            ["SentimentPill--neutral"]:
-                              row.sentiment === "neutral",
-                          })}
-                        >
-                          <span className="SentimentPill__dot">•</span>
-
-                          {capitalizeWord(row.sentiment)}
-                        </span>
+                        <SentimentPill
+                          sentiment={sentiment}
+                          symbol={getSentimentIcon(sentiment, 24)}
+                        />
                       </td>
+                      <td>{formatDate(date)}</td>
                       <td>
-                        {isMobile
-                          ? formatText(row.excerpt, 35)
-                          : formatText(row.excerpt)}
+                        {isBelowLg
+                          ? formatText(excerpt, 35)
+                          : formatText(excerpt)}
                       </td>
-                      <td className="hide-mobile">{row.department}</td>
-                      <td className="hide-mobile">
-                        {formatCategory(row.category)}
-                      </td>
-                      <td className="hide-mobile">
-                        {formatCategory(row.subcategory)}
-                      </td>
-                      <td>{row.score.toFixed(2)}</td>
+                      {!isBelowLg && (
+                        <>
+                          <td>{formatCategory(category)}</td>
+                          <td>{formatCategory(subcategory)}</td>
+                          <td>{department}</td>
+                        </>
+                      )}
+                      <td>{score.toFixed(2)}</td>
                       <td>
-                        <div
-                          className={classNames("table__row__chevron", {
-                            ["table__row__chevron--expanded"]: isExpanded,
-                          })}
-                        >
-                          <CaretDownIcon size={24} />
-                        </div>
+                        <RotatingCaretDown
+                          parentClass="Table__row__chevron"
+                          condition={isExpanded}
+                          size={22}
+                        />
                       </td>
                     </tr>
 
-                    {!isMobile &&
-                      isExpanded &&
-                      isFirstOpinionOfFeedback &&
-                      feedbackData && (
-                        <ExpandedContent
-                          feedbackData={feedbackData}
-                          onOpinionClick={handleOpinionCardClick}
-                          formatCategory={formatCategory}
-                          capitalizeSentiment={capitalizeWord}
-                        />
-                      )}
-                  </>
+                    {isExpanded && currFeedbackData && (
+                      <ExpandedRow
+                        feedbackData={currFeedbackData}
+                        onClose={closeModal}
+                        onOpinionClick={handleOpinionCardClick}
+                      />
+                    )}
+                  </React.Fragment>
                 );
               })}
             </tbody>
           </table>
         </div>
       </div>
-      {modalRow && isMobile && (
-        <FeedbackModal
-          onClose={closeModal}
-          feedbackData={getFeedbackData(modalRow.feedbackId)}
-          date={modalRow.date}
-          department={modalRow.department}
-          onOpinionClick={handleModalOpinionClick}
-          formatDate={formatDate}
-          formatCategory={formatCategory}
-          capitalizeSentiment={capitalizeWord}
-        />
-      )}
     </>
   );
 }

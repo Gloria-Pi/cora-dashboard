@@ -5,52 +5,34 @@
   @apply grid grid-cols-[256px__1fr];
   grid-template-areas: "sidebar main";
 
-  @media (max-width: 780px) {
+  @media (max-width: 767px) {
     @apply grid-cols-1;
     grid-template-areas: "main";
   }
 
   &--collapsed {
-    @apply grid-cols-[110px__1fr];
+    @apply grid-cols-[92px__1fr];
 
-    @media (max-width: 780px) {
-      @apply grid-cols-1;
-    }
-
-    @media (min-width: 781px) {
+    @media (min-width: 768px) {
       .DashboardLayout__sidebar {
-        @apply fixed top-0 left-0 h-screen w-28;
-      }
-    }
-  }
-
-  &__overlay {
-    @apply fixed inset-0 bg-black opacity-50 z-40;
-    @apply hidden;
-
-    @media (max-width: 780px) {
-      &.show {
-        @apply block;
+        @apply fixed top-0 left-0 h-screen w-23;
       }
     }
   }
 
   &__sidebar {
-    @apply bg-green-700;
     grid-area: sidebar;
 
-    @media (min-width: 781px) {
-      @apply fixed top-0 left-0 h-screen w-[256px];
-    }
+    @apply fixed top-0 h-screen -left-64 w-64 z-50 invisible;
+    @apply md:left-0 md:visible;
 
-    @media (max-width: 780px) {
-      @apply fixed top-0 left-0 h-screen w-64 z-50;
-      @apply transform -translate-x-full transition-transform duration-300;
-    }
-
-    &--mobile-open {
-      @media (max-width: 780px) {
-        @apply translate-x-0;
+    @media (max-width: 768px) {
+      &--expanded-animation {
+        @apply transform transition-transform duration-300;
+        @apply translate-x-64 visible;
+      }
+      &--expanded {
+        @apply transform-none transition-none;
       }
     }
   }
@@ -58,7 +40,7 @@
   &__main {
     grid-area: main;
 
-    @apply mt-[68px] px-4;
+    @apply mt-16 px-12 py-8;
     @apply md:mt-0;
   }
 }

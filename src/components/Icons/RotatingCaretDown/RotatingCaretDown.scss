@@ -1,0 +1,9 @@
+@reference "../../../index.css";
+
+.Chevron {
+  @apply transition-transform duration-200 text-zinc-600 ml-auto cursor-pointer;
+
+  &--rotated {
+    @apply rotate-180;
+  }
+}

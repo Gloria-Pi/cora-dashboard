@@ -1,11 +1,15 @@
+import { ArrowRightIcon } from "@phosphor-icons/react";
+
 import { formatDate } from "../../utilities/formatters.utils";
-import StatementCard from "../Cards/StatementCard/StatementCard";
+import FeedbackCard from "../Cards/FeedbackCard/FeedbackCard";
 import Lnk from "../Links/Lnk";
 
 import type RecentFeedbacksProps from "./RecentFeedbacks.models";
 import "./RecentFeedbacks.scss";
 
 export default function RecentFeedbacks({
+  title,
+  navText,
   data,
   maxItems = 5,
 }: RecentFeedbacksProps) {
@@ -20,16 +24,16 @@ export default function RecentFeedbacks({
   return (
     <div className="RecentFeedbacks">
       <div className="RecentFeedbacks__header">
-        <h2 className="RecentFeedbacks__header__title">Feedback Recenti</h2>
+        <h3 className="RecentFeedbacks__header__title">{title}</h3>
         <Lnk
           href="/opinions/#feedbacks-table"
-          text="Vai alla tabella"
-          size={18}
+          text={navText}
+          icon={<ArrowRightIcon size={18} />}
         />
       </div>
       <div className="RecentFeedbacks__list">
         {recentFeedbacks.map((feedback) => (
-          <StatementCard
+          <FeedbackCard
             key={feedback.feedback_id}
             sentiment={feedback.overall_sentiment}
             category={feedback.opinions[0]?.category || "general"}

@@ -1,0 +1,56 @@
+@reference "../../../index.css";
+
+.OpinionCard {
+  @apply bg-white rounded-xl p-4 border border-slate-200 shadow-sm;
+  @apply cursor-pointer transition-all duration-200;
+  @apply hover:shadow-md hover:border-blue-300 hover:bg-blue-50/30;
+  @apply flex flex-col gap-3;
+
+  &__header {
+    @apply flex items-center justify-between gap-2;
+  }
+
+  &__score {
+    @apply body-3 font-semibold text-zinc-700;
+  }
+
+  &__excerpt {
+    @apply body-3 text-zinc-800 leading-relaxed;
+    @apply italic;
+  }
+
+  &__info {
+    @apply flex items-center gap-2 body-4 text-zinc-600;
+    @apply flex-wrap;
+  }
+
+  &__category {
+    @apply font-medium;
+  }
+
+  &__separator {
+    @apply text-zinc-400;
+  }
+
+  &__subcategory {
+    @apply text-zinc-600;
+  }
+
+  &__action {
+    @apply flex items-center justify-end gap-1.5 body-4 text-blue-600 font-medium
+           pt-2 border-t mt-auto border-zinc-200;
+    @apply transition-colors;
+
+    svg {
+      @apply transition-transform;
+    }
+  }
+
+  &:hover &__action {
+    @apply text-blue-700;
+
+    svg {
+      @apply translate-x-1;
+    }
+  }
+}

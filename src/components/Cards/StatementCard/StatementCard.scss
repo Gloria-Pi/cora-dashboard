@@ -1,53 +1,15 @@
 @reference "../../../index.css";
 
 .StatementCard {
-  @apply flex items-center gap-4 p-4 bg-white rounded-lg border border-zinc-200;
-  @apply hover:border-zinc-300 transition-all duration-200;
+  @apply flex flex-col bg-white rounded-xl p-4 border border-slate-200 shadow-sm
+             hover:shadow-md transition-shadow duration-200;
+  @apply md:p-5;
 
-  &__icon {
-    @apply flex items-center justify-center;
-    @apply w-12 h-12 rounded-lg shrink-0;
-    @apply mt-0.5;
-
-    &--positive {
-      @apply bg-pale-positive text-icon-positive;
-    }
-
-    &--negative {
-      @apply bg-pale-negative text-icon-negative;
-    }
-
-    &--neutral {
-      @apply bg-pale-neutral text-icon-neutral;
-    }
+  &__header {
+    @apply body-3 font-semibold text-zinc-700 mb-3;
   }
 
-  &__content {
-    @apply flex flex-col gap-2 flex-1 min-w-0;
-
-    &__header {
-      @apply flex items-center gap-2 body-3 text-zinc-600;
-      @apply flex-wrap;
-
-      &__sentiment {
-        @apply font-semibold text-zinc-900;
-      }
-
-      &__separator {
-        @apply text-zinc-400;
-      }
-
-      &__category {
-        @apply text-zinc-700;
-      }
-
-      &__date {
-        @apply text-zinc-600;
-      }
-    }
-
-    &__text {
-      @apply body-2 text-zinc-800 leading-relaxed;
-    }
+  &__text {
+    @apply body-3 text-zinc-800 leading-relaxed;
   }
 }

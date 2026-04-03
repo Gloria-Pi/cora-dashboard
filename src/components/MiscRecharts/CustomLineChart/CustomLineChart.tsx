@@ -9,8 +9,8 @@ import {
 } from "recharts";
 
 import CustomSentimentDot from "../../../components/Icons/CustomSentimentDot/CustomSentimentDot";
-import CustomizedLabel from "../../../components/MiscRecharts/CustomizedLabel";
-import RotatedAxisTick from "../../../components/MiscRecharts/RotatedAxisTick";
+import CustomizedLabel from "../CustomizedLabel/CustomizedLabel";
+import RotatedAxisTick from "../RotatedAxisTick/RotatedAxisTick";
 
 import type { CustomLineChartProps } from "./CustomLineChart.models";
 
@@ -21,14 +21,16 @@ export default function CustomLineChart({ data, icons }: CustomLineChartProps) {
       margin={{ top: 20, bottom: 30, right: 20 }}
       accessibilityLayer={true}
     >
-      <ReferenceLine stroke="grey" y={0} />
+      <ReferenceLine stroke="var(--color-gray-charts)" y={0} />
       <Line
         type="bump"
         dataKey="score"
         stroke="var(--color-primary-charts)"
         strokeWidth={2}
-        animationDuration={2000}
-        label={<CustomizedLabel stroke="var(--color-primary-charts)" />}
+        animationDuration={800}
+        label={
+          <CustomizedLabel stroke="var(--color-primary-charts)" fontSize={14} />
+        }
         dot={(props) => (
           <CustomSentimentDot {...props} size={16} icons={icons} />
         )}
@@ -47,7 +49,10 @@ export default function CustomLineChart({ data, icons }: CustomLineChartProps) {
           />
         )}
       />
-      <YAxis dataKey="score" tick={{ fill: "#818589", fontSize: 14 }} />
+      <YAxis
+        dataKey="score"
+        tick={{ fill: "var(--color-gray-charts)", fontSize: 14, dx: -10 }}
+      />
       <Tooltip />
     </LineChart>
   );

@@ -1,14 +1,14 @@
 @reference "../../../index.css";
 
 .FeedbackTable {
-  @apply w-full bg-white rounded-xl border-[2.3px] border-[#E5E7EB] overflow-hidden;
+  @apply w-full bg-white rounded-xl border-[2.3px] border-card-border overflow-hidden;
 
   &__wrapper {
     @apply overflow-x-auto;
   }
 }
 
-.table {
+.Table {
   @apply w-full border-collapse;
   min-width: 800px;
 
@@ -17,7 +17,7 @@
   }
 
   &__header {
-    @apply bg-zinc-50 border-b border-[#E5E7EB];
+    @apply bg-zinc-50 border-b border-card-border;
 
     th {
       @apply px-4 py-4 text-left body-3 font-semibold text-zinc-700;
@@ -26,247 +26,28 @@
       &:last-child {
         @apply text-right;
       }
-
-      &.hide-mobile {
-        @media (max-width: 780px) {
-          @apply hidden;
-        }
-      }
     }
   }
 
   &__row {
-    @apply border-b border-[#E5E7EB] cursor-pointer transition;
+    @apply border-b border-card-border cursor-pointer transition;
     @apply hover:bg-hover-bg;
 
     &--expanded {
-      @apply bg-slate-50/70;
-    }
-
-    &--highlighted {
-      @apply bg-blue-50;
-      animation: highlight-fade 2s ease-in-out;
-    }
-
-    @keyframes highlight-fade {
-      0% {
-        background-color: rgb(239, 246, 255);
-      }
-      100% {
-        background-color: transparent;
-      }
+      @apply bg-blue-100;
     }
 
     td {
       @apply px-4 py-3 body-3 text-zinc-800;
       @apply md:px-6 md:py-4;
-
-      &.hide-mobile {
-        @media (max-width: 780px) {
-          @apply hidden;
-        }
-      }
     }
 
     &__chevron {
-      @apply flex justify-end items-center;
+      @apply min-w-7;
 
       svg {
-        @apply transition-transform duration-200;
         color: #155dfc;
       }
-
-      &--expanded svg {
-        @apply rotate-180;
-      }
     }
-  }
-
-  &__expanded-content {
-    @apply bg-gradient-to-br from-slate-50 to-blue-50/30 border-b border-slate-200;
-
-    td {
-      @apply px-4 py-4;
-      @apply md:px-6 md:py-6;
-    }
-
-    &__container {
-      @apply flex flex-col gap-6;
-    }
-
-    &__label {
-      @apply body-3 font-semibold text-zinc-700 mb-2;
-    }
-
-    &__text {
-      @apply body-3 text-zinc-800 leading-relaxed;
-    }
-  }
-}
-
-// Feedback Card Styles
-.feedback-card {
-  @apply bg-white rounded-xl p-4 border border-slate-200 shadow-sm;
-  @apply md:p-5;
-  @apply hover:shadow-md transition-shadow duration-200;
-
-  &__header {
-    @apply body-3 font-semibold text-zinc-700 mb-3;
-  }
-
-  &__text {
-    @apply body-3 text-zinc-800 leading-relaxed;
-  }
-}
-
-// Opinions Section Styles
-.opinions-section {
-  @apply flex flex-col gap-4;
-
-  &__header {
-    @apply body-3 font-semibold text-zinc-700;
-  }
-}
-
-.opinions-grid {
-  @apply grid grid-cols-1 gap-3;
-  @apply md:grid-cols-2 md:gap-4;
-  @apply lg:grid-cols-3;
-
-  &--mobile {
-    @apply grid-cols-1;
-  }
-}
-
-// Opinion Card Styles
-.opinion-card {
-  @apply bg-white rounded-xl p-4 border border-slate-200 shadow-sm;
-  @apply cursor-pointer transition-all duration-200;
-  @apply hover:shadow-md hover:border-blue-300 hover:bg-blue-50/30;
-  @apply flex flex-col gap-3;
-
-  &__header {
-    @apply flex items-center justify-between gap-2;
-  }
-
-  &__score {
-    @apply body-3 font-semibold text-zinc-700;
-  }
-
-  &__excerpt {
-    @apply body-3 text-zinc-800 leading-relaxed;
-    @apply italic;
-  }
-
-  &__meta {
-    @apply flex items-center gap-2 body-4 text-zinc-600;
-    @apply flex-wrap;
-  }
-
-  &__category {
-    @apply font-medium;
-  }
-
-  &__separator {
-    @apply text-zinc-400;
-  }
-
-  &__subcategory {
-    @apply text-zinc-600;
-  }
-
-  &__action {
-    @apply flex items-center justify-end gap-1.5 body-4 text-blue-600 font-medium;
-    @apply pt-2 border-t border-zinc-200;
-    @apply transition-colors;
-
-    svg {
-      @apply transition-transform;
-    }
-  }
-
-  &:hover &__action {
-    @apply text-blue-700;
-
-    svg {
-      @apply translate-x-1;
-    }
-  }
-}
-
-.SentimentPill {
-  @apply px-3 py-1.5 rounded-full body-4 font-medium;
-  gap: 4px;
-
-  &__dot {
-    @apply text-base pr-1;
-    line-height: 1;
-  }
-
-  &--positive {
-    @apply bg-[#d1fae5] text-[#065f46];
-  }
-
-  &--negative {
-    @apply bg-[#fee2e2] text-[#991b1b];
-  }
-
-  &--neutral {
-    @apply bg-[#fef3c7] text-[#92400e];
-  }
-}
-
-// Feedback Modal Styles
-.FeedbackModal {
-  @apply fixed inset-0 z-50 flex items-center justify-center;
-
-  &__overlay {
-    @apply fixed inset-0 bg-black opacity-50;
-  }
-
-  &__content {
-    @apply relative bg-white rounded-2xl w-full max-h-[85vh] overflow-y-auto;
-    @apply md:max-w-2xl md:max-h-[90vh];
-    @apply mx-4 p-6;
-
-    &__header {
-      @apply flex items-center justify-between mb-4 pb-4 border-b border-zinc-200;
-
-      &__title {
-        @apply title-3-bold text-zinc-900;
-      }
-
-      &__close {
-        @apply p-2 rounded-lg hover:bg-hover-bg transition text-zinc-700 cursor-pointer;
-      }
-    }
-
-    &__body {
-      &__container {
-        @apply flex flex-col gap-4;
-      }
-
-      &__label {
-        @apply body-3 font-semibold text-zinc-700 mb-2;
-      }
-
-      &__text {
-        @apply body-3 text-zinc-800 leading-relaxed;
-      }
-    }
-  }
-}
-
-// Modal Info Row Styles
-.modal-info-row {
-  @apply flex items-center justify-between py-2;
-  @apply border-b border-zinc-200;
-
-  &__label {
-    @apply body-3 font-semibold text-zinc-700;
-  }
-
-  &__value {
-    @apply body-3 text-zinc-800;
   }
 }

@@ -1,0 +1,52 @@
+@reference "../../../index.css";
+
+.FeedbackCard {
+  @apply flex items-center gap-4 p-4 bg-white rounded-lg border border-zinc-200;
+  @apply hover:border-zinc-300 transition-all duration-200;
+
+  &__icon {
+    @apply flex items-center justify-center;
+    @apply w-12 h-12 rounded-lg shrink-0;
+    @apply mt-0.5;
+
+    &--positive {
+      @apply bg-pale-positive text-icon-positive;
+    }
+
+    &--negative {
+      @apply bg-pale-negative text-icon-negative;
+    }
+
+    &--neutral {
+      @apply bg-pale-neutral text-icon-neutral;
+    }
+  }
+
+  &__content {
+    @apply flex flex-col gap-2 flex-1;
+
+    &__header {
+      @apply flex flex-wrap gap-2 body-3 text-zinc-600;
+
+      &__sentiment {
+        @apply font-semibold text-zinc-900;
+      }
+
+      &__separator {
+        @apply text-zinc-400;
+      }
+
+      &__category {
+        @apply text-zinc-700;
+      }
+
+      &__date {
+        @apply text-zinc-600;
+      }
+    }
+
+    &__text {
+      @apply body-2 text-zinc-800 leading-relaxed;
+    }
+  }
+}

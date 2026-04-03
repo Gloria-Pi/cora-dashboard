@@ -1,0 +1,30 @@
+@reference "../../../../index.css";
+
+.AdminMenu {
+  @apply relative flex flex-col py-2.5;
+
+  &__user {
+    @apply flex items-center gap-3 rounded-lg cursor-pointer
+           transition text-left hover:bg-hover-bg;
+
+    svg {
+      @apply text-zinc-700;
+    }
+
+    &:hover svg {
+      @apply text-hover-text;
+    }
+
+    &__profile {
+      @apply flex flex-col body-3;
+
+      &__name {
+        @apply font-semibold text-zinc-900;
+      }
+
+      &__role {
+        @apply body-4 text-zinc-500;
+      }
+    }
+  }
+}

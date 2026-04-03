@@ -1,18 +1,11 @@
-import {
-  ChatCircleIcon,
-  SmileyIcon,
-  TrendUpIcon,
-  UsersIcon,
-} from "@phosphor-icons/react";
-
-import Card from "../../../components/Cards/Card/Card";
+import CardsGrid from "../../../components/Cards/CardsGrid/CardsGrid";
 import ChartCard from "../../../components/Cards/ChartCard/ChartCard";
 import Header from "../../../components/Header/Header";
 import CustomLineChart from "../../../components/MiscRecharts/CustomLineChart/CustomLineChart";
 import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
-import RecentFeedbacks from "../../../components/RecentStatements/RecentFeedbacks";
+import RecentFeedbacks from "../../../components/RecentFeedbacks/RecentFeedbacks";
 import type { IFeedback } from "../../../constants/global.constants";
-import { data1, data2 } from "../../../mock/dummyData";
+import { data1, data2, overviewCardsData } from "../../../mock/dummyData";
 import { DEFAULT_FEEDBACK_DATA } from "../../../mock/feedbacks";
 
 import "./Overview.scss";
@@ -29,43 +22,27 @@ export default function Overview() {
         </div>
         <div className="Overview__grid__filters">FILTRI</div>
 
-        <div className="Overview__grid__cards">
-          <Card
-            title="Feedback Totali"
-            icon={ChatCircleIcon}
-            value="28"
-            description="Collected this week"
-          />
-          <Card
-            title="Positive Sentiment"
-            icon={SmileyIcon}
-            value="89"
-            description="57% of all opinions"
-          />
-          <Card
-            title="Average Score"
-            icon={TrendUpIcon}
-            value="0.72"
-            description="Sentiment score"
-          />
-          <Card
-            title="Departments"
-            icon={UsersIcon}
-            value="8"
-            description="Represented"
-          />
-        </div>
+        <CardsGrid
+          cards={overviewCardsData}
+          gridClass="Overview__grid__cards"
+        />
+
         <div className="Overview__grid__charts">
-          <ChartCard title="Sentiment Score Trend" minHeight={420}>
+          <ChartCard title="Sentiment Score Trend" height={400}>
             <CustomLineChart data={data1} />
           </ChartCard>
 
-          <ChartCard title="Sentiment Distribution" minHeight={420}>
+          <ChartCard title="Sentiment Distribution" height={400}>
             <CustomPieChart data={data2} outerRadius="85%" innerRadius="60%" />
           </ChartCard>
         </div>
-        <div className="Overview__grid__recent">
-          <RecentFeedbacks data={DEFAULT_FEEDBACK_DATA as IFeedback[]} />
+
+        <div className="Overview__grid__feedbacks">
+          <RecentFeedbacks
+            data={DEFAULT_FEEDBACK_DATA as IFeedback[]}
+            title="Feedback Recenti"
+            navText="Vai alla tabella"
+          />
         </div>
       </div>
     </div>

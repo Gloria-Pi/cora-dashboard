@@ -1,6 +1,6 @@
 export default interface ChartCardProps {
   title: string;
   description?: string;
-  minHeight: number;
+  height: number;
   children: React.ReactNode;
 }

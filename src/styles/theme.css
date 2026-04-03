@@ -8,19 +8,16 @@
   --breakpoint-2xl: 1440px;
   --breakpoint-3xl: 1440px;
 
-  /* --container-sm: 640px;
-  --container-md: 768px;
-  --container-lg: 1024px;
-  --container-xl: 1280px;
-  --container-2xl: 1440px; */
-
   /* TEXT */
   --color-positive-trend: #00c49f; /* LIGHT GREEN */
   --color-neutral-trend: #eab308; /* LIGHT ORANGE */
   --color-negative-trend: #ef4444; /* RED */
   --color-negative-trend-dark: #82181a; /* DARK RED */
-  --color-primary-charts: #8884d8; /* BLUE */
   --color-white: #ffffff;
+
+  /* TEXT - CHARTS */
+  --color-primary-charts: #8884d8; /* BLUE */
+  --color-gray-charts: #818589; /* LIGHT GRAY */
 
   /* EFFECTS */
   --color-hover-bg: #eff6ff;
@@ -35,4 +32,7 @@
   --color-pale-positive: #d1fae5; /* GREEN */
   --color-pale-neutral: #fef3c7; /*  ORANGE */
   --color-pale-negative: #fee2e2; /* RED */
+
+  /* BORDER COLORS */
+  --color-card-border: #e5e7eb; /*  LIGHT GRAY */
 }
