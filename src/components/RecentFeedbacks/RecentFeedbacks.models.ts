@@ -1,8 +1,8 @@
-import type { IFeedback } from "../../constants/global.constants";
+import type { IDataContext } from "../../contexts/DataContext.models";
 
 export default interface RecentFeedbacksProps {
   title: string;
   navText: string;
-  data: IFeedback[];
+  data: IDataContext;
   maxItems?: number;
 }

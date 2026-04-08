@@ -20,7 +20,8 @@ const CustomizedLabel = ({ x, y, stroke, value, fontSize }: LabelProps) => {
     <text
       x={x}
       y={y}
-      dy={22}
+      dx={0}
+      dy={24}
       fill={stroke}
       fontSize={fontSize}
       textAnchor="middle"

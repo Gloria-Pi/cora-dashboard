@@ -1,4 +1,6 @@
-import type { Department, FeedbackCategory } from "../mock/feedbacks";
+import type { Icon } from "@phosphor-icons/react";
+
+import type { DepartmentType, FeedbackCategory } from "../mock/feedbacks";
 
 /* BREAKPOINT */
 
@@ -20,7 +22,7 @@ export type IPolarity = "positive" | "negative" | "neutral";
 export interface IFeedback {
   feedback_id: number;
   submitted_at: string;
-  department: Department;
+  department: DepartmentType;
   feedback_text: string;
   overall_sentiment: IPolarity;
   overall_sentiment_score: number;
@@ -36,6 +38,15 @@ export interface IOpinion {
   sentiment_score: number;
 }
 
+/* CARDS */
+//COPIA DI CardProps
+export interface ICardData {
+  title: string;
+  icon?: Icon;
+  value: string | number;
+  description?: string;
+}
+
 /* TABLE */
 // Data resulting from the manipulation of IFeedback, useful for creating table rows
 export interface IOpinionTableRow {
@@ -48,12 +59,13 @@ export interface IOpinionTableRow {
 
   feedbackId: number;
   date: string;
-  department: Department;
+  department: DepartmentType;
 }
 
 /* CHARTS */
+
 export interface IRechartsData {
-  [key: string]: string | number | null;
+  [key: string]: string | number;
 }
 
 export default interface IFeedbackChart {

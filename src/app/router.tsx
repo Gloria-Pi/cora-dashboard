@@ -17,10 +17,14 @@ export const router = createBrowserRouter([
       { path: "opinions", Component: Opinions },
       { path: "insights", Component: Insights },
       { path: "trends", Component: Trends },
+      {
+        path: "*",
+        Component: ErrorPage,
+      },
     ],
   },
-  {
-    path: "*",
-    Component: ErrorPage,
-  },
+  // {
+  //   path: "*",
+  //   Component: ErrorPage,
+  // },
 ]);

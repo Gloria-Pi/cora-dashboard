@@ -1,7 +1,9 @@
+import type { IFeedback } from "../constants/global.constants";
+
 export const FEEDBACK_CATEGORIES = [
   "environment",
   "facilities",
-  "workspace_equipment",
+  "equipment",
   "services",
   "commuting",
 ] as const;
@@ -9,7 +11,7 @@ export const FEEDBACK_CATEGORIES = [
 export type FeedbackCategory = (typeof FEEDBACK_CATEGORIES)[number];
 
 // Other approach --> declare union type without as const
-export type Department =
+export type DepartmentType =
   | "Engineering"
   | "IT Operations"
   | "Product"
@@ -19,7 +21,7 @@ export type Department =
   | "Marketing"
   | "Customer Support";
 
-export const DEFAULT_FEEDBACK_DATA = [
+export const DEFAULT_FEEDBACK_DATA: IFeedback[] = [
   {
     feedback_id: 1,
     submitted_at: "2026-01-12",
@@ -32,7 +34,7 @@ export const DEFAULT_FEEDBACK_DATA = [
       {
         opinion_id: 1,
         feedback_excerpt: "scrivania è comoda",
-        category: "workspace_equipment",
+        category: "equipment",
         subcategory: "desk",
         sentiment: "positive",
         sentiment_score: 0.6,
@@ -40,7 +42,7 @@ export const DEFAULT_FEEDBACK_DATA = [
       {
         opinion_id: 2,
         feedback_excerpt: "connessione internet è spesso lenta",
-        category: "workspace_equipment",
+        category: "equipment",
         subcategory: "internet_connectivity",
         sentiment: "negative",
         sentiment_score: -0.7,
@@ -226,7 +228,7 @@ export const DEFAULT_FEEDBACK_DATA = [
       {
         opinion_id: 13,
         feedback_excerpt: "sedia ergonomica è molto comoda",
-        category: "workspace_equipment",
+        category: "equipment",
         subcategory: "chair",
         sentiment: "positive",
         sentiment_score: 0.7,
@@ -234,7 +236,7 @@ export const DEFAULT_FEEDBACK_DATA = [
       {
         opinion_id: 14,
         feedback_excerpt: "alcuni monitor sono mal posizionati",
-        category: "workspace_equipment",
+        category: "equipment",
         subcategory: "hardware",
         sentiment: "negative",
         sentiment_score: -0.6,
@@ -253,7 +255,7 @@ export const DEFAULT_FEEDBACK_DATA = [
       {
         opinion_id: 15,
         feedback_excerpt: "connessione Wi-Fi nell’area open space è instabile",
-        category: "workspace_equipment",
+        category: "equipment",
         subcategory: "internet_connectivity",
         sentiment: "negative",
         sentiment_score: -0.72,
@@ -337,7 +339,7 @@ export const DEFAULT_FEEDBACK_DATA = [
       {
         opinion_id: 20,
         feedback_excerpt: "sedie ergonomiche sono molto comode",
-        category: "workspace_equipment",
+        category: "equipment",
         subcategory: "chair",
         sentiment: "positive",
         sentiment_score: 0.76,
@@ -427,7 +429,7 @@ export const DEFAULT_FEEDBACK_DATA = [
       {
         opinion_id: 26,
         feedback_excerpt: "scrivanie sono abbastanza spaziose",
-        category: "workspace_equipment",
+        category: "equipment",
         subcategory: "desk",
         sentiment: "positive",
         sentiment_score: 0.67,

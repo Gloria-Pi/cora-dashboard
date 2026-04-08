@@ -21,13 +21,17 @@ import ExpandedRow from "./ExpandedRow/ExpandedRow";
 import type FeedbackTableProps from "./FeedbackTable.models";
 import "./FeedbackTable.scss";
 
-export default function FeedbackTable({ data }: FeedbackTableProps) {
+export default function FeedbackTable({ data, error }: FeedbackTableProps) {
+  const fetchedData = data;
   const [expandedOpinion, setExpandedOpinion] = useState<number | null>(null);
   const rowRefs = useRef<{ [key: number]: HTMLTableRowElement | null }>({});
   const isBelowLg = useIsBelowBreakpoint(BREAKPOINTS.lg);
 
+  if (error !== null) {
+    return <span>FeedbackTable Error: {JSON.stringify(error.message)} </span>;
+  }
   // Flatten data structure -> each opinion becomes a row
-  const rows: IOpinionTableRow[] = data.flatMap((feedback) =>
+  const rows: IOpinionTableRow[] = fetchedData.flatMap((feedback) =>
     feedback.opinions.map((opinion) => ({
       opinionId: opinion.opinion_id,
       excerpt: opinion.feedback_excerpt,
@@ -63,7 +67,7 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
   };
 
   const getFeedbackData = (feedbackId: number) => {
-    return data.find((f) => f.feedback_id === feedbackId);
+    return fetchedData.find((f) => f.feedback_id === feedbackId);
   };
 
   return (
@@ -116,10 +120,16 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                       onClick={() => handleRowClick(row)}
                     >
                       <td>
-                        <SentimentPill
-                          sentiment={sentiment}
-                          symbol={getSentimentIcon(sentiment, 24)}
-                        />
+                        <div
+                          className={classNames("Table__row__pill", {
+                            ["Table__row__pill--mobile"]: isBelowLg,
+                          })}
+                        >
+                          <SentimentPill
+                            sentiment={sentiment}
+                            symbol={getSentimentIcon(sentiment, 24)}
+                          />
+                        </div>
                       </td>
                       <td>{formatDate(date)}</td>
                       <td>

@@ -14,10 +14,7 @@ export default function SentimentPill({
   const isBelowLg = useIsBelowBreakpoint(BREAKPOINTS.lg);
   return (
     <div
-      className={classNames("SentimentPill", {
-        "SentimentPill--positive": sentiment === "positive",
-        "SentimentPill--negative": sentiment === "negative",
-        "SentimentPill--neutral": sentiment === "neutral",
+      className={classNames("SentimentPill", `SentimentPill--${sentiment}`, {
         "SentimentPill--mobile": isBelowLg,
       })}
     >

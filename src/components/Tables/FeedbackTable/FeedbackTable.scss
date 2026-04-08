@@ -34,12 +34,20 @@
     @apply hover:bg-hover-bg;
 
     &--expanded {
-      @apply bg-blue-100;
+      @apply bg-hover-bg;
     }
 
     td {
       @apply px-4 py-3 body-3 text-zinc-800;
       @apply md:px-6 md:py-4;
+    }
+
+    &__pill {
+      @apply w-24;
+
+      &--mobile {
+        @apply flex justify-center w-full;
+      }
     }
 
     &__chevron {

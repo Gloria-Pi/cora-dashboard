@@ -8,6 +8,8 @@ import Sidebar from "../../components/Menus/Sidebar/Sidebar";
 import Overlay from "../../components/Overlay/Overlay";
 import { BREAKPOINTS } from "../../constants/global.constants";
 import CollapseContext from "../../contexts/CollapseContext";
+import { DataProvider } from "../../contexts/DataContext";
+// import { useData } from "../../hooks/useData";
 import { useIsBelowBreakpoint } from "../../hooks/useIsBelowBreakpoint";
 import useStopAnimation from "../../hooks/useStopAnimation";
 
@@ -30,8 +32,11 @@ export default function DashboardLayout() {
     e.stopPropagation();
   };
 
+  // const data = useData();
+
   return (
     <CollapseContext value={{ isCollapsed, toggleCollapse, handleNavigation }}>
+      {/* {JSON.stringify(data)} */}
       <div
         className={classNames("DashboardLayout", {
           ["DashboardLayout--collapsed"]: isCollapsed && !isMobile,
@@ -57,9 +62,11 @@ export default function DashboardLayout() {
           />
         </aside>
 
-        <main className="DashboardLayout__main">
-          <Outlet />
-        </main>
+        <DataProvider>
+          <main className="DashboardLayout__main">
+            <Outlet />
+          </main>
+        </DataProvider>
       </div>
     </CollapseContext>
   );

@@ -13,8 +13,11 @@ export default function RecentFeedbacks({
   data,
   maxItems = 5,
 }: RecentFeedbacksProps) {
+  const fetchedData = data.data;
+  // if (!fetchedData) return `RecentFeedbacks: ${data.error}`;
+
   // Sort by date (most recent first) and limit to maxItems
-  const recentFeedbacks = [...data]
+  const recentFeedbacks = [...fetchedData]
     .sort(
       (a, b) =>
         new Date(b.submitted_at).getTime() - new Date(a.submitted_at).getTime(),
