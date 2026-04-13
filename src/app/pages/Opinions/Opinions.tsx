@@ -1,21 +1,26 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
 import CardsGrid from "../../../components/Cards/CardsGrid/CardsGrid";
+import FilterSelect from "../../../components/Filters/FilterSelect/FilterSelect";
 import Header from "../../../components/Header/Header";
 import FeedbackTable from "../../../components/Tables/FeedbackTable/FeedbackTable";
-import type { IFeedback, IPolarity } from "../../../constants/global.constants";
+import {
+  type IFeedback,
+  type IPolarity,
+  POLARITIES,
+} from "../../../constants/global.constants";
 import { useData } from "../../../hooks/useData";
-import type { DepartmentType, FeedbackCategory } from "../../../mock/feedbacks";
+import {
+  DEPARTMENT_TYPE,
+  type DepartmentType,
+  FEEDBACK_CATEGORIES,
+  type FeedbackCategory,
+} from "../../../mock/feedbacks";
 
 import "./Opinions.scss";
 
 export default function Opinions() {
   const data = useData();
-  const [selectedData, setSelectedData] = useState<IFeedback[]>([]);
-
-  useEffect(() => {
-    setSelectedData(data.data);
-  }, [data]);
 
   const [selectedSentiment, setSelectedSentiment] = useState<IPolarity | "">(
     "",
@@ -37,35 +42,36 @@ export default function Opinions() {
   ): IFeedback[] {
     if (sentiment === "" && category === "" && department === "") return data;
 
-    const filteredFeedbacks = data.map((feedback) => {
-      const filteredOpinions = feedback.opinions.filter((opinion) => {
-        const sentimentMatch =
-          sentiment === "" || opinion.sentiment === sentiment;
+    return data
+      .filter((feedback) => {
+        const departmentMatch =
+          department === "" || feedback.department === department;
+        return departmentMatch;
+      })
+      .map((feedback) => {
+        const filteredOpinions = feedback.opinions.filter((opinion) => {
+          const sentimentMatch =
+            sentiment === "" || opinion.sentiment === sentiment;
 
-        const categoryMatch = category === "" || opinion.category === category;
+          const categoryMatch =
+            category === "" || opinion.category === category;
 
-        return sentimentMatch && categoryMatch;
+          return sentimentMatch && categoryMatch;
+        });
+        return { ...feedback, opinions: filteredOpinions };
       });
-      return { ...feedback, opinions: filteredOpinions };
-    });
-
-    return filteredFeedbacks.filter((feedback) => {
-      const departmentMatch =
-        department === "" || feedback.department === department;
-      return departmentMatch;
-    });
   }
 
-  useEffect(() => {
-    setSelectedData(
+  const filteredData = useMemo(
+    () =>
       filterBySelection(
         data.data,
         selectedSentiment,
         selectedCategory,
         selectedDepartment,
       ),
-    );
-  }, [data, selectedSentiment, selectedCategory, selectedDepartment]);
+    [data.data, selectedSentiment, selectedCategory, selectedDepartment],
+  );
 
   return (
     <div className="Opinions">
@@ -74,57 +80,35 @@ export default function Opinions() {
         summary="Detailed breakdown of all feedback opinions"
       />
 
-      <CardsGrid cards={data.formatOpinionsCardsData(selectedData)} />
+      <CardsGrid cards={data.formatOpinionsCardsData(filteredData)} />
 
-      <div>
-        <select
+      <div className="Opinions__filters">
+        <FilterSelect<IPolarity>
           name="sentiment"
-          aria-label="Filter by sentiment"
-          onChange={(e) =>
-            setSelectedSentiment(e.target.value as IPolarity | "")
-          }
-        >
-          <option value="">All Sentiments</option>
-          <option value="positive">Positive</option>
-          <option value="neutral">Neutral</option>
-          <option value="negative">Negative</option>
-        </select>
+          value={selectedSentiment}
+          setValue={setSelectedSentiment}
+          label="All Sentiments"
+          options={[...POLARITIES]}
+        />
 
-        <select
+        <FilterSelect<FeedbackCategory>
           name="category"
-          aria-label="Filter by category"
-          onChange={(e) =>
-            setSelectedCategory(e.target.value as FeedbackCategory | "")
-          }
-        >
-          <option value="">All Categories</option>
-          <option value="environment">Environment</option>
-          <option value="equipment">Equipment</option>
-          <option value="facilities">Facilities</option>
-          <option value="services">Services</option>
-          <option value="commuting">Commuting</option>
-        </select>
+          value={selectedCategory}
+          setValue={setSelectedCategory}
+          label="All Categories"
+          options={[...FEEDBACK_CATEGORIES]}
+        />
 
-        <select
+        <FilterSelect<DepartmentType>
           name="departments"
-          aria-label="Filter by department"
-          onChange={(e) =>
-            setSelectedDepartment(e.target.value as DepartmentType | "")
-          }
-        >
-          <option value="">All Departments</option>
-          <option value="Engineering">Engineering</option>
-          <option value="IT Operations">IT Operations</option>
-          <option value="Product">Product</option>
-          <option value="Design">Design</option>
-          <option value="HR">HR</option>
-          <option value="Sales">Sales</option>
-          <option value="Marketing">Marketing</option>
-          <option value="Customer Support">Customer Support</option>
-        </select>
+          value={selectedDepartment}
+          setValue={setSelectedDepartment}
+          label="All Departments"
+          options={[...DEPARTMENT_TYPE]}
+        />
       </div>
       <div id="feedbacks-table">
-        <FeedbackTable data={selectedData} error={data.error} />
+        <FeedbackTable data={filteredData} error={data.error} />
       </div>
     </div>
   );

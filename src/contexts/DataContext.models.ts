@@ -1,4 +1,3 @@
-// https://jsonblob.com/019d53d0-7665-76ce-9232-3ecfcd06d01f
 //memoize resulting obj with useMemo
 //memoize call (es refresh fn) with usecallback
 // add usestate for data, loading and error values, and add those values to the memoized object passed to the provider

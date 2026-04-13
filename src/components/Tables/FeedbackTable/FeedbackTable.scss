@@ -27,6 +27,14 @@
         @apply text-right;
       }
     }
+
+    th:has(.Table__header__date) {
+      @apply hover:bg-hover-bg transition-colors duration-250  cursor-pointer;
+    }
+
+    &__date {
+      @apply flex justify-between gap-3;
+    }
   }
 
   &__row {

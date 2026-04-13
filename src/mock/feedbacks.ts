@@ -11,15 +11,29 @@ export const FEEDBACK_CATEGORIES = [
 export type FeedbackCategory = (typeof FEEDBACK_CATEGORIES)[number];
 
 // Other approach --> declare union type without as const
-export type DepartmentType =
-  | "Engineering"
-  | "IT Operations"
-  | "Product"
-  | "Design"
-  | "HR"
-  | "Sales"
-  | "Marketing"
-  | "Customer Support";
+export const DEPARTMENT_TYPE = [
+  "Engineering",
+  "IT Operations",
+  "Product",
+  "Design",
+  "HR",
+  "Sales",
+  "Marketing",
+  "Customer Support",
+] as const;
+
+export type DepartmentType = (typeof DEPARTMENT_TYPE)[number];
+
+// Other approach --> declare union type without as const
+// export type DepartmentType =
+//   | "Engineering"
+//   | "IT Operations"
+//   | "Product"
+//   | "Design"
+//   | "HR"
+//   | "Sales"
+//   | "Marketing"
+//   | "Customer Support";
 
 export const DEFAULT_FEEDBACK_DATA: IFeedback[] = [
   {

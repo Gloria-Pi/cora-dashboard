@@ -15,7 +15,9 @@ export const BREAKPOINTS = {
 export type BreakpointsType = (typeof BREAKPOINTS)[keyof typeof BREAKPOINTS];
 
 /* SENTIMENT ANALYSIS */
-export type IPolarity = "positive" | "negative" | "neutral";
+// export type IPolarity = "positive" | "negative" | "neutral";
+export const POLARITIES = ["positive", "negative", "neutral"] as const;
+export type IPolarity = (typeof POLARITIES)[number];
 
 /* MOCK DATA */
 // Represents data structure of the db
