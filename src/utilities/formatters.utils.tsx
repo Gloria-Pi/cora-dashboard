@@ -4,7 +4,7 @@ import {
   SmileySadIcon,
 } from "@phosphor-icons/react";
 
-import type { IPolarity } from "../constants/global.constants";
+import type { IFeedback, IPolarity } from "../constants/global.constants";
 
 /* GENERAL */
 
@@ -13,6 +13,7 @@ export function capitalizeWord(word: string) {
 }
 
 /* FEEDBACK TABLE */
+
 export const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-GB", {
@@ -25,6 +26,20 @@ export const formatDate = (dateString: string) => {
 export const formatText = (text: string, maxLength: number = 80) => {
   if (text.length <= maxLength) return `"${text}"`;
   return `"${text.substring(0, maxLength)}..."`;
+};
+
+export const sortDataByDate = (
+  data: IFeedback[],
+  isDescending: boolean,
+): IFeedback[] => {
+  if (!isDescending) {
+    return [...data].sort(
+      (a, b) =>
+        new Date(a.submitted_at).getTime() - new Date(b.submitted_at).getTime(),
+    );
+  } else {
+    return data;
+  }
 };
 
 /* FEEDBACK CARD */

@@ -13,13 +13,11 @@ export default function RecentFeedbacks({
   data,
   maxItems = 5,
 }: RecentFeedbacksProps) {
-  // Sort by date (most recent first) and limit to maxItems
-  const recentFeedbacks = [...data]
-    .sort(
-      (a, b) =>
-        new Date(b.submitted_at).getTime() - new Date(a.submitted_at).getTime(),
-    )
-    .slice(0, maxItems);
+  const fetchedData = data.data;
+  // if (!fetchedData) return `RecentFeedbacks: ${data.error}`;
+
+  // Limit to maxItems
+  const limitedFeedbacks = [...fetchedData].slice(0, maxItems);
 
   return (
     <div className="RecentFeedbacks">
@@ -32,7 +30,7 @@ export default function RecentFeedbacks({
         />
       </div>
       <div className="RecentFeedbacks__list">
-        {recentFeedbacks.map((feedback) => (
+        {limitedFeedbacks.map((feedback) => (
           <FeedbackCard
             key={feedback.feedback_id}
             sentiment={feedback.overall_sentiment}

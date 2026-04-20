@@ -1,0 +1,10 @@
+@reference "../../../index.css";
+
+.FilterSelect {
+  @apply p-1 px-4 border-2 border-card-border
+         rounded-3xl  bg-white cursor-pointer;
+
+  select {
+    @apply w-full p-2 cursor-pointer;
+  }
+}

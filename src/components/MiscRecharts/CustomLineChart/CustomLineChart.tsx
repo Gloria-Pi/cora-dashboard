@@ -29,7 +29,7 @@ export default function CustomLineChart({ data, icons }: CustomLineChartProps) {
         strokeWidth={2}
         animationDuration={800}
         label={
-          <CustomizedLabel stroke="var(--color-primary-charts)" fontSize={14} />
+          <CustomizedLabel stroke="var(--color-dark-charts)" fontSize={14} />
         }
         dot={(props) => (
           <CustomSentimentDot {...props} size={16} icons={icons} />

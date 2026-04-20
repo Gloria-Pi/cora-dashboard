@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import React from "react";
 
 import classNames from "classnames";
@@ -7,12 +7,14 @@ import {
   BREAKPOINTS,
   type IOpinionTableRow,
 } from "../../../constants/global.constants";
+import useExpandedOpinion from "../../../hooks/useExpandedOpinion";
 import { useIsBelowBreakpoint } from "../../../hooks/useIsBelowBreakpoint";
 import {
   formatCategory,
   formatDate,
   formatText,
   getSentimentIcon,
+  sortDataByDate,
 } from "../../../utilities/formatters.utils";
 import RotatingCaretDown from "../../Icons/RotatingCaretDown/RotatingCaretDown";
 import SentimentPill from "../../SentimentPill/SentimentPill";
@@ -21,13 +23,32 @@ import ExpandedRow from "./ExpandedRow/ExpandedRow";
 import type FeedbackTableProps from "./FeedbackTable.models";
 import "./FeedbackTable.scss";
 
-export default function FeedbackTable({ data }: FeedbackTableProps) {
-  const [expandedOpinion, setExpandedOpinion] = useState<number | null>(null);
-  const rowRefs = useRef<{ [key: number]: HTMLTableRowElement | null }>({});
+export default function FeedbackTable({ data, error }: FeedbackTableProps) {
+  const fetchedData = data;
+  const [isDescending, setIsDescending] = useState(true);
   const isBelowLg = useIsBelowBreakpoint(BREAKPOINTS.lg);
+  const rowRefs = useRef<{ [key: number]: HTMLTableRowElement | null }>({});
+  const {
+    expandedOpinion,
+    handleRowClick,
+    closeModal,
+    handleOpinionCardClick,
+  } = useExpandedOpinion();
+
+  const customHandleOpinionCardClick = (opinionId: number) => {
+    handleOpinionCardClick(opinionId, rowRefs);
+  };
+
+  const sortedData = useMemo(() => {
+    return sortDataByDate(fetchedData, isDescending);
+  }, [fetchedData, isDescending]);
+
+  if (error !== null) {
+    return <span>FeedbackTable Error: {JSON.stringify(error.message)} </span>;
+  }
 
   // Flatten data structure -> each opinion becomes a row
-  const rows: IOpinionTableRow[] = data.flatMap((feedback) =>
+  const rows: IOpinionTableRow[] = sortedData.flatMap((feedback) =>
     feedback.opinions.map((opinion) => ({
       opinionId: opinion.opinion_id,
       excerpt: opinion.feedback_excerpt,
@@ -42,28 +63,8 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
     })),
   );
 
-  const handleRowClick = (row: IOpinionTableRow) => {
-    setExpandedOpinion(
-      expandedOpinion === row.opinionId ? null : row.opinionId,
-    );
-  };
-
-  const handleOpinionCardClick = (opinionId: number) => {
-    closeModal();
-
-    const selectedRow = rowRefs.current[opinionId];
-    if (selectedRow) {
-      setExpandedOpinion(opinionId);
-      selectedRow.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  };
-
-  const closeModal = () => {
-    setExpandedOpinion(null);
-  };
-
   const getFeedbackData = (feedbackId: number) => {
-    return data.find((f) => f.feedback_id === feedbackId);
+    return fetchedData.find((f) => f.feedback_id === feedbackId);
   };
 
   return (
@@ -74,7 +75,16 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
             <thead className="Table__header">
               <tr>
                 <th>{!isBelowLg ? "SENTIMENT" : ""}</th>
-                <th>DATE</th>
+                <th onClick={() => setIsDescending(!isDescending)}>
+                  <div className="Table__header__date">
+                    <span>DATE</span>
+                    <RotatingCaretDown
+                      parentClass="Table__row__chevron"
+                      condition={!isDescending}
+                      size={22}
+                    />
+                  </div>
+                </th>
                 <th>EXCERPT</th>
                 {!isBelowLg && (
                   <>
@@ -116,10 +126,16 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                       onClick={() => handleRowClick(row)}
                     >
                       <td>
-                        <SentimentPill
-                          sentiment={sentiment}
-                          symbol={getSentimentIcon(sentiment, 24)}
-                        />
+                        <div
+                          className={classNames("Table__row__pill", {
+                            ["Table__row__pill--mobile"]: isBelowLg,
+                          })}
+                        >
+                          <SentimentPill
+                            sentiment={sentiment}
+                            symbol={getSentimentIcon(sentiment, 24)}
+                          />
+                        </div>
                       </td>
                       <td>{formatDate(date)}</td>
                       <td>
@@ -148,7 +164,7 @@ export default function FeedbackTable({ data }: FeedbackTableProps) {
                       <ExpandedRow
                         feedbackData={currFeedbackData}
                         onClose={closeModal}
-                        onOpinionClick={handleOpinionCardClick}
+                        onOpinionClick={customHandleOpinionCardClick}
                       />
                     )}
                   </React.Fragment>

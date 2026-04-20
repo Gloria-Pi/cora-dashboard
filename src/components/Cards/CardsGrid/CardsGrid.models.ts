@@ -1,6 +1,6 @@
-import type CardProps from "../Card/Card.models";
+import type { ICardData } from "../../../constants/global.constants";
 
 export default interface CardsGridProps {
-  cards: CardProps[];
+  cards: ICardData[];
   gridClass?: string;
 }

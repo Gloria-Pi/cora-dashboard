@@ -27,6 +27,14 @@
         @apply text-right;
       }
     }
+
+    th:has(.Table__header__date) {
+      @apply hover:bg-hover-bg transition-colors duration-250  cursor-pointer;
+    }
+
+    &__date {
+      @apply flex justify-between gap-3;
+    }
   }
 
   &__row {
@@ -34,12 +42,20 @@
     @apply hover:bg-hover-bg;
 
     &--expanded {
-      @apply bg-blue-100;
+      @apply bg-hover-bg;
     }
 
     td {
       @apply px-4 py-3 body-3 text-zinc-800;
       @apply md:px-6 md:py-4;
+    }
+
+    &__pill {
+      @apply w-24;
+
+      &--mobile {
+        @apply flex justify-center w-full;
+      }
     }
 
     &__chevron {

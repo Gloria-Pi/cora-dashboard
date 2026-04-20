@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+// import { useState } from "react";
 import classNames from "classnames";
 
 import type CardProps from "./Card.models";
@@ -12,8 +11,8 @@ export default function Card({
   description,
   // isPositive
 }: CardProps) {
-  const [isPositive, setIsPositive] = useState(true);
-  const [isNegative, setIsNegative] = useState(false);
+  // const [isPositive, setIsPositive] = useState(true);
+  // const [isNegative, setIsNegative] = useState(false);
 
   return (
     <div className="Card">
@@ -32,8 +31,8 @@ export default function Card({
       {description && (
         <p
           className={classNames("Card__description", {
-            ["Card__description--positive"]: isPositive,
-            ["Card__description--negative"]: isNegative,
+            // ["Card__description--positive"]: isPositive,
+            // ["Card__description--negative"]: isNegative,
           })}
         >
           {description}

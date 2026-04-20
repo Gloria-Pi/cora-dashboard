@@ -16,7 +16,8 @@
   --color-white: #ffffff;
 
   /* TEXT - CHARTS */
-  --color-primary-charts: #8884d8; /* BLUE */
+  --color-primary-charts: #8884d8; /* BLUE/PURPLE */
+  --color-dark-charts: #5d5b96; /* DARK BLUE/PURPLE */
   --color-gray-charts: #818589; /* LIGHT GRAY */
 
   /* EFFECTS */

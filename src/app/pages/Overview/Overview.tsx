@@ -4,13 +4,13 @@ import Header from "../../../components/Header/Header";
 import CustomLineChart from "../../../components/MiscRecharts/CustomLineChart/CustomLineChart";
 import CustomPieChart from "../../../components/MiscRecharts/CustomPieChart/CustomPieChart";
 import RecentFeedbacks from "../../../components/RecentFeedbacks/RecentFeedbacks";
-import type { IFeedback } from "../../../constants/global.constants";
-import { data1, data2, overviewCardsData } from "../../../mock/dummyData";
-import { DEFAULT_FEEDBACK_DATA } from "../../../mock/feedbacks";
+import { useData } from "../../../hooks/useData";
 
 import "./Overview.scss";
 
 export default function Overview() {
+  const data = useData();
+
   return (
     <div className="Overview">
       <div className="Overview__grid">
@@ -23,23 +23,27 @@ export default function Overview() {
         <div className="Overview__grid__filters">FILTRI</div>
 
         <CardsGrid
-          cards={overviewCardsData}
+          cards={data.formatOverviewCardsData()}
           gridClass="Overview__grid__cards"
         />
 
         <div className="Overview__grid__charts">
           <ChartCard title="Sentiment Score Trend" height={400}>
-            <CustomLineChart data={data1} />
+            <CustomLineChart data={data.formatLineChartData()} />
           </ChartCard>
 
           <ChartCard title="Sentiment Distribution" height={400}>
-            <CustomPieChart data={data2} outerRadius="85%" innerRadius="60%" />
+            <CustomPieChart
+              data={data.formatPieChartData()}
+              outerRadius="85%"
+              innerRadius="60%"
+            />
           </ChartCard>
         </div>
 
         <div className="Overview__grid__feedbacks">
           <RecentFeedbacks
-            data={DEFAULT_FEEDBACK_DATA as IFeedback[]}
+            data={data}
             title="Feedback Recenti"
             navText="Vai alla tabella"
           />
