@@ -36,7 +36,6 @@ export default function DashboardLayout() {
 
   return (
     <CollapseContext value={{ isCollapsed, toggleCollapse, handleNavigation }}>
-      {/* {JSON.stringify(data)} */}
       <div
         className={classNames("DashboardLayout", {
           ["DashboardLayout--collapsed"]: isCollapsed && !isMobile,
