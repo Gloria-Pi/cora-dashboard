@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# api keys and dev vars
+.dev.vars
+.wrangler
+*.wrangler
+.wrangler/*

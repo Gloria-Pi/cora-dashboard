@@ -17,11 +17,13 @@
     "postcss": "^8.5.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
     "react-router": "^7.13.1",
     "recharts": "^3.7.0",
     "tailwindcss": "^4.2.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260422.1",
     "@eslint/js": "^9.39.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "^24.10.1",

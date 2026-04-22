@@ -1,7 +1,9 @@
 // import { useData } from "../../hooks/useData";
+import SummaryCard from "../../components/Cards/SummaryCard/SummaryCard";
+import { useData } from "../../hooks/useData";
 
 export default function Trends() {
-  // const data = useData();
+  const { data } = useData();
   // console.log(data);
 
   // const SchroedingerData = data.data
@@ -12,6 +14,7 @@ export default function Trends() {
     <>
       <h1 className="text-2xl font-bold">Trends Page</h1>
       {/* <div>{SchroedingerData}</div> */}
+      <SummaryCard data={data} />
     </>
   );
 }
