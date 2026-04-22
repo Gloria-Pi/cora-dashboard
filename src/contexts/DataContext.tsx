@@ -39,7 +39,7 @@ export function DataProvider({ children }: DataProviderProps) {
     async function fetchData() {
       try {
         const res = await fetch(
-          "https://api.jsonblob.com/019daa70-1ede-7c38-846b-c3ac764c2095", //CORRECT
+          "https://api.jsonblob.com/019db40c-4ee5-7300-a8fc-c4e10bb6c765", //CORRECT
           // "https://api.jsonblob.com/019d66f7-0e83-7ddf-ac39-d0aa0addfd470", //WRONG
         );
         if (!res.ok) {
