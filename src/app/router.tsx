@@ -5,7 +5,7 @@ import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Insights from "./pages/Insights";
 import Opinions from "./pages/Opinions/Opinions";
 import Overview from "./pages/Overview/Overview";
-import Trends from "./pages/Trends";
+import Trends from "./pages/Trends/Trends";
 
 export const router = createBrowserRouter([
   {

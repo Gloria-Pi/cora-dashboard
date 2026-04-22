@@ -1,0 +1,41 @@
+@reference "../../../index.css";
+
+.SummaryCard {
+  @apply flex flex-col items-start gap-4 p-4 rounded-lg border;
+
+  &--positive {
+    @apply bg-pale-positive border-green-200;
+  }
+
+  &--negative {
+    @apply bg-pale-negative border-red-200;
+  }
+
+  &__header {
+    @apply flex flex-row items-center w-full gap-3;
+
+    &__icon {
+      @apply flex items-center justify-center;
+      @apply w-12 h-12 rounded-lg shrink-0;
+
+      &--positive {
+        @apply bg-white text-green-700;
+      }
+
+      &--negative {
+        @apply bg-white text-red-700;
+      }
+    }
+    &__title {
+      @apply text-xl font-semibold;
+    }
+  }
+
+  &__content {
+    @apply text-lg text-zinc-700 pl-4;
+
+    li {
+      @apply pb-1.5 list-disc;
+    }
+  }
+}

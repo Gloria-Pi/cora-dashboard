@@ -15,13 +15,15 @@ interface GeminiResponse {
   }>;
 }
 
-function buildPrompt(feedbacks: IFeedback[]) {
+function buildPromptVerBig(feedbacks: IFeedback[]) {
   return `
 Analizza questi feedback utente e crea un riassunto esecutivo scritto in formato markdown. Il testo deve essere chiaro e sintetico.
 Usa:
-- titoli con ###
+- titolo con ###
+- titoli delle categorie con ####
+- sezioni con **, no -
 - liste con -
-- grassetto con **
+- grassetto con ** per evidenziare le parole chiave
 - niente HTML
 
 Dividi il testo generato in sezioni. Ogni sezione rappresenta una delle categorie che nella lista feedback sono chiamate "categories", e per ognuna devi evidenziare:
@@ -30,6 +32,48 @@ Dividi il testo generato in sezioni. Ogni sezione rappresenta una delle categori
 - suggerimenti utili
 
 Lista feedback:
+${JSON.stringify(feedbacks)}
+`;
+}
+
+function summaryCardsPrompt(feedbacks: IFeedback[]) {
+  return `
+You are an assistant that analyzes user feedback and produces structured summaries.
+
+Your task:
+Analyze the provided feedback data and generate a JSON response with two sections:
+- "positive", for Positive Trends
+- "negative", for Emerging Issues
+
+
+Instructions:
+- "Positive Trends" must include recurring positive patterns, strengths, or appreciated aspects.
+- "Emerging Issues" must include recurring problems, complaints, or negative signals.
+- Focus only on relevant and repeated insights.
+- Do NOT invent information.
+
+Formatting rules:
+- Each section must contain a list of short bullet points.
+- Each bullet point must be concise (max 20 words).
+- Avoid duplicates and generic statements.
+- Do not include punctuation at the end.
+- Return ONLY valid JSON. No extra text, no explanation.
+
+If you cannot comply, return:
+{ "positive": [], "critical": [] }
+
+{
+  "positive": [
+    "string",
+    "string"
+  ],
+  "negative": [
+    "string",
+    "string"
+  ]
+}
+
+Input:
 ${JSON.stringify(feedbacks)}
 `;
 }
@@ -59,7 +103,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       });
     }
 
-    const prompt = buildPrompt(feedbacks);
+    const prompt = summaryCardsPrompt(feedbacks);
 
     const geminiRes = await fetchGemini(prompt, env.GEMINI_API_KEY);
 
@@ -89,68 +133,3 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     );
   }
 };
-
-// // <reference types="@cloudflare/workers-types" />
-// import { IFeedback } from "../../src/constants/global.constants";
-
-// interface Env {
-//   GEMINI_API_KEY: string;
-// }
-
-// interface GeminiResponse {
-//   candidates?: Array<{
-//     content?: {
-//       parts?: Array<{
-//         text?: string;
-//       }>;
-//     };
-//   }>;
-// }
-
-// export const onRequestPost: PagesFunction<Env> = async (context) => {
-//   try {
-//     const feedbackData = (await context.request.json()) as IFeedback[];
-//     const API_KEY = context.env.GEMINI_API_KEY;
-
-//     if (!API_KEY) {
-//       return new Response(JSON.stringify({ error: "Chiave API mancante" }), {
-//         status: 500,
-//       });
-//     }
-
-//     const prompt = `Analizza questi feedback: ${JSON.stringify(feedbackData)}. Crea un riassunto esecutivo.`;
-
-//     const geminiResponse = await fetch(
-//       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${API_KEY}`,
-//       {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           contents: [{ parts: [{ text: prompt }] }],
-//         }),
-//       },
-//     );
-
-//     const data = (await geminiResponse.json()) as GeminiResponse;
-
-//     let summary = "Nessun riassunto disponibile.";
-
-//     if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-//       summary = data.candidates[0].content.parts[0].text;
-//     } else if ((data as any).error) {
-//       summary = `Errore API: ${(data as any).error.message}`;
-//     }
-
-//     console.log("Summary finale:", summary);
-
-//     return new Response(JSON.stringify({ summary }), {
-//       headers: { "Content-Type": "application/json" },
-//     });
-//   } catch (error) {
-//     console.error("Worker Error:", error);
-//     return new Response(
-//       JSON.stringify({ error: "Errore durante l'elaborazione" }),
-//       { status: 500 },
-//     );
-//   }
-// };

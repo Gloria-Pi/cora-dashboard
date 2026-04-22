@@ -1,0 +1,8 @@
+@reference "../../../index.css";
+
+.Trends {
+  @apply flex flex-col gap-6;
+  &__cards {
+    @apply flex flex-col gap-4;
+  }
+}
