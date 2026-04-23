@@ -4,7 +4,7 @@ import type { SummaryCardProps } from "./SummaryCard.models";
 import "./SummaryCard.scss";
 
 export default function SummaryCard({
-  type,
+  type = "neutral",
   title,
   icon,
   children,
