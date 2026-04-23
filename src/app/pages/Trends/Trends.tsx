@@ -1,49 +1,49 @@
-// import { useData } from "../../hooks/useData";
 import { ThumbsDownIcon, ThumbsUpIcon } from "@phosphor-icons/react";
+
+import { useEffect, useState } from "react";
 
 import SummaryCard from "../../../components/Cards/SummaryCard/SummaryCard";
 import Header from "../../../components/Header/Header";
 import type { IPolarity } from "../../../constants/global.constants";
+import { useData } from "../../../hooks/useData";
 
 import "./Trends.scss";
 
 // import { useData } from "../../hooks/useData";
 
 export default function Trends() {
-  // const { data } = useData();
-  // console.log(data);
-
-  // const SchroedingerData = data.data
-  //   ? JSON.stringify(data.data)
-  //   : `${data.error}`;
-
-  interface IMockData {
+  const { data } = useData();
+  interface ISummaryData {
     type: IPolarity;
     points: string[];
   }
 
-  const mockData: IMockData[] = [
-    {
-      type: "positive",
-      // title: "Positive Trends",
-      points: [
-        "Users appreciate the clean and intuitive interface",
-        "Fast loading times improve overall user satisfaction",
-        "Search functionality is accurate and reliable",
-        "Onboarding flow is smooth and easy to follow",
-      ],
-    },
-    {
-      type: "negative",
-      // title: "Emerging Issues",
-      points: [
-        "Mobile app crashes reported on older devices",
-        "Notifications are sometimes delayed or missing",
-        "Customer support response time is inconsistent",
-        "Some users find pricing unclear",
-      ],
-    },
-  ];
+  const [summary, setSummary] = useState<ISummaryData[] | "">("");
+
+  useEffect(() => {
+    // Return if data is not ready or is empty
+    if (!data || data.length === 0) return;
+
+    // Return if there is already a summary
+    if (summary !== "") return;
+
+    const getAiSummary = async () => {
+      try {
+        const response = await fetch("/api/summarize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        setSummary(result.summary);
+      } catch (err) {
+        console.error("AI Fetch error:", err);
+      }
+    };
+
+    getAiSummary();
+  }, [summary, data]);
 
   function getSummaryIcon(type: IPolarity) {
     switch (type) {
@@ -63,12 +63,19 @@ export default function Trends() {
       <div className="Trends">
         <Header title="Trends Page" summary="AI Insights I guess" />
 
-        {mockData?.length > 0 && (
+        {summary !== "" && summary?.length > 0 && (
           <div className="Trends__cards">
-            {mockData.map((d, i) => (
-              <SummaryCard key={i} type={d.type} icon={getSummaryIcon(d.type)}>
+            {summary.map((s, i) => (
+              <SummaryCard
+                key={i}
+                type={s.type}
+                title={
+                  s.type === "positive" ? "Positive Trends" : "Emerging Issues"
+                }
+                icon={getSummaryIcon(s.type)}
+              >
                 <ul>
-                  {d.points.map((p, idx) => (
+                  {s.points.map((p, idx) => (
                     <li key={idx}>{p}</li>
                   ))}
                 </ul>
