@@ -12,27 +12,36 @@ import { useEffect, useState } from "react";
 
 import SummaryCard from "../../../components/Cards/SummaryCard/SummaryCard";
 import Header from "../../../components/Header/Header";
+import type {
+  ICategorySummaryData,
+  ISummaryData,
+} from "../../../constants/ai.constants";
 import type { IPolarity } from "../../../constants/global.constants";
 import { useData } from "../../../hooks/useData";
 import type { FeedbackCategory } from "../../../mock/feedbacks";
+import {
+  MOCK_CATEGORY_SUMMARY,
+  MOCK_GENERAL,
+} from "../../../mock/mockSummaries";
 
 import "./Trends.scss";
 
 export default function Trends() {
   const { data } = useData();
-  interface ISummaryData {
-    type: IPolarity;
-    points: string[];
-  }
-  interface ICategoryTrendsData {
-    type: FeedbackCategory;
-    points: string[];
-  }
 
+  // MAYBE I SHOULD SEPARATE THE LOADING AND ERROR STATES FOR SUMMARIES AND TRENDS (TWO DIFF CALLS)
   const [summary, setSummary] = useState<ISummaryData[] | null>(null);
-  const [trends, setTrends] = useState<ICategoryTrendsData[] | null>(null);
+  const [trends, setTrends] = useState<ICategorySummaryData[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [isFallback, setIsFallback] = useState(false);
+
+  function getFallback(mode: string) {
+    if (mode === "summaries") return MOCK_GENERAL;
+    if (mode === "categories") return MOCK_CATEGORY_SUMMARY;
+    return null;
+  }
 
   // SUMMARIES
   useEffect(() => {
@@ -66,6 +75,12 @@ export default function Trends() {
       } catch (err) {
         console.error("AI Fetch error:", err);
         setError(err.message);
+
+        setTimeout(() => {
+          setSummary(getFallback("summaries"));
+          setIsFallback(true);
+          setError(null);
+        }, 1500);
       } finally {
         setLoading(false);
       }
@@ -106,6 +121,11 @@ export default function Trends() {
       } catch (err) {
         console.error("AI Fetch error:", err);
         setError(err.message);
+        setTimeout(() => {
+          setTrends(getFallback("categories"));
+          setIsFallback(true);
+          setError(null);
+        }, 1500);
       } finally {
         setLoading(false);
       }
@@ -127,8 +147,8 @@ export default function Trends() {
     }
   }
 
-  function getCategoryTrendsIcon(type: FeedbackCategory) {
-    switch (type) {
+  function getCategoryTrendsIcon(category: FeedbackCategory) {
+    switch (category) {
       case "environment":
         return <BuildingIcon weight="fill" size={28} />;
 
@@ -158,9 +178,11 @@ export default function Trends() {
 
         {error && (
           <p className="Trends__error" style={{ color: "red" }}>
-            {error}
+            {error}. Showing fallback data...
           </p>
         )}
+
+        {isFallback && <p className="Trends__fallback">Showing sample data:</p>}
 
         {/* SUMMARY CARDS */}
         {!loading && !error && summary && summary?.length > 0 && (
@@ -190,8 +212,8 @@ export default function Trends() {
             {trends.map((s, i) => (
               <SummaryCard
                 key={i}
-                title={s.type}
-                icon={getCategoryTrendsIcon(s.type)}
+                title={s.category}
+                icon={getCategoryTrendsIcon(s.category)}
               >
                 <ul>
                   {s.points.map((p, idx) => (
