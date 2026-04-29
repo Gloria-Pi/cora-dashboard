@@ -46,7 +46,7 @@ cora-dashboard/
 
 Il prodotto è **work in progress**.  
 Puoi visualizzare la versione attuale su Cloudflare tramite il branch `Hosting`:  
-👉 [Preview Demo Branch Hosting su Cloudflare](https://cora-dashboard.pages.dev/)
+👉 [Preview Demo Branch Hosting su Cloudflare](https://feature-hosting.cora-dashboard.pages.dev/)
 
 ## Future Improvements
 
