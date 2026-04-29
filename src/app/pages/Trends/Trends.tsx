@@ -37,11 +37,11 @@ export default function Trends() {
 
   const [isFallback, setIsFallback] = useState(false);
 
-  function getFallback(mode: string) {
-    if (mode === "summaries") return MOCK_GENERAL;
-    if (mode === "categories") return MOCK_CATEGORY_SUMMARY;
-    return null;
-  }
+  // function getFallback(mode: string) {
+  //   if (mode === "summaries") return MOCK_GENERAL;
+  //   if (mode === "categories") return MOCK_CATEGORY_SUMMARY;
+  //   return null;
+  // }
 
   // SUMMARIES
   useEffect(() => {
@@ -74,13 +74,15 @@ export default function Trends() {
         setSummary(result.output);
       } catch (err) {
         console.error("AI Fetch error:", err);
-        setError(err.message);
+        console.error("AI Fetch error:", err);
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setError(message);
 
         setTimeout(() => {
-          setSummary(getFallback("summaries"));
+          setSummary(MOCK_GENERAL);
           setIsFallback(true);
           setError(null);
-        }, 1500);
+        }, 2500);
       } finally {
         setLoading(false);
       }
@@ -120,12 +122,13 @@ export default function Trends() {
         setTrends(result.output);
       } catch (err) {
         console.error("AI Fetch error:", err);
-        setError(err.message);
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setError(message);
         setTimeout(() => {
-          setTrends(getFallback("categories"));
+          setTrends(MOCK_CATEGORY_SUMMARY);
           setIsFallback(true);
           setError(null);
-        }, 1500);
+        }, 2500);
       } finally {
         setLoading(false);
       }
